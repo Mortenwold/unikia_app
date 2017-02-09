@@ -1,0 +1,22 @@
+#main {
+    width: 100%;
+    height: 100vh;
+    margin-top: 5%;
+    text-align: center;
+}
+
+#unikia {
+    margin: auto;
+    display: block;
+    max-width: 50%;
+}
+
+#username {
+    text-align: center;
+    padding-top: 2%;
+}
+
+#password {
+    text-align: center;
+}
+
