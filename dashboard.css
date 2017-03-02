@@ -1,5 +1,17 @@
+body{
+    background-color: #f1f1f1;
+}
 #top {
-    width: 100%;
+    background-color:white;
+    height:35vh;
+    position: absolute;
+    width:100%;
+    top:0;
+    right:0;
+    left:0;
+    display: inline;
+    white-space: nowrap;
+    border: 2px solid #520a76;
 }
 #unikia {
     margin: auto;
@@ -10,33 +22,34 @@
 #main {
     width: 100%;
     height: 100vh;
+    padding-top: 35vh;
 }
 .section {
+    display: inline-block;
     width: 34%;
     text-align: center;
-    border: solid black 1px;
     height: 35%;
     font-family: "Titillium Web";
+    background-color: white;
     margin-top: 5%;
+    margin-right: 10%;
+    float: left;
+    border: 1px solid #520a76;
+    box-shadow: 6px 6px 3px #888888;
 }
 
 #section1 {
-    display: inline-block;
+    
     margin-left: 10%;
-    margin-right: 10%;
 }
 #section2 {
-    display: inline-block;
-    margin-right: 10%;
+    
 }
 #section3 {
-    display: inline-block;
     margin-left: 10%;
-    margin-right: 10%;
 }
 #section4 {
-    display: inline-block;
-    margin-right: 10%;
+    
 }
 
 

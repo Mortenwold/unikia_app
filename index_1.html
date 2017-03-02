@@ -1,58 +1,17 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
     <head>
-        <title>Unikia</title>
-        
-        <link rel="stylesheet" type ="text/css" href="dashboard.css">
+        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
     </head>
     <body>
-        <div id="top">
-            <img id="unikia" src="om-unikia1_2.png">
-            <div id="logout">
-            <a href="index.html">Logout</a>
-        </div>
-        </div>
-        <div id="main">
-            <a href="http://www.vg.no">
-            <div class="section" id="section1">
-                section1
-                <div class="container">
-                <h3>Total Follower : <strong></strong></h3>
-            </div>
-
-            <script type="text/javascript">
-
-             var twitter_username = 'unikiadotcom';
-
-             $.ajax({
-               url: "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names="+twitter_username,
-               dataType : 'jsonp',
-               crossDomain : true
-             }).done(function(data) {
-               $("h3 strong").text(data[0]['followers_count']);
-             });
-
-            </script>
-            </div>
-            </a>
-            <a href="http://www.dagbladet.no">
-            <div class="section" id="section2">
-                section2
-            </div>
-            </a>
-            <a href="http://www.komplett.no">
-            <div class="section" id="section3">
-                section3
-            </div>
-            </a>
-            <a href="http://student.cs.hioa.no/~s232324/bachelor/">
-            <div class="section" id="section4">
-                section4
-            </div>
-            </a>
-        </div>
+        <div>TODO write content</div>
         <script>
 (function(w,d,s,g,js,fs){
   g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
@@ -123,6 +82,6 @@ gapi.analytics.ready(function() {
 
 });
 </script>
-        <!--<script src="popup.js"></script>-->
+
     </body>
 </html>
