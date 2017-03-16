@@ -35,10 +35,11 @@ body {
 
 #unikiabilde {
     text-align: center;
-    position: fixed;
     padding-top: 8em;
     padding-left: 12em;
     display: block;
+    width: 65%;
+    height: 65%;
 }
 #neste {
     position: fixed;
