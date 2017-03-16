@@ -38,8 +38,8 @@ body {
     padding-top: 8em;
     padding-left: 12em;
     display: block;
-    width: 65%;
-    height: 65%;
+    position: fixed;
+    width: 30%;
 }
 #neste {
     position: fixed;
