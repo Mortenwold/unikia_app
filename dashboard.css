@@ -88,8 +88,11 @@ body{
 }
 
 /*Remove superflous text in G-analytics*/
-#embed-api-auth-container, #view-selector-container{
-    display:none;
+/*#embed-api-auth-container{
+    display: none;
+}*/
+#view-selector-container {
+    display: none;
 }
 
 

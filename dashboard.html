@@ -10,7 +10,7 @@
     <body>
         <div class="sidebar">
             <div>
-                <img id="unikiaicon" src="unikia-link.png">
+                <img id="unikiaicon" src="images/unikia-link.png">
             </div>
             <div id="list">
                 <a>Google Analytics<br></a>
@@ -34,8 +34,9 @@
                 <div id="embed-api-auth-container"></div>
                 <div id="chart-container"></div>
                 <div id="view-selector-container"></div>
+                
                 <script>
-
+                    
                     gapi.analytics.ready(function() {
 
                       /**
@@ -91,34 +92,22 @@
                       });
 
                     });
+                    
                 </script>
             </div>
-            </a>
             <a href="googleanalytics.html"></a>
             <div class="section" id="section1">
                 <div class="container">
                 <!--<h3>Total Follower : <strong></strong></h3>-->
             </div>
 
-            <!--<script type="text/javascript">
-
-             var twitter_username = 'unikiadotcom';
-
-             $.ajax({
-               url: "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names="+twitter_username,
-               dataType : 'jsonp',
-               crossDomain : true
-             }).done(function(data) {
-               $("h3 strong").text(data[0]['followers_count']);
-             });
-
-            </script>-->
             <a class="twitter-timeline" data-width="345" data-height="295" data-chrome="nofooter, noheader" href="https://twitter.com/unikiadotcom"></a>
             <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
             </div>
             <a href="analytics.php">
             <div class="section" id="section2">
                 section2
+                        <div id="active-users-container"></div>
             </div>
             </a>
         </div>

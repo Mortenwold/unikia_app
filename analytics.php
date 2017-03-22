@@ -6,12 +6,14 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="analyticsdesign.css">
         <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <link rel="stylesheet" href="newcss.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/public/css/chartjs-visualizations.css">
+        <title>Analytics page</title>
     </head>
     <body>
+        <div id="chart1">
         <script>
             (function(w,d,s,g,js,fs){
               g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
@@ -27,20 +29,48 @@ and open the template in the editor.
         <div id="date-range-selector-1-container"></div>
         <div id="data-chart-2-container"></div>
         <div id="date-range-selector-2-container"></div>
+        <div id="active-users-container"></div>
 
         <script src="javascript/view-selector2.js"></script>
+        <script src="javascript/active-users.js"></script>
+        <script src="javascript/date-range-selector.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
 
-                <!-- Include the DateRangeSelector component script. -->
-                <script src="javascript/date-range-selector.js"></script>
+        <script>
 
-                <script>
+        gapi.analytics.ready(function() {
 
-                    gapi.analytics.ready(function() {
+        gapi.analytics.auth.authorize({
+            container: 'embed-api-auth-container',
+            clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+        });
+                      
+        var activeUsers = new gapi.analytics.ext.ActiveUsers({
+        container: 'active-users-container',
+        pollingInterval: 5
+        });
 
-                      gapi.analytics.auth.authorize({
-                        container: 'embed-api-auth-container',
-                        clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
-                      });
+
+        /**
+         * Add CSS animation to visually show the when users come and go.
+         */
+        activeUsers.once('success', function() {
+        var element = this.container.firstChild;
+        var timeout;
+
+        this.on('change', function(data) {
+        var element = this.container.firstChild;
+        var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
+        element.className += (' ' + animationClass);
+
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+        element.className =
+            element.className.replace(/ is-(increasing|decreasing)/g, '');
+        }, 3000);
+        });
+        });
 
                       var commonConfig = {
             query: {
@@ -94,19 +124,6 @@ and open the template in the editor.
           .set(dateRange1)
           .execute();
 
-
-          /**
-           * Create a new DateRangeSelector instance to be rendered inside of an
-           * element with the id "date-range-selector-2-container", set its date range
-           * and then render it to the page.
-           */
-          var dateRangeSelector2 = new gapi.analytics.ext.DateRangeSelector({
-            container: 'date-range-selector-2-container'
-          })
-          .set(dateRange2)
-          .execute();
-
-
           /**
            * Create a new DataChart instance with the given query parameters
            * and Google chart options. It will be rendered inside an element
@@ -115,17 +132,6 @@ and open the template in the editor.
           var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
               .set({query: dateRange1})
               .set({chart: {container: 'data-chart-1-container'}});
-
-
-          /**
-           * Create a new DataChart instance with the given query parameters
-           * and Google chart options. It will be rendered inside an element
-           * with the id "data-chart-2-container".
-           */
-          var dataChart2 = new gapi.analytics.googleCharts.DataChart(commonConfig)
-              .set({query: dateRange2})
-              .set({chart: {container: 'data-chart-2-container'}});
-
 
           /**
            * Register a handler to run whenever the user changes the view.
@@ -154,24 +160,8 @@ and open the template in the editor.
             datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
           });
 
-
-          /**
-           * Register a handler to run whenever the user changes the date range from
-           * the second datepicker. The handler will update the second dataChart
-           * instance as well as change the dashboard subtitle to reflect the range.
-           */
-          dateRangeSelector2.on('change', function(data) {
-            dataChart2.set({query: data}).execute();
-
-            // Update the "to" dates text.
-            var datefield = document.getElementById('to-dates');
-            datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
-          });
-
         });
         </script>
-        <?php
-        // put your code here
-        ?>
+        </div>
     </body>
 </html>

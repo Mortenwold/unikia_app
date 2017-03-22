@@ -1,0 +1,31 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 21, 2017, 11:44:40 AM
+    Author     : mmoor_000
+*/
+#embed-api-auth-container {
+    display: none;
+}
+#view-selector-container {
+    display: none;
+}
+#ViewSelector2 {
+    display: none;
+}
+#chart1 {
+    margin-left: 3%;
+    display: inline-block;
+    width: 86%;
+    text-align: center;
+    height: 80%;
+    font-family: "Titillium Web";
+    background-color: gray;
+    margin-right: 10%;
+    float: left;
+    border: 1px solid black;
+}
+
