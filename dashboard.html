@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
     </head>
-    <body>
+    <body onResize="refresh()">
         <div class="sidebar">
             <div>
-                <img id="unikiaicon" src="images/unikia-link.jpeg">
+                <img id="unikiaicon" src="images/unikia-link.png">
             </div>
             <div id="list">
                 <a>Google Analytics<br></a>
@@ -35,6 +35,7 @@
                 <div id="view-selector-container"></div>
                 
                 <script>
+                    //function refresh() { location.reload(); }
                     
                     gapi.analytics.ready(function() {
 
