@@ -20,7 +20,9 @@ h1 {
 /*
  * Sidebar
  */
-
+.navbar {
+    background-color: #520a76;
+}
 .sidebar {
   background-color: lightgray;
   position: fixed;
@@ -32,6 +34,7 @@ h1 {
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
   border-right: 1px solid #eee;
+  background-color: #f5f5f5;
 }
 
 /* Sidebar navigation */
@@ -42,24 +45,31 @@ h1 {
 
 .sidebar .nav {
   margin-bottom: 20px;
+  color: white;
 }
 
 .sidebar .nav-item {
   width: 100%;
+  color: white;
 }
 
 .sidebar .nav-item + .nav-item {
   margin-left: 0;
+  color: white;
 }
 
 .sidebar .nav-link {
   border-radius: 0;
+}
+.nav-link {
+    color: white;
 }
 
 /*
  * Dashboard
  */
 
+<<<<<<< HEAD:CSS/dashboard.css
 #unikiaicon{
     height:3rem;
     width:2.5rem;
@@ -70,3 +80,19 @@ h1 {
     line-height:inherit;
     white-space:nowrap
 }
+=======
+ /* Placeholders */
+.placeholders {
+  padding-bottom: 3rem;
+}
+
+.placeholder img {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+#unikiaicon {
+    width: 2%;
+    height: 2%;
+    padding-top: 0.3%;
+}
+>>>>>>> 4e284583a0bdfbb63d1c9109345c742d523481f6:dashboard_1.css
