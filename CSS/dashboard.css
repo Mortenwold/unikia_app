@@ -69,7 +69,6 @@ h1 {
  * Dashboard
  */
 
-<<<<<<< HEAD:CSS/dashboard.css
 #unikiaicon{
     height:3rem;
     width:2.5rem;
@@ -80,7 +79,6 @@ h1 {
     line-height:inherit;
     white-space:nowrap
 }
-=======
  /* Placeholders */
 .placeholders {
   padding-bottom: 3rem;
@@ -95,4 +93,7 @@ h1 {
     height: 2%;
     padding-top: 0.3%;
 }
->>>>>>> 4e284583a0bdfbb63d1c9109345c742d523481f6:dashboard_1.css
+
+canvas {
+    height: 25%;
+}
