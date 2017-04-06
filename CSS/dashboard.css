@@ -22,6 +22,7 @@ h1 {
  */
 
 .sidebar {
+  background-color: lightgray;
   position: fixed;
   top: 51px;
   bottom: 0;
@@ -59,12 +60,13 @@ h1 {
  * Dashboard
  */
 
- /* Placeholders */
-.placeholders {
-  padding-bottom: 3rem;
-}
-
-.placeholder img {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+#unikiaicon{
+    height:3rem;
+    width:2.5rem;
+    display:inline-block;
+    padding-top:.25rem;
+    padding-bottom:.25rem;
+    margin-right:1rem;
+    line-height:inherit;
+    white-space:nowrap
 }
