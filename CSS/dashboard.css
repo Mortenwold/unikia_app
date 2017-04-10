@@ -3,6 +3,14 @@
  */
 
 /* Move down content because we have a fixed navbar that is 50px tall */
+
+@import './base/custom-media';
+@import './base/variables';
+
+
+/* Components. */
+@import './components/active-users';
+@import './components/chartjs';
 body {
   padding-top: 50px;
 }
@@ -15,6 +23,7 @@ h1 {
   margin-bottom: 20px;
   padding-bottom: 9px;
   border-bottom: 1px solid #eee;
+  display: inline;
 }
 
 /*
@@ -62,7 +71,7 @@ h1 {
   border-radius: 0;
 }
 .nav-link {
-    color: white;
+    color: #520a76;
 }
 
 /*
@@ -95,5 +104,38 @@ h1 {
 }
 
 canvas {
-    height: 25%;
+    height: 30rem;
+}
+
+.chartjs {
+    display: inline;
+    width: 30rem;
+}
+.position {
+    width: 40%;
+    display: inline-block;
+    height: 30rem;
+    background-color: blue;
+}
+#charts {
+    text-align: center;
+}
+#c1, #c3 {
+    margin-right: 5%;
+}
+#c1, #c2 {
+    margin-bottom: 10%;
+}
+.ViewSelector2 {
+    display: none;
+}
+#embed-api-auth-container {
+    float: right;
+}
+#date-range-selector-1-container {
+    display: inline;
+    text-align: center;
+}
+.DateRangeSelector-item {
+    display: inline;
 }
