@@ -1,50 +1,47 @@
-<html>
-    <head>
-        <title>Unikia</title>
-        
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="icon" href="favicon.ico">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
 
-        <!-- Bootstrap core CSS -->
-        <link href="CSS/bootstrap.min.css" rel="stylesheet">
+    <title>Unikia Dashboard</title>
 
-        <!-- Custom styles for this template -->
-        <link href="CSS/dashboard.css" rel="stylesheet">
-    </head>
-    <body> <!--onResize="refresh()"-->
-        <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-      <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Bootstrap core CSS -->
+    <link href="CSS/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="CSS/dashboard.css" rel="stylesheet">
+  </head>
+
+  <body id="mainbody">
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <img id="unikiaicon" src="images/unikia-link.png">
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Settings</a>
+            <a class="nav-link" href="#">Google Analytics</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
+            <a class="nav-link" href="#">Facebook</a>
           </li>
         </ul>
       </div>
     </nav>
-
-    
-          
-        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-        <div id="main">
+      <h1>Dashboard</h1>
+      <div id="embed-api-auth-container"></div>
+      <div id="main">
             <div id="analyticsPart">
-                Number of visitors on www.unikia.com
+                <button onclick="updateDiv()">Click me!</button>
+                <a>Number of visitors on www.unikia.com</a>
                 <script>
                     (function(w,d,s,g,js,fs){
                       g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
@@ -53,10 +50,8 @@
                       fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
                     }(window,document,'script'));
                 </script>
-                <div id="embed-api-auth-container"></div>
                 <div id="chart-container"></div>
                 <div id="view-selector-container"></div>
-                
                 <script>
                     //function refresh() { location.reload(); }
                     
@@ -116,10 +111,15 @@
 
                     });
                     
+                    function updateDiv()
+                    { 
+                        $( "#here" ).load(window.location.href + " #here" );
+                    }
+                    
                 </script>
             </div>
             <a href="googleanalytics.html"></a>
-            <div id="twittersection" id="section1">
+            <div id="twittersection">
                 <!--<div class="container">
                 <h3>Total Follower : <strong></strong></h3>
             </div>-->
@@ -138,15 +138,15 @@
             </a>
             <a href="facebook.php">Link</a>
         </div>
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <!--<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>-->
-        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-        <script src="bootstrap.min.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="ie10-viewport-bug-workaround.js"></script>
-        </main>
-    </body>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="javascript/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="javascript/ie10-viewport-bug-workaround.js"></script>
+  </body>
 </html>
