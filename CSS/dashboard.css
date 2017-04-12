@@ -85,6 +85,7 @@ h1 {
  /* Placeholders */
 .placeholders {
   padding-bottom: 3rem;
+}
 
 #view-selector-container{
     display:none;
@@ -120,7 +121,7 @@ canvas {
     width: 40%;
     display: inline-block;
     height: 30rem;
-    background-color: blue;
+    background-color: purple;
 }
 #charts {
     text-align: center;
@@ -129,7 +130,15 @@ canvas {
     margin-right: 5%;
 }
 #c1, #c2 {
-    margin-bottom: 10%;
+    margin-bottom: 3%;
+}
+#c3 {
+    float: left;
+    margin-left: 7.5%;
+}
+#c4 {
+    float: right;
+    margin-right: 7.5%;
 }
 .ViewSelector2 {
     display: none;
