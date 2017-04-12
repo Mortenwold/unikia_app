@@ -1,71 +1,106 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 30.mar.2017, 11:45:31
-    Author     : Aksel
-*/
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+  background-color: #f1f1f1;
+}
 
-#embed-api-auth-container {
-    display: none;
+#chart-1-container {
 }
-#view-selector-container {
-    display: none;
+#chart-2-container {
 }
-#ViewSelector2 {
-    display: none;
+#unikiaicon{
+    height:2.5rem;
+    width:2rem;
+    display:inline-block;
+    padding-top:.25rem;
+    padding-bottom:.25rem;
+    margin-right:1rem;
+    line-height:inherit;
+    white-space:nowrap;
 }
-#chart1 {
-    margin-left: 3%;
-    display: inline-block;
-    width: 86%;
-    text-align: center;
-    height: 80%;
-    font-family: "Titillium Web";
-    background-color: gray;
-    margin-right: 10%;
-    float: left;
+ /* Placeholders */
+.placeholders {
+  padding-bottom: 3rem;
+}
+
+#view-selector-container{
+    display:none;
+}
+
+#analyticsPart{
     border: 1px solid black;
-}
-
-.sidebar {
-    text-align:center;
-    width: 12%;
-    height: 100%;
-    float: left;
-    position:fixed;
-    top:0;
-    left:0;
-    white-space: nowrap;
-    background-color: #520a76;
-    display: inline;
-    border: 1px solid black;
-}
-
-#list {
-    color: white;
-    display: inline-block;
-    margin-top: 50%;
-    padding-left: 5%;
+    overflow:hidden;
+    background-color: white;
     
 }
 
-body{
-    background-color: #f1f1f1;
+#chart-container{
+    width:99.05%;
 }
 
-#unikiaicon {
-    width: 120px;
-    height: 120px;
-    padding-left: 0%;
+#twittersection{
+    border: 1px solid black;
+    margin-top: 2rem;
+    width:20rem;
+    
 }
 
-#main {
+canvas {
+    height: 17em;
     width: 100%;
-    height: 100vh;
-    padding-left: 10%;
-    display: inline-block;
 }
 
+.chartjs {
+    display: inline;
+    width: 30rem;
+}
+.position {
+    width: 45%;
+    display: inline-block;
+    height: 30rem;
+    background-color: white;
+    border: 1px solid black;
+}
+#charts {
+    text-align: center;
+}
+#c1, #c3 {
+    margin-right: 5%;
+}
+#c1, #c2 {
+    margin-bottom: 3%;
+}
+
+#c3 {
+    float: left;
+    margin-left: 2.5%;
+}
+#c4 {
+    float: right;
+    margin-right: 2.5%;
+}
+.ViewSelector2 {
+    display: none;
+}
+#embed-api-auth-container {
+    float: right;
+}
+#topchart {
+    border: 1px solid black;
+    background-color: white;
+    overflow: auto;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-bottom: 2%;
+}
+#date-range-selector-1-container {
+    display: inline;
+    text-align: center;
+}
+.DateRangeSelector-item {
+    display: inline;
+}
+#view-name {
+    display: none;
+}

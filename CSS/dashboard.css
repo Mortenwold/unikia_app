@@ -121,7 +121,8 @@ canvas {
     width: 40%;
     display: inline-block;
     height: 30rem;
-    background-color: purple;
+    background-color: white;
+    border: 1px solid black;
 }
 #charts {
     text-align: center;
@@ -146,10 +147,19 @@ canvas {
 #embed-api-auth-container {
     float: right;
 }
+#topchart {
+    border: 1px solid black;
+    background-color: white;
+    overflow: auto;
+    width: 120%;
+}
 #date-range-selector-1-container {
     display: inline;
     text-align: center;
 }
 .DateRangeSelector-item {
     display: inline;
+}
+#view-name {
+    display: none;
 }
