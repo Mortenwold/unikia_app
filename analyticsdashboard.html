@@ -7,64 +7,39 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Google Analytics</title>
 
     <!-- Bootstrap core CSS -->
     <link href="CSS/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="CSS/dashboard.css" rel="stylesheet">
+    <link href="CSS/analyticsdesign.css" rel="stylesheet">
   </head>
 
   <body>
+
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-      <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#"></a>
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-          <img id="unikiaicon" src="images/unikia-link.png">
+      <img id="unikiaicon" src="images/unikia-link.png">
+      <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Settings</a>
+            <a class="nav-link" href="#">Link</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
+            <a class="nav-link disabled" href="#">Disabled</a>
           </li>
         </ul>
       </div>
     </nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-            
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Google Analytics <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Facebook</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Twitter</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">M.D. NAV</a>
-            </li>
-          </ul>
-        </nav>
-
-        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-          <h1>Dashboard</h1>
-          <div id="embed-api-auth-container"></div>
+    <h1>Dashboard</h1>
+          
           
           <script>
                 (function(w,d,s,g,js,fs){
@@ -74,28 +49,30 @@
                   fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
                 }(window,document,'script'));
         </script>
+        <div id="embed-api-auth-container"></div>
         <div id="main">
             <div id="chart1">
             
-
+          <div id="active-users-container"></div>
+          <div id="topchart">
           <header>  
             <form action="" method ="post">
                     <select id="graph" onchange="myFunction1()">     
-                        <option value="none" selected="selected">--Select graph--</option>
-                        <option value="graph1">Sessions</option>
+                        <option value="graph1" selected="selected">Sessions</option>
                         <option value="graph2">Pageviews</option>
                         <option value="graph3">Time on page</option>
                         <option value="graph4">% new sessions</option>
                     </select>
             </form>
+            
             <div id="view-selector-container"></div>
             <div id="data-chart-1-container"></div>
             <div id="date-range-selector-1-container"></div>
+            </div>
             <div id="data-chart-2-container"></div>
             <div id="date-range-selector-2-container"></div>
-            <div id="active-users-container"></div>
+            
             <div id="view-name"></div>
-            <div id="active-users-container"></div>
           </header>
           <div id="charts">      
           <div class="position" id="c1">  
@@ -128,9 +105,94 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
             <link rel="stylesheet" href="chartjs-visualizations.css">
-
+-->
             <script>
+                gapi.analytics.ready(function() {
 
+            gapi.analytics.auth.authorize({
+                container: 'embed-api-auth-container',
+                clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+            });
+
+              var commonConfig = {
+                query: {
+                  metrics: 'ga:sessions',
+                  dimensions: 'ga:date'
+                },
+                chart: {
+                  type: 'LINE',
+                  options: {
+                    width: '100%'
+                  }
+                }
+              };
+
+              /**
+               * Query params representing the first chart's date range.
+               */
+              var dateRange1 = {
+                'start-date': '7daysAgo',
+                'end-date': '1daysAgo'
+              };
+
+
+              /**
+               * Create a new ViewSelector2 instance to be rendered inside of an
+               * element with the id "view-selector-container".
+               */
+              var viewSelector = new gapi.analytics.ext.ViewSelector2({
+                container: 'view-selector-container',
+              }).execute();
+
+
+              /**
+               * Create a new DateRangeSelector instance to be rendered inside of an
+               * element with the id "date-range-selector-1-container", set its date range
+               * and then render it to the page.
+               */
+              var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
+                container: 'date-range-selector-1-container'
+              })
+              .set(dateRange1)
+              .execute();
+
+              /**
+               * Create a new DataChart instance with the given query parameters
+               * and Google chart options. It will be rendered inside an element
+               * with the id "data-chart-1-container".
+               */
+              var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
+                  .set({query: dateRange1})
+                  .set({chart: {container: 'data-chart-1-container'}});
+
+              /**
+               * Register a handler to run whenever the user changes the view.
+               * The handler will update both dataCharts as well as updating the title
+               * of the dashboard.
+               */
+              viewSelector.on('viewChange', function(data) {
+                dataChart1.set({query: {ids: data.ids}}).execute();
+                dataChart2.set({query: {ids: data.ids}}).execute();
+
+                var title = document.getElementById('view-name');
+                title.textContent = data.property.name + ' (' + data.view.name + ')';
+              });
+
+
+              /**
+               * Register a handler to run whenever the user changes the date range from
+               * the first datepicker. The handler will update the first dataChart
+               * instance as well as change the dashboard subtitle to reflect the range.
+               */
+              dateRangeSelector1.on('change', function(data) {
+                dataChart1.set({query: data}).execute();
+
+                // Update the "from" dates text.
+                var datefield = document.getElementById('from-dates');
+                datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
+              });
+
+            });
             function myFunction1() {
       var x = document.getElementById("graph").value;
       if (x == "graph1") {
@@ -158,8 +220,8 @@
                * Query params representing the first chart's date range.
                */
               var dateRange1 = {
-                'start-date': '14daysAgo',
-                'end-date': '8daysAgo'
+                'start-date': '7daysAgo',
+                'end-date': '1daysAgo'
               };
 
 
@@ -834,14 +896,15 @@ gapi.analytics.ready(function() {
 </script>
             </div>
         </div>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="bootstrap.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="ie10-viewport-bug-workaround.js"></script>
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
