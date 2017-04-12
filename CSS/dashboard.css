@@ -1,3 +1,4 @@
+
 @import './base/custom-media';
 @import './base/variables';
 
@@ -5,72 +6,12 @@
 /* Components. */
 @import './components/active-users';
 @import './components/chartjs';
+
 body {
-  padding-top: 50px;
-  background-color: #f5f5f5;
+  min-height: 75rem;
+  padding-top: 4.5rem;
+  background-color:#f1f1f1;
 }
-
-/*
- * Typography
- */
-
-h1 {
-  margin-bottom: 20px;
-  padding-bottom: 9px;
-  border-bottom: 1px solid #eee;
-  display: inline;
-}
-
-/*
- * Sidebar
- */
-.navbar {
-    background-color: #520a76;
-}
-.sidebar {
-  background-color: white;
-  position: fixed;
-  top: 51px;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  padding: 20px;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  border-right: 1px solid #eee;
-}
-
-/* Sidebar navigation */
-.sidebar {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.sidebar .nav {
-  margin-bottom: 20px;
-  color: white;
-}
-
-.sidebar .nav-item {
-  width: 100%;
-  color: white;
-}
-
-.sidebar .nav-item + .nav-item {
-  margin-left: 0;
-  color: white;
-}
-
-.sidebar .nav-link {
-  border-radius: 0;
-}
-.nav-link {
-    color: #520a76;
-}
-
-/*
- * Dashboard
- */
 
 #unikiaicon{
     height:2.5rem;
@@ -82,84 +23,33 @@ h1 {
     line-height:inherit;
     white-space:nowrap;
 }
- /* Placeholders */
-.placeholders {
-  padding-bottom: 3rem;
-}
-
-#view-selector-container{
-    display:none;
-}
 
 #analyticsPart{
     border: 1px solid black;
     overflow:hidden;
     background-color: white;
-    
-}
-
-#chart-container{
-    width:99.05%;
+    display:block;
+    clear:both;
 }
 
 #twittersection{
     border: 1px solid black;
     margin-top: 2rem;
     width:20rem;
+    background-color:f1f1f1;
     
 }
 
-canvas {
-    height: 300px;
+#mainbody{
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
 
-.chartjs {
-    display: inline;
-    width: 30rem;
+#view-selector-container{
+    display:none;
 }
-.position {
-    width: 40%;
-    display: inline-block;
-    height: 30rem;
-    background-color: white;
-    border: 1px solid black;
-}
-#charts {
-    text-align: center;
-}
-#c1, #c3 {
-    margin-right: 5%;
-}
-#c1, #c2 {
-    margin-bottom: 3%;
-}
-#c3 {
-    float: left;
-    margin-left: 7.5%;
-}
-#c4 {
-    float: right;
-    margin-right: 7.5%;
-}
-.ViewSelector2 {
-    display: none;
-}
-#embed-api-auth-container {
-    float: right;
-}
-#topchart {
-    border: 1px solid black;
-    background-color: white;
-    overflow: auto;
-    width: 120%;
-}
-#date-range-selector-1-container {
-    display: inline;
-    text-align: center;
-}
-.DateRangeSelector-item {
-    display: inline;
-}
-#view-name {
-    display: none;
+
+#embed-api-auth-container{
+    float:right;
 }
