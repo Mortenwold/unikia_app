@@ -14,6 +14,8 @@
 
     <!-- Custom styles for this template -->
     <link href="navbar-top-fixed.css" rel="stylesheet">
+    
+    <link href="CSS/facebook.css" rel="stylesheet">
   </head>
 
   <body>
@@ -41,8 +43,8 @@
         </form>
       </div>
     </nav>
-
-   <?php
+      <div id ="facebook">
+<?php
         session_start();
         require_once __DIR__ . '/src/Facebook/autoload.php';
         
@@ -51,7 +53,7 @@
           'app_secret' => '462516f7993b1c50e81e4cb438a6c8b9',
           'default_graph_version' => 'v2.5'
           ]);
-        
+     
         $helper = $fb->getRedirectLoginHelper();
         
         // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
@@ -106,268 +108,341 @@
                         echo 'Facebook SDK returned an error: ' . $e->getMessage();
                         exit;
                 }
-                
-                
-                echo 'Facebook for UnikiaNorge / UnikiaInnovation / BarnasDesignlab<br><br>';
-                
-                
-                // getting likes data of recent 100 posts by user
-                $getPostsLikes = $fb->get('/unikianorge/posts?fields=likes.limit(1000),message,created_time&limit=100');
-                $getPostsLikes = $getPostsLikes->getGraphEdge()->asArray();
-                // printing likes data as per requirements
-                $mostLikes = 0;
-                $bestPost = 0;
-                $counterFirstCheck = 0;
-                $counterSecondCheck = 0;
-                $bestPostMessage = '';
-                $bestPostLink = '';
-                foreach ($getPostsLikes as $key) {
-                        if (isset($key['likes'])) {
-                                $counterFirstCheck = count($key['likes']);
-                                if ($counterFirstCheck > $mostLikes)
-                                {
-                                    $mostLikes = $counterFirstCheck;
-                                    $currentPostID = $key['id'];
-                                    $likesResponse = $fb->get('/'.$currentPostID.'/likes?limit=0&summary=true');
-                                    $getLikeCount = $likesResponse->getGraphEdge();
-                                    $currentLikeCount = $getLikeCount->getTotalCount();
-                                    if($currentLikeCount > $counterSecondCheck)
-                                    {
-                                        $bestPost = $key['id'];
-                                        $counterSecondCheck = $currentLikeCount;
-                                        $bestPostLink = 'http://www.facebook.com/'.$bestPost;
-                                        $bestPostDate = $key['created_time'];
-                                        $bestPostDatePrint = $bestPostDate->format('d-m-Y');
-                       
-                                        if (isset($key['message']) && $key['message'])   {
-                                            $bestPostMessage =  'Message: '.$key['message'].'<br><br>';                              
-                                        }
-                                       else  {
-                                            $bestPostMessage = 'No message<br><br>';                  
-                                       }  
-                                    }
-                                }         
-                        }
-                }
-                echo 'Post with the most likes (last 100 posts):<br>';
-                echo 'ID: '.$bestPost.'<br>';
-                echo 'Date: '.$bestPostDatePrint.'<br>';
-                echo "<a href='".$bestPostLink."'>Link</a>".' - Likes: '.$counterSecondCheck;
-                echo '<br>'.$bestPostMessage;
-                
-                
-               /* $teller = 0;
-                foreach ($getPostsLikes as $key) {
-                    $teller++;
-                        if (isset($key['likes'])) {
-                                $counter = count($key['likes']);
-                                echo count($key['likes']) . '<br>';
-                                
-                         //      foreach ($key['likes'] as $key) {
-                           //             echo $key['name'] . '<br>';
-                             //   } 
-                        }
-                } 
-                */
-                
-                echo '<br>Post with the most comments (last 100 posts):<br>';
-                $getComments = $fb->get('Unikianorge/posts?fields=comments.summary(true),created_time,message,likes.limit(0)&limit=100');
-                $getComments = $getComments->getGraphEdge()->asArray();
-    
-                $largestCommentCount = 0;
-                $postWithMostComments = false;
-                $dateMostComments = 0;
-                $mostCommentsID = 0;
-                $mostCommentsMessage = '';
 
-                foreach ($getComments as $post) {
-                    if (isset($post['comments']) && count($post['comments']) > $largestCommentCount) {
-                        $postWithMostComments = $post;
-                        $date = $post['created_time'];
-                        $dateMostComments = $date->format('d-m-Y');
-                        $mostCommentsID = $post['id'];
-                        $largestCommentCount = count($post['comments']);
-                        $mostCommentsMessage = $post['message'];
-                    }
-                }
-                if ($postWithMostComments !== false) {
-                    echo 'ID: ' . $postWithMostComments['id'].'<br>';
-                    echo 'Date: '.$dateMostComments;
-                    $linkAddress = 'http://www.facebook.com/'.$postWithMostComments['id'];
-                    echo "<br><a href='".$linkAddress."'>Link</a>".' - Likes: ';
-                     
-                    $likesResponse = $fb->get('/'.$mostCommentsID.'/likes?limit=0&summary=true');
-                    $getLikeCount = $likesResponse->getGraphEdge();
-                    $currentLikeCount = $getLikeCount->getTotalCount();
-                    
-                    echo $currentLikeCount;
-                    echo '<br>Comments: '.$largestCommentCount.'<br>';
-                    echo 'Message: '.$mostCommentsMessage;
-                    
-                } 
-                else {
-                    echo '<br>There is no post with more than 0 comments<br>';
-                }
-                echo '<br><br>';
+                echo 'Latest UnikiaNorge Post<br>';
+                $howManyPosts = 1; // ADD A BUTTON (DROPDOWN???) FOR USER
+                $getLatestPost = $fb->get('Unikianorge/posts?likes.limit(0)&limit='.$howManyPosts);
+                $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
                 
-                /*
-                $bestPost;
-                $counter = 0;
-                $teller = 0;
-                $response = $fb->get('/unikianorge/posts?fields=likes.limit(0).summary(true)&limit=50');
-                $getPostID = $response->getGraphEdge()->asArray();
-                foreach($getPostID as $IDKey){
-                    if(isset($IDKey['id'])){
-                        $teller++;
-                        $currentPostID = $IDKey['id'];
-                        $likesResponse = $fb->get('/'.$currentPostID.'/likes?limit=0&summary=true');
-                     //   echo $currentPostID . '<br>'; //optional
-                        $getLikeCount = $likesResponse->getGraphEdge();
-                        $currentLikeCount = $getLikeCount->getTotalCount();
-                        if($currentLikeCount > $counter)
-                        {
-                            $bestPost = $IDKey['id'];
-                            $counter = $currentLikeCount;
-                            echo "New best: ".$currentLikeCount . '<br>';
-                        }
-                    //    echo $currentLikeCount . '<br>';
-                    }
-                }
-                $response2 = $fb->get('/unikianorge/posts?fields=likes.limit(0).summary(true)&limit=50&offset=50');
-                $getPostID2 = $response2->getGraphEdge()->asArray();
-                foreach($getPostID2 as $IDKey){
-                    if(isset($IDKey['id'])){
-                        $teller++;
-                        $currentPostID = $IDKey['id'];
-                        $likesResponse = $fb->get('/'.$currentPostID.'/likes?limit=0&summary=true');
-                     //   echo $currentPostID . '<br>'; //optional
-                        $getLikeCount = $likesResponse->getGraphEdge();
-                        $currentLikeCount = $getLikeCount->getTotalCount();
-                        if($currentLikeCount > $counter)
-                        {
-                            $bestPost = $IDKey['id'];
-                            $counter = $currentLikeCount;
-                            echo "New best: ".$currentLikeCount . '<br>';
-                        }
-                       // echo $currentLikeCount . '<br>';
-                    }
-                }
-                
-               
-                
-                
-                echo '<br><br>Best post ID: '.$bestPost;
-                echo '<br>'.$teller;
-                echo '<br><br>';
-               */ 
-                // GET POSTS WITHIN THE LAST 7 DAYS
-                
-             
-                
-                
-                echo '<br>Total likes last 7 days';
-                
-                $today = new DateTime();
-                $today = $today->modify('+1 days');
-                $todayFormat = $today->format('Y-m-d');
-                $todayPrint = $today->format('d-m-Y');
-                
-                $sevenDays = $today->modify('-7 days');
-                $sevenDaysFormat = $sevenDays->format('Y-m-d');
-                $sevenDaysPrint = $sevenDays->format('d-m-Y');
-
-                $getCreatedTime = $fb->get('Unikianorge/posts?since='.$sevenDaysFormat.'&until='.$todayFormat.'&fields=likes.limit(0),created_time');
-                $getCreatedTime = $getCreatedTime->getGraphEdge()->asArray();
-               
-                
-                echo '<br>Today: '.$todayPrint.'<br><br>';
-                $sevenDaysLikes = 0;
-                
-                foreach ($getCreatedTime as $key) {
-                    if (isset($key['created_time'])) {
+                foreach ($getLatestPost as $key) {
+                    if (isset($key['id'])) {
+                        $post = $key['id'];
                         $date = $key['created_time'];
                         $dateformat = $date->format('d-m-Y');
+                        echo 'Latest post ('.$dateformat.'): ';
+                        $linkAddress = 'http://www.facebook.com/'.$post;
+                        echo "<a href='".$linkAddress."'>Link</a>";
+                        
                         $likesResponse = $fb->get('/'.$key['id'].'/likes?limit=0&summary=true');
                         $getLikeCount = $likesResponse->getGraphEdge();
                         $currentLikeCount = $getLikeCount->getTotalCount();
-                        $sevenDaysLikes += $currentLikeCount;
-                      // if ($dateformat <= $todayformat && $dateformat > $oneweekformat)
-                        //{       
-                            echo 'Post made '.$dateformat.' with '.$currentLikeCount.' likes<br>';
-                        //}
-                      
-                    }
-                } 
-                echo '<br>Total likes: '.$sevenDaysLikes.'<br>';
-                echo '7 days ago: '.$sevenDaysPrint.'<br><br><br>';   
-
-                
-                
-                // GET TOTAL FOLLOWERS/LIKES FOR THE 3 FB SITES
-                echo 'Total likes UnikiaNorge: ';
-                $getTotalLikesNorge = $fb->get('Unikianorge?fields=fan_count');
-                $getTotalLikesNorge = $getTotalLikesNorge->getGraphNode()->asArray();
-                
-                echo $getTotalLikesNorge['fan_count'];
-                
-                echo '<br><br>';
-                echo 'Total likes UnikiaInnovation: ';
-                $getTotalLikesInnovation = $fb->get('Unikiainnovation?fields=fan_count');
-                $getTotalLikesInnovation = $getTotalLikesInnovation->getGraphNode()->asArray();
-                
-                echo $getTotalLikesInnovation['fan_count'];
-                
-                echo '<br><br>';
-                echo 'Total likes Barnas Designlab: ';
-                $getTotalLikesBarna = $fb->get('barnasdesignlab?fields=fan_count');
-                $getTotalLikesBarna = $getTotalLikesBarna->getGraphNode()->asArray();
-                
-                echo $getTotalLikesBarna['fan_count'];
-                
-               
-                
-                
-                
-                /*
-                echo '<br><br>';
-                echo 'bilder <br><br>'; */
-                
-                // getting likes data of recent 100 photos by user
-                /*
-                $getPhotosLikes = $fb->get('/unikianorge/photos?fields=likes.limit(10){name,id}&limit=10&type=uploaded');
-                $getPhotosLikes = $getPhotosLikes->getGraphEdge()->asArray();
-                // printing likes data as per requirements
-                foreach ($getPhotosLikes as $key) {
-                        if (isset($key['likes'])) {
-                                echo count($key['likes']) . '<br>';
-                                foreach ($key['likes'] as $key) {
-                                        echo $key['name'] . '<br>';
-                                }
+                        echo ' - Likes: '.$currentLikeCount;
+                        
+                        if (isset($key['message']) && $key['message']) {
+                            echo '<br>Message: '.$key['message'].'<br><br>'; 
                         }
-                } */
-                // Now you can redirect to another page and use the access token from $_SESSION['facebook_access_token']
-        } else {
+                        else   {
+                            echo 'No message<br><br>';
+                        }
+                                            }
+                }
+                 echo '<br>Latest UnikiaInnovation Post<br>';
+                $howManyPosts = 1; // ADD A BUTTON (DROPDOWN???) FOR USER
+                $getLatestPost = $fb->get('Unikiainnovation/posts?likes.limit(0)&limit='.$howManyPosts);
+                $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
+                
+                foreach ($getLatestPost as $key) {
+                    if (isset($key['id'])) {
+                        $post = $key['id'];
+                        $date = $key['created_time'];
+                        $dateformat = $date->format('d-m-Y');
+                        echo 'Latest post ('.$dateformat.'): ';
+                        $linkAddress = 'http://www.facebook.com/'.$post;
+                        echo "<a href='".$linkAddress."'>Link</a>";
+                        
+                        $likesResponse = $fb->get('/'.$key['id'].'/likes?limit=0&summary=true');
+                        $getLikeCount = $likesResponse->getGraphEdge();
+                        $currentLikeCount = $getLikeCount->getTotalCount();
+                        echo ' - Likes: '.$currentLikeCount;
+                        
+                        if (isset($key['message']) && $key['message'])    {
+                            echo '<br>Message: '.$key['message'].'<br><br>'; 
+                        }
+                        else  {
+                            echo 'No message<br><br>';
+                        } 
+                                            }
+                } 
+                echo '<br>Latest Barnas Designlab Post<br>';
+                $howManyPosts = 1; // ADD A BUTTON (DROPDOWN???) FOR USER
+                $getLatestPost = $fb->get('barnasdesignlab/posts?likes.limit(0)&limit='.$howManyPosts);
+                $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
+                
+                foreach ($getLatestPost as $key) {
+                    if (isset($key['id'])) {
+                        $post = $key['id'];
+                        $date = $key['created_time'];
+                        $dateformat = $date->format('d-m-Y');
+                        echo 'Latest post ('.$dateformat.'): ';
+                        $linkAddress = 'http://www.facebook.com/'.$post;
+                        echo "<a href='".$linkAddress."'>Link</a>";
+                        
+                        $likesResponse = $fb->get('/'.$key['id'].'/likes?limit=0&summary=true');
+                        $getLikeCount = $likesResponse->getGraphEdge();
+                        $currentLikeCount = $getLikeCount->getTotalCount();
+                        echo ' - Likes: '.$currentLikeCount;
+                        
+                       if (isset($key['message']) && $key['message'])   {
+                            echo '<br>Message: '.$key['message'].'<br><br>'; 
+                        }
+                        else  {
+                            echo '<br>No message<br><br>';
+                        }
+                                            }
+                }
+                echo '<br><br>';
+                ?>
+    <input type='button'  value='Info - hover me' title='Start date includes itself, but the end date does not. 
+Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (not including) January 10th' />
+                <?php
+                echo '<br><br>';
+                $showtoday = new DateTime();
+                $showtodayFormat = $showtoday->format('d-m-Y');
+                echo 'Today is '.$showtodayFormat;
+                
+                $showDateDayStart = new DateTime(); $showDateDayStart = $showDateDayStart->modify('-7 days'); 
+                $showDateFormatDayStart = $showDateDayStart->format('d');
+                $showDateMonthStart = new DateTime(); $showDateMonthStart = $showDateMonthStart->modify('-7 days'); 
+                $showDateFormatMonthStart = $showDateMonthStart->format('m');
+                $showDateYearStart = new DateTime(); $showDateYearStart = $showDateYearStart->modify('-7 days'); 
+                $showDateFormatYearStart = $showDateYearStart->format('Y');
+                    
+                $showDateDayEnd = new DateTime();  $showDateDayEnd = $showDateDayEnd->modify('+1 days');
+                $showDateFormatDayEnd = $showDateDayEnd->format('d');
+                $showDateMonthEnd= new DateTime(); $showDateMonthEnd = $showDateMonthEnd->modify('+1 days');
+                $showDateFormatMonthEnd = $showDateMonthEnd->format('m');
+                $showDateYearEnd= new DateTime(); $showDateYearEnd = $showDateYearEnd->modify('+1 days');
+                $showDateFormatYearEnd = $showDateYearEnd->format('Y');
+                
+                // For info text
+                $showDateStartDefault = $showDateDayStart->format('d-m-Y');
+                $showDateEndDefault = $showtoday->modify('+1 day'); $showDateEndDefault = $showDateEndDefault->format('d-m-Y');
+                
+                ?>
+                <form action="" method ="post">
+                     Start Date (Default: <?php echo $showDateStartDefault ?> - 7 Days ago) <br>
+                    <select id="yearStart" name="yearStart">                      
+                    <option value="<?php echo $showDateFormatYearStart ?>">--Select Year--</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    </select>
+                      <select id="monthStart" name="monthStart">                      
+                    <option value="<?php echo $showDateFormatMonthStart ?>">--Select Month--</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">Juli</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                    </select>
+                      <select id="dayStart" name="dayStart">                      
+                    <option value="<?php echo $showDateFormatDayStart ?>">--Select Day--</option>
+                    <option value="01">1</option>
+                    <option value="02">2</option>
+                    <option value="03">3</option>
+                    <option value="04">4</option>
+                    <option value="05">5</option>
+                    <option value="06">6</option>
+                    <option value="07">7</option>
+                    <option value="08">8</option>
+                    <option value="09">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    </select>
+                   
+                     <br><br>
+                      End Date (Default: <?php echo $showDateEndDefault ?> - Tomorrow)
+                      <br>
+                   <select id="yearEnd" name="yearEnd">                      
+                    <option value="<?php echo $showDateFormatYearEnd ?>">--Select Year--</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    </select>
+                      <select id="monthEnd" name="monthEnd">                      
+                    <option value="<?php echo $showDateFormatMonthEnd ?>">--Select Month--</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">Juli</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                    </select>
+                    
+                      <select id="dayEnd" name="dayEnd">                      
+                    <option value="<?php echo $showDateFormatDayEnd ?>">--Select Day--</option> 
+                    <option value="01">1</option>
+                    <option value="02">2</option>
+                    <option value="03">3</option>
+                    <option value="04">4</option>
+                    <option value="05">5</option>
+                    <option value="06">6</option>
+                    <option value="07">7</option>
+                    <option value="08">8</option>
+                    <option value="09">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    </select>
+                      <br><br>
+                    Post limit (Default: 10)
+                    <br>
+                    <select id="searchLimit" name="searchLimit">                      
+                    <option value="10">--Select Limit--</option>  
+                    <option value="1">1</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    </select>
+                    <br><br>
+                    Select Facebook (Default UnikiaNorge)
+                    <br>
+                    <select id="pageSelect" name="pageSelect">                      
+                    <option value="Unikianorge">--Select Facebook--</option>  
+                    <option value="Unikianorge">UnikiaNorge</option>
+                    <option value="Unikiainnovation">UnikiaInnovation</option>
+                    <option value="Barnasdesignlab">Barnas Designlab</option>
+                    </select>
+                    <br><br>
+                    <input type="submit" name="Search" value="Search" />
+                    <br>
+                 </form>
+                
+                <?php
+                 if(isset($_REQUEST["Search"]))
+                 {
+                   $yearStart = $_POST["yearStart"];
+                   $monthStart = $_POST["monthStart"];
+                   $dayStart = $_POST["dayStart"];
+                   
+                   $yearEnd = $_POST["yearEnd"];
+                   $monthEnd = $_POST["monthEnd"];
+                   $dayEnd = $_POST["dayEnd"];
+                   
+                   $searchLimit = $_POST["searchLimit"];
+                   $pageSelect = $_POST["pageSelect"];
+           
+                                      
+                   echo '<br> Results <br><br>';
+                   // GET POSTS IN X RANGE
+                   $startDate = $dayStart.'-'.$monthStart.'-'.$yearStart;
+                   $endDate = $dayEnd.'-'.$monthEnd.'-'.$yearEnd; 
+
+                   echo 'Posts from '.$startDate.' to '.$endDate.'<br>';
+                   echo 'Postlimit: '.$searchLimit.'<br>';
+                   echo 'Facebook: '.$pageSelect.'<br><br>';
+                   
+                   $getDateRange = $fb->get($pageSelect.'/posts?since='.$startDate.'&until='.$endDate.'&fields=created_time,message,likes.limit(0)&limit='.$searchLimit);
+                   $getDateRange = $getDateRange->getGraphEdge()->asArray();
+                   $counter = 1;
+                   $dateRangeLikes = 0;
+                
+                   foreach ($getDateRange as $key) {
+                       if (isset($key['id'])) { 
+                           $date = $key['created_time'];
+                           $dateformat = $date->format('d-m-Y'); 
+                           $likesResponse = $fb->get('/'.$key['id'].'/likes?limit=0&summary=true');
+                           $getLikeCount = $likesResponse->getGraphEdge();
+                           $currentLikeCount = $getLikeCount->getTotalCount();
+                           $dateRangeLikes += $currentLikeCount;
+                           $linkAddress = 'http://www.facebook.com/'.$key['id'];
+                           echo 'Post '.$counter.' ('.$dateformat.'): '."<a href='".$linkAddress."'>Link</a>".' - likes: '.$currentLikeCount.'<br>';
+                           echo 'ID: '.$key['id'].'<br>';
+                           if (isset($key['message']) && $key['message'])   {
+                                echo 'Message: '.$key['message'].'<br><br>';  
+                            }
+                           else  {
+                                echo 'No message<br><br>';
+                           }              
+                           $counter++;
+                       }                       
+                   }
+                   if($counter < 2) {
+                     echo  'No posts were found in this date range';
+                   }
+                   else {
+                       echo 'Total likes during this period: '.$dateRangeLikes;
+                   }
+
+                   echo '<br><br><br>';
+                
+                 }
+                } else {
                 // replace your website URL same as added in the developers.facebook.com/apps e.g. if you used http instead of https and you used non-www version or www version of your website then you must add the same here
                 $loginUrl = $helper->getLoginUrl(APP_URL, $permissions);
                 echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';
         }
-        
-       
-        ?>
-        
-        <form action="pagetwo.php" method ="post">
-            <br><br>
-                    <input type="submit" name="pagetwo" value="Page Two" />
-                    <br>
-        </form>
-        <?php /*
-         $logoutUrl = $helper->getLogoutUrl(APP_URL, $permissions);
-        echo '<br><br><br><br>';
-        echo '<a href="' . $logoutUrl . '">Logout of Facebook!</a>';
-        echo '<br>Use this link if you are logged in to the wrong Facebook account (without access to this website). Change to the correct account and try again!'
-        */
-        ?> 
 
+?>
+<form action="facebooktwo.php" method ="post">
+            <br><br>
+                    <input type="submit" name="back" value="back" />
+                    <br>
+</form>
+       
+      </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
