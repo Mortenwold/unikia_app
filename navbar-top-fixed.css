@@ -1,12 +1,21 @@
+/* Show it is fixed to the top */
 body {
   min-height: 75rem;
   padding-top: 4.5rem;
   background-color: #f1f1f1;
 }
+canvas {
+    width: 900px;
+    height: 500px;
+}
 
 #chart-1-container {
+    width: 45%;
+    height: 300px;
 }
 #chart-2-container {
+    width: 45%;
+    height: 300px;
 }
 #unikiaicon{
     height:2.5rem;
@@ -46,8 +55,7 @@ body {
 }
 
 canvas {
-    height: 17em;
-    width: 100%;
+    height: 300px;
 }
 
 .chartjs {
@@ -55,7 +63,7 @@ canvas {
     width: 30rem;
 }
 .position {
-    width: 45%;
+    width: 40%;
     display: inline-block;
     height: 30rem;
     background-color: white;
@@ -70,14 +78,13 @@ canvas {
 #c1, #c2 {
     margin-bottom: 3%;
 }
-
 #c3 {
     float: left;
-    margin-left: 2.5%;
+    margin-left: 7.5%;
 }
 #c4 {
     float: right;
-    margin-right: 2.5%;
+    margin-right: 7.5%;
 }
 .ViewSelector2 {
     display: none;
@@ -89,10 +96,9 @@ canvas {
     border: 1px solid black;
     background-color: white;
     overflow: auto;
-    width: 95%;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    margin-bottom: 2%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 #date-range-selector-1-container {
     display: inline;
