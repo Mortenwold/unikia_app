@@ -53,7 +53,7 @@
         $helper = $fb->getRedirectLoginHelper();
         
         // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-        define('APP_URL', 'http://student.cs.hioa.no/~s236326/Betaanalytics/facebooktwo.php');
+        define('APP_URL', 'http://localhost/unikia_app/facebooktwo.php');
         $permissions = ['user_posts', 'user_photos']; // optional
 
         try {
@@ -86,9 +86,9 @@
                         $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
                 }
                 // redirect the user back to the same page if it has "code" GET variable
-                if (isset($_GET['code'])) {
+                /*if (isset($_GET['code'])) {
                         header('Location: ./');
-                }
+                }*/
                 // validating user access token
                 try {
                         $user = $fb->get('/me');
