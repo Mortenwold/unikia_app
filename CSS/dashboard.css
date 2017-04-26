@@ -28,8 +28,8 @@ body {
     border: 1px solid black;
     overflow:hidden;
     background-color: white;
-    display:block;
-    clear:both;
+    display: block;
+    clear: both;
 }
 
 #twittersection{
@@ -40,7 +40,7 @@ body {
     
 }
 
-#mainbody{
+body{
     margin-top: 1rem;
     margin-left: 2rem;
     margin-right: 2rem;
@@ -52,4 +52,43 @@ body {
 
 #embed-api-auth-container{
     float:right;
+    display: block;
+}
+
+#chart-container{
+    width:99.05%;
+}
+canvas {
+    height: 17em;
+    width: 100%;
+}
+
+.chartjs {
+    display: inline;
+    width: 30rem;
+}
+.ViewSelector2 {
+    display: none;
+}
+#embed-api-auth-container {
+    float: right;
+}
+#topchart {
+    border: 1px solid black;
+    background-color: white;
+    overflow: auto;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-bottom: 2%;
+}
+#date-range-selector-1-container {
+    display: inline;
+    text-align: center;
+}
+.DateRangeSelector-item {
+    display: inline;
+}
+#view-name {
+    display: none;
 }
