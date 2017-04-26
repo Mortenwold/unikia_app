@@ -69,7 +69,7 @@ and open the template in the editor.
         $helper = $fb->getRedirectLoginHelper();
         
         // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-        define('APP_URL', 'http://localhost/unikia_app/index.html');
+        define('APP_URL', 'http://localhost/unikia_app/facebooktwo.php');
         $permissions = ['user_posts', 'user_photos']; // optional
 
         try {
@@ -102,9 +102,9 @@ and open the template in the editor.
                         $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
                 }
                 // redirect the user back to the same page if it has "code" GET variable
-                if (isset($_GET['code'])) {
-                        header('Location: ./');
-                }
+              //  if (isset($_GET['code'])) {
+              //          header('Location: ./');
+              //  }
                 // validating user access token
                 try {
                         $user = $fb->get('/me');
@@ -124,7 +124,7 @@ and open the template in the editor.
                 
                 echo 'Facebook for UnikiaNorge / UnikiaInnovation / BarnasDesignlab<br><br>';
                 
-                
+                echo 'UnikiaNorge<br><br>';
                 // getting likes data of recent 100 posts by user
                 $getPostsLikes = $fb->get('/unikianorge/posts?fields=likes.limit(1000),message,created_time&limit=100');
                 $getPostsLikes = $getPostsLikes->getGraphEdge()->asArray();
@@ -224,6 +224,174 @@ and open the template in the editor.
                 }
                 echo '<br><br>';
                 
+                echo 'UnikiaInnovation<br><br>';
+                $getPostsLikes = $fb->get('/unikiainnovation/posts?fields=likes.limit(1000),message,created_time&limit=100');
+                $getPostsLikes = $getPostsLikes->getGraphEdge()->asArray();
+                // printing likes data as per requirements
+                $mostLikes = 0;
+                $bestPost = 0;
+                $counterFirstCheck = 0;
+                $counterSecondCheck = 0;
+                $bestPostMessage = '';
+                $bestPostLink = '';
+                foreach ($getPostsLikes as $key) {
+                        if (isset($key['likes'])) {
+                                $counterFirstCheck = count($key['likes']);
+                                if ($counterFirstCheck > $mostLikes)
+                                {
+                                    $mostLikes = $counterFirstCheck;
+                                    $currentPostID = $key['id'];
+                                    $likesResponse = $fb->get('/'.$currentPostID.'/likes?limit=0&summary=true');
+                                    $getLikeCount = $likesResponse->getGraphEdge();
+                                    $currentLikeCount = $getLikeCount->getTotalCount();
+                                    if($currentLikeCount > $counterSecondCheck)
+                                    {
+                                        $bestPost = $key['id'];
+                                        $counterSecondCheck = $currentLikeCount;
+                                        $bestPostLink = 'http://www.facebook.com/'.$bestPost;
+                                        $bestPostDate = $key['created_time'];
+                                        $bestPostDatePrint = $bestPostDate->format('d-m-Y');
+                       
+                                        if (isset($key['message']) && $key['message'])   {
+                                            $bestPostMessage =  'Message: '.$key['message'].'<br><br>';                              
+                                        }
+                                       else  {
+                                            $bestPostMessage = 'No message<br><br>';                  
+                                       }  
+                                    }
+                                }         
+                        }
+                }
+                echo 'Post with the most likes (last 100 posts):<br>';
+                echo 'ID: '.$bestPost.'<br>';
+                echo 'Date: '.$bestPostDatePrint.'<br>';
+                echo "<a href='".$bestPostLink."'>Link</a>".' - Likes: '.$counterSecondCheck;
+                echo '<br>'.$bestPostMessage;
+                
+                echo '<br>Post with the most comments (last 100 posts):<br>';
+                $getComments = $fb->get('Unikiainnovation/posts?fields=comments.summary(true),created_time,message,likes.limit(0)&limit=100');
+                $getComments = $getComments->getGraphEdge()->asArray();
+    
+                $largestCommentCount = 0;
+                $postWithMostComments = false;
+                $dateMostComments = 0;
+                $mostCommentsID = 0;
+                $mostCommentsMessage = '';
+
+                foreach ($getComments as $post) {
+                    if (isset($post['comments']) && count($post['comments']) > $largestCommentCount) {
+                        $postWithMostComments = $post;
+                        $date = $post['created_time'];
+                        $dateMostComments = $date->format('d-m-Y');
+                        $mostCommentsID = $post['id'];
+                        $largestCommentCount = count($post['comments']);
+                        $mostCommentsMessage = $post['message'];
+                    }
+                }
+                if ($postWithMostComments !== false) {
+                    echo 'ID: ' . $postWithMostComments['id'].'<br>';
+                    echo 'Date: '.$dateMostComments;
+                    $linkAddress = 'http://www.facebook.com/'.$postWithMostComments['id'];
+                    echo "<br><a href='".$linkAddress."'>Link</a>".' - Likes: ';
+                     
+                    $likesResponse = $fb->get('/'.$mostCommentsID.'/likes?limit=0&summary=true');
+                    $getLikeCount = $likesResponse->getGraphEdge();
+                    $currentLikeCount = $getLikeCount->getTotalCount();
+                    
+                    echo $currentLikeCount;
+                    echo '<br>Comments: '.$largestCommentCount.'<br>';
+                    echo 'Message: '.$mostCommentsMessage;
+                    
+                } 
+                else {
+                    echo '<br>There is no post with more than 0 comments<br>';
+                }
+                echo '<br><br>';
+                
+                 echo 'Barnas Designlab<br><br>';
+                // getting likes data of recent 100 posts by user
+                $getPostsLikes = $fb->get('/barnasdesignlab/posts?fields=likes.limit(1000),message,created_time&limit=100');
+                $getPostsLikes = $getPostsLikes->getGraphEdge()->asArray();
+                // printing likes data as per requirements
+                $mostLikes = 0;
+                $bestPost = 0;
+                $counterFirstCheck = 0;
+                $counterSecondCheck = 0;
+                $bestPostMessage = '';
+                $bestPostLink = '';
+                foreach ($getPostsLikes as $key) {
+                        if (isset($key['likes'])) {
+                                $counterFirstCheck = count($key['likes']);
+                                if ($counterFirstCheck > $mostLikes)
+                                {
+                                    $mostLikes = $counterFirstCheck;
+                                    $currentPostID = $key['id'];
+                                    $likesResponse = $fb->get('/'.$currentPostID.'/likes?limit=0&summary=true');
+                                    $getLikeCount = $likesResponse->getGraphEdge();
+                                    $currentLikeCount = $getLikeCount->getTotalCount();
+                                    if($currentLikeCount > $counterSecondCheck)
+                                    {
+                                        $bestPost = $key['id'];
+                                        $counterSecondCheck = $currentLikeCount;
+                                        $bestPostLink = 'http://www.facebook.com/'.$bestPost;
+                                        $bestPostDate = $key['created_time'];
+                                        $bestPostDatePrint = $bestPostDate->format('d-m-Y');
+                       
+                                        if (isset($key['message']) && $key['message'])   {
+                                            $bestPostMessage =  'Message: '.$key['message'].'<br><br>';                              
+                                        }
+                                       else  {
+                                            $bestPostMessage = 'No message<br><br>';                  
+                                       }  
+                                    }
+                                }         
+                        }
+                }
+                echo 'Post with the most likes (last 100 posts):<br>';
+                echo 'ID: '.$bestPost.'<br>';
+                echo 'Date: '.$bestPostDatePrint.'<br>';
+                echo "<a href='".$bestPostLink."'>Link</a>".' - Likes: '.$counterSecondCheck;
+                echo '<br>'.$bestPostMessage;
+                
+                echo '<br>Post with the most comments (last 100 posts):<br>';
+                $getComments = $fb->get('Barnasdesignlab/posts?fields=comments.summary(true),created_time,message,likes.limit(0)&limit=100');
+                $getComments = $getComments->getGraphEdge()->asArray();
+    
+                $largestCommentCount = 0;
+                $postWithMostComments = false;
+                $dateMostComments = 0;
+                $mostCommentsID = 0;
+                $mostCommentsMessage = '';
+
+                foreach ($getComments as $post) {
+                    if (isset($post['comments']) && count($post['comments']) > $largestCommentCount) {
+                        $postWithMostComments = $post;
+                        $date = $post['created_time'];
+                        $dateMostComments = $date->format('d-m-Y');
+                        $mostCommentsID = $post['id'];
+                        $largestCommentCount = count($post['comments']);
+                        $mostCommentsMessage = $post['message'];
+                    }
+                }
+                if ($postWithMostComments !== false) {
+                    echo 'ID: ' . $postWithMostComments['id'].'<br>';
+                    echo 'Date: '.$dateMostComments;
+                    $linkAddress = 'http://www.facebook.com/'.$postWithMostComments['id'];
+                    echo "<br><a href='".$linkAddress."'>Link</a>".' - Likes: ';
+                     
+                    $likesResponse = $fb->get('/'.$mostCommentsID.'/likes?limit=0&summary=true');
+                    $getLikeCount = $likesResponse->getGraphEdge();
+                    $currentLikeCount = $getLikeCount->getTotalCount();
+                    
+                    echo $currentLikeCount;
+                    echo '<br>Comments: '.$largestCommentCount.'<br>';
+                    echo 'Message: '.$mostCommentsMessage;
+                    
+                } 
+                else {
+                    echo '<br>There is no post with more than 0 comments<br>';
+                }
+                echo '<br><br>';
                 /*
                 $bestPost;
                 $counter = 0;
