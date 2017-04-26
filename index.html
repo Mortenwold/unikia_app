@@ -2,52 +2,47 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="favicon.ico">
+        
+        <!-- Bootstrap core CSS -->
+        <link href="CSS/bootstrap.min.css" rel="stylesheet">
 
-    
+        <!-- Custom styles for this template -->
+        <link href="CSS/dashboard.css" rel="stylesheet">
+        <link id="size-stylesheet" rel="stylesheet" type="text/css" href="ny_farge.css" />
+        <title>Unikia Dashboard</title>
+    </head>
 
-    <!-- Bootstrap core CSS -->
-    <link href="CSS/bootstrap.min.css" rel="stylesheet">
+    <body id="mainbody">
 
-    <!-- Custom styles for this template -->
-    <link href="CSS/dashboard.css" rel="stylesheet">
-    <title>Unikia Dashboard</title>
-  </head>
+        <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <img id="unikiaicon" src="images/unikia-link.png">
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="analyticsdashboard.html">Google Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="facebooktwo.php">Facebook</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-  <body id="mainbody">
-      
-    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <img id="unikiaicon" src="images/unikia-link.png">
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="analyticsdashboard.html">Google Analytics</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="facebooktwo.php">Facebook</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-      <ul class="nav nav-tabs nav-justified">
-  <li role="presentation" class="active"><a href="#">Home</a></li>
-  
-</ul>
-
-      <h1>Dashboard</h1>
-      <div id="embed-api-auth-container"></div>
-      <div id="main">
+        <h1>Dashboard</h1>
+        <div id="embed-api-auth-container"></div>
+        <div id="main">
             <div id="analyticsPart">
                 <a>Number of visitors on www.unikia.com</a>
                 <script>
@@ -131,7 +126,7 @@
                 <h3>Total Follower : <strong></strong></h3>
             </div>-->
 
-                <a class="twitter-timeline" data-width="345" data-height="295" data-chrome="nofooter, noheader" href="https://twitter.com/unikiadotcom"></a>
+                <a class="twitter-timeline" data-height="20rem" data-chrome="nofooter, noheader" href="https://twitter.com/unikiadotcom"></a>
                 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
             </div>
 
@@ -150,10 +145,11 @@
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-        <script>window.jQuery || document.write('<script src="JS/jquery.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="javascript/jquery.min.js"><\/script>')</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="javascript/bootstrap.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="javascript/ie10-viewport-bug-workaround.js"></script>
+        <script src="javascript/analytics_functions.js"></script>
     </body>
 </html>

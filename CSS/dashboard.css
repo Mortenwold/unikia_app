@@ -35,9 +35,12 @@ body {
 #twittersection{
     border: 1px solid black;
     margin-top: 2rem;
-    width:20rem;
-    background-color:f1f1f1;
-    
+    display:inline-block;
+    background-color:white;   
+}
+
+.twitter-timeline{
+    width:20rem !important;
 }
 
 #mainbody{
@@ -52,4 +55,10 @@ body {
 
 #embed-api-auth-container{
     float:right;
+}
+
+@media (max-width:320px)  { 
+    body{
+        background-color: blue;
+    }
 }
