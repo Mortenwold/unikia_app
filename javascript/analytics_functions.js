@@ -250,7 +250,7 @@ function generateLegend(id, items) {
     legend.innerHTML = items.map(function (item) {
         var color = item.color || item.fillColor;
         var label = item.label;
-        return '<li"><div class="foo" style="background-color:' + color + '\"></div>' +
+        return '<li><div class="foo" style="background-color:' + color + '"></div>' +
                 escapeHtml(label) + '</li>';
     }).join('');
 }
