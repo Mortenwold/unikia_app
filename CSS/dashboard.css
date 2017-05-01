@@ -50,7 +50,7 @@ body{
 }
 
 #view-selector-container{
-    display:none;
+    
 }
 
 #embed-api-auth-container{
@@ -58,7 +58,6 @@ body{
     display: block;
 }
 
-<<<<<<< HEAD
 #chart-container{
     width:99.05%;
 }
@@ -72,7 +71,7 @@ canvas {
     width: 30rem;
 }
 .ViewSelector2 {
-    display: none;
+    
 }
 #embed-api-auth-container {
     float: right;
@@ -96,10 +95,9 @@ canvas {
 #view-name {
     display: none;
 }
-=======
 @media (max-width:320px)  { 
     body{
         background-color: blue;
     }
 }
->>>>>>> abranch2
+

@@ -250,7 +250,7 @@ function generateLegend(id, items) {
     legend.innerHTML = items.map(function (item) {
         var color = item.color || item.fillColor;
         var label = item.label;
-        return '<li><i style="background:' + color + '"></i>' +
+        return '<li><div class="foo" style="background-color:' + color + '"></div>' +
                 escapeHtml(label) + '</li>';
     }).join('');
 }
@@ -314,7 +314,7 @@ function renderMonth(ids) {
         };
 
         new Chart(makeCanvas('data-chart-1-container')).Line(data);
-        generateLegend('legend-1-container', data.datasets);
+        
     });
 
 
@@ -361,7 +361,6 @@ function renderPageviews(ids) {
         };
 
         new Chart(makeCanvas('data-chart-1-container')).Line(data);
-        generateLegend('legend-1-container', data.datasets);
     });
 
 
@@ -408,7 +407,6 @@ function renderTime(ids) {
         };
 
         new Chart(makeCanvas('data-chart-1-container')).Line(data);
-        generateLegend('legend-1-container', data.datasets);
     });
 
 
@@ -455,10 +453,95 @@ function renderPercentsessions(ids) {
         };
 
         new Chart(makeCanvas('data-chart-1-container')).Line(data);
-        generateLegend('legend-1-container', data.datasets);
     });
 
 
+}
+function dateGraph(ids) {
+    gapi.analytics.ready(function () {
+
+            gapi.analytics.auth.authorize({
+                container: 'embed-api-auth-container',
+                clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+            });
+
+            var commonConfig = {
+                query: {
+                    metrics: 'ga:timeOnPage',
+                    dimensions: 'ga:date'
+                },
+                chart: {
+                    type: 'LINE',
+                    options: {
+                        width: '100%'
+                    }
+                }
+            };
+
+            /**
+             * Query params representing the first chart's date range.
+             */
+            var dateRange1 = {
+                'start-date': '14daysAgo',
+                'end-date': '8daysAgo'
+            };
+
+            /**
+             * Create a new ViewSelector2 instance to be rendered inside of an
+             * element with the id "view-selector-container".
+             */
+            var viewSelector = new gapi.analytics.ext.ViewSelector2({
+                container: 'view-selector-container',
+            }).execute();
+
+
+            /**
+             * Create a new DateRangeSelector instance to be rendered inside of an
+             * element with the id "date-range-selector-1-container", set its date range
+             * and then render it to the page.
+             */
+            var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
+                container: 'date-range-selector-2-container'
+            })
+                    .set(dateRange1)
+                    .execute();
+
+            /**
+             * Create a new DataChart instance with the given query parameters
+             * and Google chart options. It will be rendered inside an element
+             * with the id "data-chart-1-container".
+             */
+            var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
+                    .set({query: dateRange1})
+                    .set({chart: {container: 'data-chart-2-container'}});
+
+            /**
+             * Register a handler to run whenever the user changes the view.
+             * The handler will update both dataCharts as well as updating the title
+             * of the dashboard.
+             */
+            viewSelector.on('viewChange', function (data) {
+                dataChart1.set({query: {ids: data.ids}}).execute();
+
+                var title = document.getElementById('view-name');
+                title.textContent = data.property.name + ' (' + data.view.name + ')';
+            });
+
+
+            /**
+             * Register a handler to run whenever the user changes the date range from
+             * the first datepicker. The handler will update the first dataChart
+             * instance as well as change the dashboard subtitle to reflect the range.
+             */
+            dateRangeSelector1.on('change', function (data) {
+                dataChart1.set({query: data}).execute();
+
+                // Update the "from" dates text.
+                var datefield = document.getElementById('from-dates');
+                datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
+            });
+
+        });
 }
 
 
@@ -526,53 +609,14 @@ function myFunction1() {
                 container: 'embed-api-auth-container',
                 clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
             });
+            
 
             var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
                 container: 'view-selector-container',
             })
                     .execute();
 
-            var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
-                container: 'date-range-selector-1-container'
-            })
-                    .set(dateRange1)
-                    .execute();
 
-            /**
-             * Create a new DataChart instance with the given query parameters
-             * and Google chart options. It will be rendered inside an element
-             * with the id "data-chart-1-container".
-             */
-            var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
-                    .set({query: dateRange1})
-                    .set({chart: {container: 'data-chart-1-container'}});
-
-            /**
-             * Register a handler to run whenever the user changes the view.
-             * The handler will update both dataCharts as well as updating the title
-             * of the dashboard.
-             */
-            viewSelector.on('viewChange', function (data) {
-                dataChart1.set({query: {ids: data.ids}}).execute();
-                dataChart2.set({query: {ids: data.ids}}).execute();
-
-                var title = document.getElementById('view-name');
-                title.textContent = data.property.name + ' (' + data.view.name + ')';
-            });
-
-
-            /**
-             * Register a handler to run whenever the user changes the date range from
-             * the first datepicker. The handler will update the first dataChart
-             * instance as well as change the dashboard subtitle to reflect the range.
-             */
-            dateRangeSelector1.on('change', function (data) {
-                dataChart1.set({query: data}).execute();
-
-                // Update the "from" dates text.
-                var datefield = document.getElementById('from-dates');
-                datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
-            });
             /**
              * Update the activeUsers component, the Chartjs charts, and the dashboard
              * title whenever the user changes the view.
@@ -582,96 +626,12 @@ function myFunction1() {
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
                 // Render all the of charts for this view.
-                render(data.ids);
+                renderTime(data.ids);
             });
 
         });
     } else if (x == "graph4") {
-        gapi.analytics.ready(function () {
-
-            gapi.analytics.auth.authorize({
-                container: 'embed-api-auth-container',
-                clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
-            });
-
-            var commonConfig = {
-                query: {
-                    metrics: 'ga:percentNewSessions',
-                    dimensions: 'ga:date'
-                },
-                chart: {
-                    type: 'LINE',
-                    options: {
-                        width: '100%'
-                    }
-                }
-            };
-
-            /**
-             * Query params representing the first chart's date range.
-             */
-            var dateRange1 = {
-                'start-date': '14daysAgo',
-                'end-date': '8daysAgo'
-            };
-
-            /**
-             * Create a new ViewSelector2 instance to be rendered inside of an
-             * element with the id "view-selector-container".
-             */
-            var viewSelector = new gapi.analytics.ext.ViewSelector2({
-                container: 'view-selector-container',
-            }).execute();
-
-
-            /**
-             * Create a new DateRangeSelector instance to be rendered inside of an
-             * element with the id "date-range-selector-1-container", set its date range
-             * and then render it to the page.
-             */
-            var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
-                container: 'date-range-selector-1-container'
-            })
-                    .set(dateRange1)
-                    .execute();
-
-            /**
-             * Create a new DataChart instance with the given query parameters
-             * and Google chart options. It will be rendered inside an element
-             * with the id "data-chart-1-container".
-             */
-            var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
-                    .set({query: dateRange1})
-                    .set({chart: {container: 'data-chart-1-container'}});
-
-            /**
-             * Register a handler to run whenever the user changes the view.
-             * The handler will update both dataCharts as well as updating the title
-             * of the dashboard.
-             */
-            viewSelector.on('viewChange', function (data) {
-                dataChart1.set({query: {ids: data.ids}}).execute();
-                dataChart2.set({query: {ids: data.ids}}).execute();
-
-                var title = document.getElementById('view-name');
-                title.textContent = data.property.name + ' (' + data.view.name + ')';
-            });
-
-
-            /**
-             * Register a handler to run whenever the user changes the date range from
-             * the first datepicker. The handler will update the first dataChart
-             * instance as well as change the dashboard subtitle to reflect the range.
-             */
-            dateRangeSelector1.on('change', function (data) {
-                dataChart1.set({query: data}).execute();
-
-                // Update the "from" dates text.
-                var datefield = document.getElementById('from-dates');
-                datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
-            });
-
-        });
+        
     }
 }
 

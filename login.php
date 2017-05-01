@@ -13,6 +13,7 @@ and open the template in the editor.
     <body>
         <img class="bg" src="images/unikialogin.jpg">
         <div id="hei">
+            <img id="icon" src="images/unikia-logo2.png">
             <form action="" method="post">
                 Oppdater passord: <br/>
                 Brukernavn : <input type="text" name="lagreBrukernavn"/><br/>

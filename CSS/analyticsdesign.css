@@ -24,7 +24,6 @@ body {
 }
 
 #view-selector-container{
-    display:none;
 }
 
 #analyticsPart{
@@ -57,7 +56,6 @@ canvas {
 .position {
     width: 45%;
     display: inline-block;
-    height: 30rem;
     background-color: white;
     border: 1px solid black;
 }
@@ -69,23 +67,36 @@ canvas {
 }
 #c1, #c2 {
     margin-bottom: 3%;
+    height: 30rem;
 }
 
 #c3 {
     float: left;
     margin-left: 2.5%;
+    height: 31rem;
+    margin-bottom: 3em;
 }
 #c4 {
     float: right;
     margin-right: 2.5%;
+    height: 31rem;
+    margin-bottom: 3em;
 }
 .ViewSelector2 {
-    display: none;
 }
 #embed-api-auth-container {
     float: right;
 }
 #topchart {
+    border: 1px solid black;
+    background-color: white;
+    overflow: auto;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-bottom: 2%;
+}
+#datechart {
     border: 1px solid black;
     background-color: white;
     overflow: auto;
@@ -104,3 +115,17 @@ canvas {
 #view-name {
     display: none;
 }
+
+.foo {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    clear: both;
+}
+li {
+    float:left;
+    clear: both;
+}
+
