@@ -155,7 +155,7 @@ function renderTopBrowsersChart(ids) {
             .then(function (response) {
 
                 var data = [];
-                var colors = ['#4D5360', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
+                var colors = ['#FFC0CB', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
 
                 response.rows.forEach(function (row, i) {
                     data.push({value: +row[1], color: colors[i], label: row[0]});
@@ -250,7 +250,7 @@ function generateLegend(id, items) {
     legend.innerHTML = items.map(function (item) {
         var color = item.color || item.fillColor;
         var label = item.label;
-        return '<li><i style="background:' + color + '"></i>' +
+        return '<li"><div class="foo" style="background-color:' + color + '\"></div>' +
                 escapeHtml(label) + '</li>';
     }).join('');
 }
