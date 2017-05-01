@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,9 +7,6 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="favicon.ico">
-
-        <title>Google Analytics</title>
-
         <!-- Bootstrap core CSS -->
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
 
@@ -74,10 +70,10 @@
         <div id="main">
             <div id="analyticsPart">
 
-                        <div id="view-selector-container"></div>
-                        <div id="data-chart-1-container"></div>
-                        <div id="date-range-selector-1-container"></div>
-                
+                <div id="view-selector-container"></div>
+                <div id="data-chart-1-container"></div>
+                <div id="date-range-selector-1-container"></div>
+
                 <div id="data-chart-2-container"></div>
                 <div id="date-range-selector-2-container"></div>
 
@@ -90,32 +86,32 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
                 <link rel="stylesheet" href="chartjs-visualizations.css">
                 <script>
-                                gapi.analytics.ready(function () {
+            gapi.analytics.ready(function () {
 
-                                    gapi.analytics.auth.authorize({
-                                        container: 'embed-api-auth-container',
-                                        clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
-                                    });
+                gapi.analytics.auth.authorize({
+                    container: 'embed-api-auth-container',
+                    clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+                });
 
-                                    var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
-                                        container: 'view-selector-container',
-                                    })
-                                            .execute();
+                var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
+                    container: 'view-selector-container',
+                })
+                        .execute();
 
 
-                                    /**
-                                     * Update the activeUsers component, the Chartjs charts, and the dashboard
-                                     * title whenever the user changes the view.
-                                     */
-                                    viewSelector3.on('viewChange', function (data) {
-                                        var title = document.getElementById('view-name');
-                                        title.textContent = data.property.name + ' (' + data.view.name + ')';
+                /**
+                 * Update the activeUsers component, the Chartjs charts, and the dashboard
+                 * title whenever the user changes the view.
+                 */
+                viewSelector3.on('viewChange', function (data) {
+                    var title = document.getElementById('view-name');
+                    title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                                        // Render all the of charts for this view.
-                                        renderMonth(data.ids);
-                                    });
+                    // Render all the of charts for this view.
+                    renderMonth(data.ids);
+                });
 
-                                });
+            });
 
                 </script>
                 <script>
@@ -209,25 +205,25 @@
                 </script>
             </div>
         </div>
-            <a href="googleanalytics.html"></a>
-            <div id="twittersection">
-                <!--<div class="container">
-                <h3>Total Follower : <strong></strong></h3>
-            </div>-->
+        <a href="googleanalytics.html"></a>
+        <div id="twittersection">
+            <!--<div class="container">
+            <h3>Total Follower : <strong></strong></h3>
+        </div>-->
 
-                <a class="twitter-timeline" data-height="20rem" data-chrome="nofooter, noheader" href="https://twitter.com/unikiadotcom"></a>
-                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a class="twitter-timeline" data-height="20rem" data-chrome="nofooter, noheader" href="https://twitter.com/unikiadotcom"></a>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+
+        <a href="analyticsdashboard.html">
+
+
+            <div class="section" id="section2">
+
+
             </div>
-
-            <a href="analyticsdashboard.html">
-
-
-                <div class="section" id="section2">
-
-
-                </div>
-            </a>
-            <a href="facebooktwo.php">Facebook Link</a>
+        </a>
+        <a href="facebooktwo.php">Facebook Link</a>
 
         <!-- Bootstrap core JavaScript
         ================================================== -->
