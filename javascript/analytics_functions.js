@@ -482,8 +482,8 @@ function dateGraph(ids) {
              * Query params representing the first chart's date range.
              */
             var dateRange1 = {
-                'start-date': '14daysAgo',
-                'end-date': '8daysAgo'
+                'start-date': '30daysAgo',
+                'end-date': 'yesterday'
             };
 
             /**
