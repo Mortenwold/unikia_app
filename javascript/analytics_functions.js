@@ -492,7 +492,6 @@ function myFunction1() {
 
         });
     } else if (x == "graph2") {
-
         gapi.analytics.ready(function () {
 
             gapi.analytics.auth.authorize({
@@ -532,47 +531,7 @@ function myFunction1() {
             })
                     .execute();
 
-            var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
-                container: 'date-range-selector-1-container'
-            })
-                    .set(dateRange1)
-                    .execute();
 
-            /**
-             * Create a new DataChart instance with the given query parameters
-             * and Google chart options. It will be rendered inside an element
-             * with the id "data-chart-1-container".
-             */
-            var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
-                    .set({query: dateRange1})
-                    .set({chart: {container: 'data-chart-1-container'}});
-
-            /**
-             * Register a handler to run whenever the user changes the view.
-             * The handler will update both dataCharts as well as updating the title
-             * of the dashboard.
-             */
-            viewSelector.on('viewChange', function (data) {
-                dataChart1.set({query: {ids: data.ids}}).execute();
-                dataChart2.set({query: {ids: data.ids}}).execute();
-
-                var title = document.getElementById('view-name');
-                title.textContent = data.property.name + ' (' + data.view.name + ')';
-            });
-
-
-            /**
-             * Register a handler to run whenever the user changes the date range from
-             * the first datepicker. The handler will update the first dataChart
-             * instance as well as change the dashboard subtitle to reflect the range.
-             */
-            dateRangeSelector1.on('change', function (data) {
-                dataChart1.set({query: data}).execute();
-
-                // Update the "from" dates text.
-                var datefield = document.getElementById('from-dates');
-                datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
-            });
             /**
              * Update the activeUsers component, the Chartjs charts, and the dashboard
              * title whenever the user changes the view.
@@ -582,7 +541,7 @@ function myFunction1() {
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
                 // Render all the of charts for this view.
-                render(data.ids);
+                renderTime(data.ids);
             });
 
         });
@@ -674,21 +633,3 @@ function myFunction1() {
         });
     }
 }
-
-function adjustStyle(width) {
-  width = parseInt(width);
-  if (width < 701) {
-    $("#size-stylesheet").attr("href", "css/ny_farge.css");
-  } else if (width < 900) {
-    $("#size-stylesheet").attr("href", "css/medium.css");
-  } else {
-     $("#size-stylesheet").attr("href", "css/wide.css"); 
-  }
-}
-
-$(function() {
-  adjustStyle($(this).width());
-  $(window).resize(function() {
-    adjustStyle($(this).width());
-  });
-});
