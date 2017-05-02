@@ -21,9 +21,15 @@ img.bg {
 }
 #hei {
     display: block;
-    background: white;
     position: relative;
     width: 20%;
     height: 20%;
+    margin-left: 20rem;
+    margin-top: 15rem;
+    text-align: center;
+}
+#icon {
+    width: 100%;
+    height: 100%;
 }
 

@@ -77,11 +77,8 @@
                         <div id="view-selector-container"></div>
                         <div id="data-chart-1-container"></div>
                         <div id="date-range-selector-1-container"></div>
-                        <div id="data-chart-2-container"></div>
-                        <div id="date-range-selector-2-container"></div>
                 </div>
-                <div id="data-chart-2-container"></div>
-                <div id="date-range-selector-2-container"></div>
+
 
                 <div id="view-name"></div>
                 <div id="charts">      
@@ -108,6 +105,20 @@
                         <ol class="Chartjs-legend" id="legend-4-container"></ol>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+                <div id="datechart">
+                    <div id="data-chart-2-container"></div>
+                    <div id="date-range-selector-2-container"></div>
+                </div>
+
+                <script src="javascript/view-selector2.js"></script>
+                <script src="javascript/active-users.js"></script>
+                <script src="javascript/date-range-selector.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+                <link rel="stylesheet" href="chartjs-visualizations.css">
+>>>>>>> 44d9e3154192f24c9f6ad4a70cb20acc15620d0e
                 <script>
                     $(window).on('resize', function (event) {
                         var windowSize = $(window).width();
@@ -140,9 +151,16 @@
                             var title = document.getElementById('view-name');
                             title.textContent = data.property.name + ' (' + data.view.name + ')';
 
+<<<<<<< HEAD
                             // Render all the of charts for this view.
                             renderMonth(data.ids);
                         });
+=======
+                                        // Render all the of charts for this view.
+                                        renderMonth(data.ids);
+                                        dateGraph(data.ids);
+                                    });
+>>>>>>> 44d9e3154192f24c9f6ad4a70cb20acc15620d0e
 
                     });
 
