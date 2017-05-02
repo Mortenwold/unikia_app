@@ -633,6 +633,60 @@ function myFunction1() {
 
         });
     } else if (x == "graph4") {
-        
+        gapi.analytics.ready(function () {
+
+            gapi.analytics.auth.authorize({
+                container: 'embed-api-auth-container',
+                clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+            });
+            
+
+            var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
+                container: 'view-selector-container',
+            })
+                    .execute();
+
+
+            /**
+             * Update the activeUsers component, the Chartjs charts, and the dashboard
+             * title whenever the user changes the view.
+             */
+            viewSelector3.on('viewChange', function (data) {
+                var title = document.getElementById('view-name');
+                title.textContent = data.property.name + ' (' + data.view.name + ')';
+
+                // Render all the of charts for this view.
+                renderPercentsessions(data.ids);
+            });
+
+        });
     }
 }
+function hei() {
+            gapi.analytics.ready(function () {
+
+                gapi.analytics.auth.authorize({
+                    container: 'embed-api-auth-container',
+                    clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+                });
+
+                var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
+                    container: 'view-selector-container',
+                })
+                        .execute();
+
+
+                /**
+                 * Update the activeUsers component, the Chartjs charts, and the dashboard
+                 * title whenever the user changes the view.
+                 */
+                viewSelector3.on('viewChange', function (data) {
+                    var title = document.getElementById('view-name');
+                    title.textContent = data.property.name + ' (' + data.view.name + ')';
+
+                    // Render all the of charts for this view.
+                    renderMonth(data.ids);
+                });
+
+            });
+                    }

@@ -58,6 +58,7 @@ canvas {
     display: inline-block;
     background-color: white;
     border: 1px solid black;
+    display: inline-block;
 }
 #charts {
     text-align: center;
@@ -128,5 +129,25 @@ canvas {
 li{
     float: left;
     clear: both;
+}
+@media (max-width:1100px) {
+    #c1, #c2, #c3, #c4 {
+        display: block;
+        width: 100%;
+        margin: 0;
+        
+        
+    }
+    #topchart {
+        margin: 0;
+        width: 100%;
+    }
+    #datechart {
+        margin: 0;
+        width: 100%;
+    }
+    body {
+        background-color: blue;
+    }
 }
 
