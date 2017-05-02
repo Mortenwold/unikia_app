@@ -11,20 +11,13 @@
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="CSS/dashboard.css" rel="stylesheet">
-<<<<<<< HEAD
-=======
-
->>>>>>> b77ebac9288547b76a535ca7655c5069c0b8cb31
-        <link id="size-stylesheet" rel="stylesheet" type="text/css" href="ny_farge.css" />
+        <link href="CSS/index.css" rel="stylesheet">
+        <script src="javascript/analytics_functions.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <title>Unikia Dashboard</title>
     </head>
 
     <body id="mainbody">
-<<<<<<< HEAD
-
-=======
->>>>>>> b77ebac9288547b76a535ca7655c5069c0b8cb31
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="analyticsdashboard.html">Google Analytics</a>
@@ -46,11 +39,6 @@
         </nav>
 
         <h1>Dashboard</h1>
-<<<<<<< HEAD
-=======
-
->>>>>>> b77ebac9288547b76a535ca7655c5069c0b8cb31
-
         <script>
             (function (w, d, s, g, js, fs) {
                 g = w.gapi || (w.gapi = {});
@@ -65,6 +53,27 @@
                     g.load('analytics');
                 };
             }(window, document, 'script'));
+
+            var id;
+            $(window).resize(function () {
+                clearTimeout(id);
+                id = setTimeout(doneResizing, 500);
+
+            });
+
+            function doneResizing() {
+                var windowSize = $(window).width();
+                if (windowSize < 300) {
+                    $('html').css('background-color', 'red');
+                    skriv_graf2();
+                } else if (windowSize < 768) {
+                    $('html').css('background-color', 'yellow');
+                    skriv_graf2();
+                } else {
+                    $('html').css('background-color', 'blue');
+                    skriv_graf();
+                }
+            }
         </script>
         <div id="embed-api-auth-container"></div>
         <div id="main">
@@ -86,122 +95,7 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
                 <link rel="stylesheet" href="chartjs-visualizations.css">
                 <script>
-            gapi.analytics.ready(function () {
-
-                gapi.analytics.auth.authorize({
-                    container: 'embed-api-auth-container',
-                    clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
-                });
-
-                var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
-                    container: 'view-selector-container',
-                })
-                        .execute();
-
-
-                /**
-                 * Update the activeUsers component, the Chartjs charts, and the dashboard
-                 * title whenever the user changes the view.
-                 */
-                viewSelector3.on('viewChange', function (data) {
-                    var title = document.getElementById('view-name');
-                    title.textContent = data.property.name + ' (' + data.view.name + ')';
-
-                    // Render all the of charts for this view.
-                    renderMonth(data.ids);
-                });
-
-            });
-
-                </script>
-                <script>
-
-                    // == NOTE ==
-                    // This code uses ES6 promises. If you want to use this code in a browser
-                    // that doesn't supporting promises natively, you'll have to include a polyfill.
-
-                    gapi.analytics.ready(function () {
-
-                        /**
-                         * Authorize the user immediately if the user has already granted access.
-                         * If no access has been created, render an authorize button inside the
-                         * element with the ID "embed-api-auth-container".
-                         */
-                        gapi.analytics.auth.authorize({
-                            container: 'embed-api-auth-container',
-                            clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
-                        });
-
-
-                        /**
-                         * Create a new ActiveUsers instance to be rendered inside of an
-                         * element with the id "active-users-container" and poll for changes every
-                         * five seconds.
-                         */
-                        var activeUsers = new gapi.analytics.ext.ActiveUsers({
-                            container: 'active-users-container',
-                            pollingInterval: 5
-                        });
-
-
-                        /**
-                         * Add CSS animation to visually show the when users come and go.
-                         */
-                        activeUsers.once('success', function () {
-                            var element = this.container.firstChild;
-                            var timeout;
-
-                            this.on('change', function (data) {
-                                var element = this.container.firstChild;
-                                var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
-                                element.className += (' ' + animationClass);
-
-                                clearTimeout(timeout);
-                                timeout = setTimeout(function () {
-                                    element.className =
-                                            element.className.replace(/ is-(increasing|decreasing)/g, '');
-                                }, 3000);
-                            });
-                        });
-
-
-                        /**
-                         * Create a new ViewSelector2 instance to be rendered inside of an
-                         * element with the id "view-selector-container".
-                         */
-                        var viewSelector = new gapi.analytics.ext.ViewSelector2({
-                            container: 'view-selector-container',
-                        })
-                                .execute();
-
-
-                        /**
-                         * Update the activeUsers component, the Chartjs charts, and the dashboard
-                         * title whenever the user changes the view.
-                         */
-                        viewSelector.on('viewChange', function (data) {
-                            var title = document.getElementById('view-name');
-                            title.textContent = data.property.name + ' (' + data.view.name + ')';
-
-                            // Start tracking active users for this view.
-                            activeUsers.set(data).execute();
-
-                            // Render all the of charts for this view.
-                            renderWeekOverWeekChart(data.ids);
-                            renderYearOverYearChart(data.ids);
-                            renderTopBrowsersChart(data.ids);
-                            renderTopCountriesChart(data.ids);
-                        });
-
-
-                        /**
-                         * Draw the a chart.js line chart with data from the specified view that
-                         * overlays session data for the current week over session data for the
-                         * previous week.
-                         */
-
-
-                    });
+            skriv_graf();
                 </script>
             </div>
         </div>
@@ -234,6 +128,5 @@
         <script src="javascript/bootstrap.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="javascript/ie10-viewport-bug-workaround.js"></script>
-        <script src="javascript/analytics_functions.js"></script>
     </body>
 </html>

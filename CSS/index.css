@@ -95,8 +95,3 @@ canvas {
 #view-name {
     display: none;
 }
-@media (max-width:320px)  { 
-    body{
-        background-color: blue;
-    }
-}

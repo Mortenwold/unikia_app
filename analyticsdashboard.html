@@ -105,8 +105,6 @@
                         <ol class="Chartjs-legend" id="legend-4-container"></ol>
                     </div>
                 </div>
-<<<<<<< HEAD
-=======
                 <div id="datechart">
                     <div id="data-chart-2-container"></div>
                     <div id="date-range-selector-2-container"></div>
@@ -118,53 +116,6 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
                 <link rel="stylesheet" href="chartjs-visualizations.css">
->>>>>>> 44d9e3154192f24c9f6ad4a70cb20acc15620d0e
-                <script>
-                    $(window).on('resize', function (event) {
-                        var windowSize = $(window).width();
-                        if (windowSize < 300) {
-                            $('html').css('background-color', 'red');
-                        } else if (windowSize < 768) {
-                            $('html').css('background-color', 'yellow');
-                        } else {
-                            $('html').css('background-color', 'blue');
-                        }
-                    });
-                    gapi.analytics.ready(function () {
-
-                        gapi.analytics.auth.authorize({
-                            container: 'embed-api-auth-container',
-                            clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
-                        });
-
-                        var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
-                            container: 'view-selector-container',
-                        })
-                                .execute();
-
-
-                        /**
-                         * Update the activeUsers component, the Chartjs charts, and the dashboard
-                         * title whenever the user changes the view.
-                         */
-                        viewSelector3.on('viewChange', function (data) {
-                            var title = document.getElementById('view-name');
-                            title.textContent = data.property.name + ' (' + data.view.name + ')';
-
-<<<<<<< HEAD
-                            // Render all the of charts for this view.
-                            renderMonth(data.ids);
-                        });
-=======
-                                        // Render all the of charts for this view.
-                                        renderMonth(data.ids);
-                                        dateGraph(data.ids);
-                                    });
->>>>>>> 44d9e3154192f24c9f6ad4a70cb20acc15620d0e
-
-                    });
-
-                </script>
                 <script>
                     // == NOTE ==
                     // This code uses ES6 promises. If you want to use this code in a browser
@@ -241,14 +192,9 @@
                             renderYearOverYearChart(data.ids);
                             renderTopBrowsersChart(data.ids);
                             renderTopCountriesChart(data.ids);
+                            renderMonth(data.ids);
+                            dateGraph(data.ids);
                         });
-
-
-                        /**
-                         * Draw the a chart.js line chart with data from the specified view that
-                         * overlays session data for the current week over session data for the
-                         * previous week.
-                         */
                     });
                 </script>
             </div>
@@ -257,12 +203,6 @@
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="javascript/view-selector2.js"></script>
-        <script src="javascript/active-users.js"></script>
-        <script src="javascript/date-range-selector.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-        <link rel="stylesheet" href="chartjs-visualizations.css">
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
