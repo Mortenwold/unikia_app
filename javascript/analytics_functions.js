@@ -314,7 +314,6 @@ function renderMonth(ids) {
         };
 
         new Chart(makeCanvas('data-chart-1-container')).Line(data);
-        generateLegend('legend-1-container', data.datasets);
     });
 
 
@@ -361,7 +360,6 @@ function renderPageviews(ids) {
         };
 
         new Chart(makeCanvas('data-chart-1-container')).Line(data);
-        generateLegend('legend-1-container', data.datasets);
     });
 
 
@@ -408,7 +406,6 @@ function renderTime(ids) {
         };
 
         new Chart(makeCanvas('data-chart-1-container')).Line(data);
-        generateLegend('legend-1-container', data.datasets);
     });
 
 
@@ -455,7 +452,6 @@ function renderPercentsessions(ids) {
         };
 
         new Chart(makeCanvas('data-chart-1-container')).Line(data);
-        generateLegend('legend-1-container', data.datasets);
     });
 
 
