@@ -29,7 +29,7 @@
             <img id="unikiaicon" src="images/unikia-logo.png">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
