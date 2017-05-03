@@ -118,16 +118,17 @@ and open the template in the editor.
                 }
                 
                 
-                echo 'Facebook for UnikiaInnovation<br><br>';
+                echo 'Facebook for Barnas Designlab<br><br>';
                 
-                echo 'Total likes UnikiaInnovation: ';
-                $getTotalLikesInnovation = $fb->get('Unikiainnovation?fields=fan_count');
-                $getTotalLikesInnovation = $getTotalLikesInnovation->getGraphNode()->asArray();
+                echo 'Total likes Barnas Designlab: ';
+                $getTotalLikesBarna = $fb->get('barnasdesignlab?fields=fan_count');
+                $getTotalLikesBarna = $getTotalLikesBarna->getGraphNode()->asArray();
                 
-                echo $getTotalLikesInnovation['fan_count'].'<br><br>';
-                 echo '<br>Latest UnikiaInnovation Post<br>';
+                echo $getTotalLikesBarna['fan_count'].'<br><br>';
+                
+                echo '<br>Latest Barnas Designlab Post<br>';
                 $howManyPosts = 1; // ADD A BUTTON (DROPDOWN???) FOR USER
-                $getLatestPost = $fb->get('Unikiainnovation/posts?likes.limit(0)&limit='.$howManyPosts);
+                $getLatestPost = $fb->get('barnasdesignlab/posts?likes.limit(0)&limit='.$howManyPosts);
                 $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
                 
                 foreach ($getLatestPost as $key) {
@@ -144,16 +145,18 @@ and open the template in the editor.
                         $currentLikeCount = $getLikeCount->getTotalCount();
                         echo ' - Likes: '.$currentLikeCount;
                         
-                        if (isset($key['message']) && $key['message'])    {
+                       if (isset($key['message']) && $key['message'])   {
                             echo '<br>Message: '.$key['message'].'<br><br>'; 
                         }
                         else  {
-                            echo 'No message<br><br>';
-                        } 
+                            echo '<br>No message<br><br>';
+                        }
                                             }
-                } 
+                }
+                
+                
                 // getting likes data of recent 100 posts by user
-                $getPostsLikes = $fb->get('/unikiainnovation/posts?fields=likes.limit(1000),message,created_time&limit=100');
+                $getPostsLikes = $fb->get('/barnasdesignlab/posts?fields=likes.limit(1000),message,created_time&limit=100');
                 $getPostsLikes = $getPostsLikes->getGraphEdge()->asArray();
                 // printing likes data as per requirements
                 $mostLikes = 0;
@@ -212,7 +215,7 @@ and open the template in the editor.
                 */
                 
                 echo '<br>Post with the most comments (last 100 posts):<br>';
-                $getComments = $fb->get('Unikiainnovation/posts?fields=comments.summary(true),created_time,message,likes.limit(0)&limit=100');
+                $getComments = $fb->get('barnasdesignlab/posts?fields=comments.summary(true),created_time,message,likes.limit(0)&limit=100');
                 $getComments = $getComments->getGraphEdge()->asArray();
     
                 $largestCommentCount = 0;
@@ -317,7 +320,7 @@ and open the template in the editor.
                 $sevenDaysFormat = $sevenDays->format('Y-m-d');
                 $sevenDaysPrint = $sevenDays->format('d-m-Y');
 
-                $getCreatedTime = $fb->get('Unikiainnovation/posts?since='.$sevenDaysFormat.'&until='.$todayFormat.'&fields=likes.limit(0),created_time');
+                $getCreatedTime = $fb->get('designlab/posts?since='.$sevenDaysFormat.'&until='.$todayFormat.'&fields=likes.limit(0),created_time');
                 $getCreatedTime = $getCreatedTime->getGraphEdge()->asArray();
                
                 
@@ -345,10 +348,8 @@ and open the template in the editor.
                 else
                 {
                     echo 'No posts were made during this period.<br><br><br>';
-                }
+                }   
 
-                
-              
                 /*
                 echo '<br><br>';
                 echo 'bilder <br><br>'; */
@@ -381,9 +382,9 @@ and open the template in the editor.
                     <input type="submit" name="pageone" value="Unikia Norge" />
                     <br>
         </form>
-        <form action="facebookthree.php" method ="post">
+        <form action="facebooktwo.php" method ="post">
             <br><br>
-                    <input type="submit" name="pagethree" value="Barnas Designlab" />
+                    <input type="submit" name="pagetwo" value="Unikia Innovation" />
                     <br>
         </form>
         <form action="facebook.php" method ="post">
