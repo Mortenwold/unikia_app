@@ -60,19 +60,14 @@
                 id = setTimeout(doneResizing, 500);
 
             });
-
+            
+            
+            var windowSize = $(window).width();
+            
             function doneResizing() {
-                var windowSize = $(window).width();
-                if (windowSize < 300) {
-                    $('html').css('background-color', 'red');
-                    skriv_graf2();
-                } else if (windowSize < 768) {
-                    $('html').css('background-color', 'yellow');
-                    skriv_graf2();
-                } else {
-                    $('html').css('background-color', 'blue');
-                    skriv_graf();
-                }
+                windowSize = $(window).width();
+
+                skriv_graf(windowSize);
             }
         </script>
         <div id="embed-api-auth-container"></div>
@@ -95,7 +90,7 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
                 <link rel="stylesheet" href="chartjs-visualizations.css">
                 <script>
-            skriv_graf();
+            skriv_graf(windowSize);
                 </script>
             </div>
         </div>
