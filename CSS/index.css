@@ -8,14 +8,14 @@
 @import './components/chartjs';
 
 body {
-  min-height: 75rem;
-  padding-top: 4.5rem;
-  background-color:#f1f1f1;
+    min-height: 75rem;
+    padding-top: 4.5rem;
+    background-color:#f1f1f1;
 }
 
 #unikiaicon{
-    height:2.5rem;
-    width:2rem;
+    height:2rem;
+    width: 5rem;
     display:inline-block;
     padding-top:.25rem;
     padding-bottom:.25rem;
@@ -50,7 +50,7 @@ body{
 }
 
 #view-selector-container{
-    
+    display:none;
 }
 
 #embed-api-auth-container{
@@ -71,7 +71,7 @@ canvas {
     width: 30rem;
 }
 .ViewSelector2 {
-    
+
 }
 #embed-api-auth-container {
     float: right;
@@ -94,4 +94,28 @@ canvas {
 }
 #view-name {
     display: none;
+}
+
+#ana_tekst{
+    
+}
+
+@media (max-width:640px){
+    body{
+        margin-top: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #twittersection{
+        width:100%;
+    }
+
+    .twitter-timeline{
+        width:100% !important;
+    }
+
+    #embed-api-auth-container{
+       margin:0 auto;
+    }
 }
