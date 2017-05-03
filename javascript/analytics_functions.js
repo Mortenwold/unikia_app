@@ -1,7 +1,5 @@
 function renderWeekOverWeekChart(ids) {
-
-    // Adjust `now` to experiment with different days, for testing only...
-    var now = moment(); // .subtract(3, 'day');
+    var now = moment();
 
     var thisWeek = query({
         'ids': ids,
@@ -64,16 +62,8 @@ function renderWeekOverWeekChart(ids) {
     });
 }
 
-
-/**
- * Draw the a chart.js bar chart with data from the specified view that
- * overlays session data for the current year over session data for the
- * previous year, grouped by month.
- */
 function renderYearOverYearChart(ids) {
-
-    // Adjust `now` to experiment with different days, for testing only...
-    var now = moment(); // .subtract(3, 'day');
+    var now = moment();
 
     var thisYear = query({
         'ids': ids,
@@ -103,8 +93,6 @@ function renderYearOverYearChart(ids) {
         var labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        // Ensure the data arrays are at least as long as the labels array.
-        // Chart.js bar charts don't (yet) accept sparse datasets.
         for (var i = 0, len = labels.length; i < len; i++) {
             if (data1[i] === undefined)
                 data1[i] = null;
@@ -138,11 +126,6 @@ function renderYearOverYearChart(ids) {
             });
 }
 
-
-/**
- * Draw the a chart.js doughnut chart with data from the specified view that
- * show the top 5 browsers over the past seven days.
- */
 function renderTopBrowsersChart(ids) {
 
     query({
@@ -155,7 +138,7 @@ function renderTopBrowsersChart(ids) {
             .then(function (response) {
 
                 var data = [];
-                var colors = ['#4D5360', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
+                var colors = ['#FFC0CB', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
 
                 response.rows.forEach(function (row, i) {
                     data.push({value: +row[1], color: colors[i], label: row[0]});
@@ -167,11 +150,6 @@ function renderTopBrowsersChart(ids) {
 }
 
 
-/**
- * Draw the a chart.js doughnut chart with data from the specified view that
- * compares sessions from mobile, desktop, and tablet over the past seven
- * days.
- */
 function renderTopCountriesChart(ids) {
     query({
         'ids': ids,
@@ -198,13 +176,6 @@ function renderTopCountriesChart(ids) {
             });
 }
 
-
-/**
- * Extend the Embed APIs `gapi.analytics.report.Data` component to
- * return a promise the is fulfilled with the value returned by the API.
- * @param {Object} params The request parameters.
- * @return {Promise} A promise.
- */
 function query(params) {
     return new Promise(function (resolve, reject) {
         var data = new gapi.analytics.report.Data({query: params});
@@ -218,13 +189,6 @@ function query(params) {
     });
 }
 
-
-/**
- * Create a new canvas inside the specified element. Set it to be the width
- * and height of its container.
- * @param {string} id The id attribute of the element to host the canvas.
- * @return {RenderingContext} The 2D canvas context.
- */
 function makeCanvas(id) {
     var container = document.getElementById(id);
     var canvas = document.createElement('canvas');
@@ -238,53 +202,57 @@ function makeCanvas(id) {
     return ctx;
 }
 
-
-/**
- * Create a visual legend inside the specified element based off of a
- * Chart.js dataset.
- * @param {string} id The id attribute of the element to host the legend.
- * @param {Array.<Object>} items A list of labels and colors for the legend.
- */
 function generateLegend(id, items) {
     var legend = document.getElementById(id);
     legend.innerHTML = items.map(function (item) {
         var color = item.color || item.fillColor;
         var label = item.label;
-        return '<li><i style="background:' + color + '"></i>' +
+        return '<li><div class="foo" style="background-color:' + color + '"></div>' +
                 escapeHtml(label) + '</li>';
     }).join('');
 }
 
-
-// Set some global Chart.js defaults.
 Chart.defaults.global.animationSteps = 60;
 Chart.defaults.global.animationEasing = 'easeInOutQuart';
 Chart.defaults.global.responsive = true;
 Chart.defaults.global.maintainAspectRatio = false;
 
-
-/**
- * Escapes a potentially unsafe HTML string.
- * @param {string} str An string that may contain HTML entities.
- * @return {string} The HTML-escaped string.
- */
 function escapeHtml(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
 }
-function renderMonth(ids) {
 
-    // Adjust `now` to experiment with different days, for testing only...
-    var now = moment(); // .subtract(3, 'day');
+function renderPageviews(ids, windowsizing) {
+    var now = moment();
 
-    var thisWeek = query({
-        'ids': ids,
-        'dimensions': 'ga:date,ga:nthDay',
-        'metrics': 'ga:sessions',
-        'start-date': moment(now).subtract(30, 'day').day(0).format('YYYY-MM-DD'),
-        'end-date': moment(now).format('YYYY-MM-DD')
-    });
+    var thisWeek;
+
+    if (windowsizing < 350) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:pageviews',
+            'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else if (windowsizing < 768) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:pageviews',
+            'start-date': moment(now).subtract(10, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:pageviews',
+            'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    }
 
     Promise.all([thisWeek]).then(function (results) {
 
@@ -314,100 +282,222 @@ function renderMonth(ids) {
         };
 
         new Chart(makeCanvas('data-chart-1-container')).Line(data);
-        generateLegend('legend-1-container', data.datasets);
     });
 
 
 }
-function myFunction1() {
+
+
+function renderTime(ids, windowsizing) {
+    var now = moment();
+
+    var thisWeek;
+
+    if (windowsizing < 350) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:timeOnPage',
+            'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else if (windowsizing < 768) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:timeOnPage',
+            'start-date': moment(now).subtract(10, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:timeOnPage',
+            'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    }
+
+    Promise.all([thisWeek]).then(function (results) {
+
+        var data1 = results[0].rows.map(function (row) {
+            return +row[2];
+        });
+        var labels = results[0].rows.map(function (row) {
+            return +row[0];
+        });
+
+        labels = labels.map(function (label) {
+            return moment(label, 'YYYYMMDD').format('MMM - DD');
+        });
+
+        var data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'This Week',
+                    fillColor: 'rgba(151,187,205,0.5)',
+                    strokeColor: 'rgba(151,187,205,1)',
+                    pointColor: 'rgba(151,187,205,1)',
+                    pointStrokeColor: '#fff',
+                    data: data1
+                }
+            ]
+        };
+
+        new Chart(makeCanvas('data-chart-1-container')).Line(data);
+    });
+
+
+}
+
+function renderPercentsessions(ids, windowsizing) {
+    var now = moment();
+
+    var thisWeek;
+
+    if (windowsizing < 350) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:percentNewSessions',
+            'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else if (windowsizing < 768) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:percentNewSessions',
+            'start-date': moment(now).subtract(10, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:percentNewSessions',
+            'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    }
+
+    Promise.all([thisWeek]).then(function (results) {
+
+        var data1 = results[0].rows.map(function (row) {
+            return +row[2];
+        });
+        var labels = results[0].rows.map(function (row) {
+            return +row[0];
+        });
+
+        labels = labels.map(function (label) {
+            return moment(label, 'YYYYMMDD').format('MMM - DD');
+        });
+
+        var data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'This Week',
+                    fillColor: 'rgba(151,187,205,0.5)',
+                    strokeColor: 'rgba(151,187,205,1)',
+                    pointColor: 'rgba(151,187,205,1)',
+                    pointStrokeColor: '#fff',
+                    data: data1
+                }
+            ]
+        };
+
+        new Chart(makeCanvas('data-chart-1-container')).Line(data);
+    });
+
+
+}
+function dateGraph(ids, windowsizing) {
+
+    gapi.analytics.ready(function () {
+
+        gapi.analytics.auth.authorize({
+            container: 'embed-api-auth-container',
+            clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+        });
+
+        var commonConfig = {
+            query: {
+                metrics: 'ga:sessions',
+                dimensions: 'ga:date'
+            },
+            chart: {
+                type: 'LINE',
+                options: {
+                    width: '100%'
+                }
+            }
+        };
+
+        var dateRange1;
+        if (windowsizing < 350) {
+            var dateRange1 = {
+                'start-date': '3daysAgo',
+                'end-date': 'yesterday'
+            };
+        } else if (windowsizing < 768) {
+            var dateRange1 = {
+                'start-date': '10daysAgo',
+                'end-date': 'yesterday'
+            };
+        } else {
+            var dateRange1 = {
+                'start-date': '30daysAgo',
+                'end-date': 'yesterday'
+            };
+        }
+
+
+        var viewSelector = new gapi.analytics.ext.ViewSelector2({
+            container: 'view-selector-container',
+        }).execute();
+
+
+
+
+        var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
+            container: 'date-range-selector-2-container'
+        })
+                .set(dateRange1)
+                .execute();
+
+
+        var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
+                .set({query: dateRange1})
+                .set({chart: {container: 'data-chart-2-container'}});
+
+
+        viewSelector.on('viewChange', function (data) {
+            dataChart1.set({query: {ids: data.ids}}).execute();
+
+            var title = document.getElementById('view-name');
+            title.textContent = data.property.name + ' (' + data.view.name + ')';
+        });
+
+
+
+        dateRangeSelector1.on('change', function (data) {
+            dataChart1.set({query: data}).execute();
+
+            var datefield = document.getElementById('from-dates');
+            datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
+        });
+
+    });
+}
+
+function myFunction1(windowSize) {
     var x = document.getElementById("graph").value;
     if (x == "graph1") {
-        gapi.analytics.ready(function () {
-
-            gapi.analytics.auth.authorize({
-                container: 'embed-api-auth-container',
-                clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
-            });
-
-            var commonConfig = {
-                query: {
-                    metrics: 'ga:sessions',
-                    dimensions: 'ga:date'
-                },
-                chart: {
-                    type: 'LINE',
-                    options: {
-                        width: '100%'
-                    }
-                }
-            };
-
-            /**
-             * Query params representing the first chart's date range.
-             */
-            var dateRange1 = {
-                'start-date': '7daysAgo',
-                'end-date': '1daysAgo'
-            };
-
-
-            /**
-             * Create a new ViewSelector2 instance to be rendered inside of an
-             * element with the id "view-selector-container".
-             */
-            var viewSelector = new gapi.analytics.ext.ViewSelector2({
-                container: 'view-selector-container',
-            }).execute();
-
-
-            /**
-             * Create a new DateRangeSelector instance to be rendered inside of an
-             * element with the id "date-range-selector-1-container", set its date range
-             * and then render it to the page.
-             */
-            var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
-                container: 'date-range-selector-1-container'
-            })
-                    .set(dateRange1)
-                    .execute();
-
-            /**
-             * Create a new DataChart instance with the given query parameters
-             * and Google chart options. It will be rendered inside an element
-             * with the id "data-chart-1-container".
-             */
-            var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
-                    .set({query: dateRange1})
-                    .set({chart: {container: 'data-chart-1-container'}});
-
-            /**
-             * Register a handler to run whenever the user changes the view.
-             * The handler will update both dataCharts as well as updating the title
-             * of the dashboard.
-             */
-            viewSelector.on('viewChange', function (data) {
-                dataChart1.set({query: {ids: data.ids}}).execute();
-                dataChart2.set({query: {ids: data.ids}}).execute();
-
-                var title = document.getElementById('view-name');
-                title.textContent = data.property.name + ' (' + data.view.name + ')';
-            });
-
-
-            /**
-             * Register a handler to run whenever the user changes the date range from
-             * the first datepicker. The handler will update the first dataChart
-             * instance as well as change the dashboard subtitle to reflect the range.
-             */
-            dateRangeSelector1.on('change', function (data) {
-                dataChart1.set({query: data}).execute();
-
-                // Update the "from" dates text.
-                var datefield = document.getElementById('from-dates');
-                datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
-            });
-
-        });
+        skriv_graf(windowSize);
     } else if (x == "graph2") {
 
         gapi.analytics.ready(function () {
@@ -417,81 +507,22 @@ function myFunction1() {
                 clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
             });
 
-            var commonConfig = {
-                query: {
-                    metrics: 'ga:pageviews',
-                    dimensions: 'ga:date'
-                },
-                chart: {
-                    type: 'LINE',
-                    options: {
-                        width: '100%'
-                    }
-                }
-            };
-
-            /**
-             * Query params representing the first chart's date range.
-             */
-            var dateRange1 = {
-                'start-date': '14daysAgo',
-                'end-date': '8daysAgo'
-            };
-
-            /**
-             * Create a new ViewSelector2 instance to be rendered inside of an
-             * element with the id "view-selector-container".
-             */
-            var viewSelector = new gapi.analytics.ext.ViewSelector2({
+            var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
                 container: 'view-selector-container',
-            }).execute();
-
-
-            /**
-             * Create a new DateRangeSelector instance to be rendered inside of an
-             * element with the id "date-range-selector-1-container", set its date range
-             * and then render it to the page.
-             */
-            var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
-                container: 'date-range-selector-1-container'
             })
-                    .set(dateRange1)
                     .execute();
 
-            /**
-             * Create a new DataChart instance with the given query parameters
-             * and Google chart options. It will be rendered inside an element
-             * with the id "data-chart-1-container".
-             */
-            var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
-                    .set({query: dateRange1})
-                    .set({chart: {container: 'data-chart-1-container'}});
 
             /**
-             * Register a handler to run whenever the user changes the view.
-             * The handler will update both dataCharts as well as updating the title
-             * of the dashboard.
+             * Update the activeUsers component, the Chartjs charts, and the dashboard
+             * title whenever the user changes the view.
              */
-            viewSelector.on('viewChange', function (data) {
-                dataChart1.set({query: {ids: data.ids}}).execute();
-                dataChart2.set({query: {ids: data.ids}}).execute();
-
+            viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
-            });
 
-
-            /**
-             * Register a handler to run whenever the user changes the date range from
-             * the first datepicker. The handler will update the first dataChart
-             * instance as well as change the dashboard subtitle to reflect the range.
-             */
-            dateRangeSelector1.on('change', function (data) {
-                dataChart1.set({query: data}).execute();
-
-                // Update the "from" dates text.
-                var datefield = document.getElementById('from-dates');
-                datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
+                // Render all the of charts for this view.
+                renderPageviews(data.ids, windowSize);
             });
 
         });
@@ -503,81 +534,23 @@ function myFunction1() {
                 clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
             });
 
-            var commonConfig = {
-                query: {
-                    metrics: 'ga:timeOnPage',
-                    dimensions: 'ga:date'
-                },
-                chart: {
-                    type: 'LINE',
-                    options: {
-                        width: '100%'
-                    }
-                }
-            };
 
-            /**
-             * Query params representing the first chart's date range.
-             */
-            var dateRange1 = {
-                'start-date': '14daysAgo',
-                'end-date': '8daysAgo'
-            };
-
-            /**
-             * Create a new ViewSelector2 instance to be rendered inside of an
-             * element with the id "view-selector-container".
-             */
-            var viewSelector = new gapi.analytics.ext.ViewSelector2({
+            var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
                 container: 'view-selector-container',
-            }).execute();
-
-
-            /**
-             * Create a new DateRangeSelector instance to be rendered inside of an
-             * element with the id "date-range-selector-1-container", set its date range
-             * and then render it to the page.
-             */
-            var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
-                container: 'date-range-selector-1-container'
             })
-                    .set(dateRange1)
                     .execute();
 
-            /**
-             * Create a new DataChart instance with the given query parameters
-             * and Google chart options. It will be rendered inside an element
-             * with the id "data-chart-1-container".
-             */
-            var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
-                    .set({query: dateRange1})
-                    .set({chart: {container: 'data-chart-1-container'}});
 
             /**
-             * Register a handler to run whenever the user changes the view.
-             * The handler will update both dataCharts as well as updating the title
-             * of the dashboard.
+             * Update the activeUsers component, the Chartjs charts, and the dashboard
+             * title whenever the user changes the view.
              */
-            viewSelector.on('viewChange', function (data) {
-                dataChart1.set({query: {ids: data.ids}}).execute();
-                dataChart2.set({query: {ids: data.ids}}).execute();
-
+            viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
-            });
 
-
-            /**
-             * Register a handler to run whenever the user changes the date range from
-             * the first datepicker. The handler will update the first dataChart
-             * instance as well as change the dashboard subtitle to reflect the range.
-             */
-            dateRangeSelector1.on('change', function (data) {
-                dataChart1.set({query: data}).execute();
-
-                // Update the "from" dates text.
-                var datefield = document.getElementById('from-dates');
-                datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
+                // Render all the of charts for this view.
+                renderTime(data.ids, windowSize);
             });
 
         });
@@ -589,84 +562,196 @@ function myFunction1() {
                 clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
             });
 
-            var commonConfig = {
-                query: {
-                    metrics: 'ga:percentNewSessions',
-                    dimensions: 'ga:date'
-                },
-                chart: {
-                    type: 'LINE',
-                    options: {
-                        width: '100%'
-                    }
-                }
-            };
 
-            /**
-             * Query params representing the first chart's date range.
-             */
-            var dateRange1 = {
-                'start-date': '14daysAgo',
-                'end-date': '8daysAgo'
-            };
-
-            /**
-             * Create a new ViewSelector2 instance to be rendered inside of an
-             * element with the id "view-selector-container".
-             */
-            var viewSelector = new gapi.analytics.ext.ViewSelector2({
+            var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
                 container: 'view-selector-container',
-            }).execute();
-
-
-            /**
-             * Create a new DateRangeSelector instance to be rendered inside of an
-             * element with the id "date-range-selector-1-container", set its date range
-             * and then render it to the page.
-             */
-            var dateRangeSelector1 = new gapi.analytics.ext.DateRangeSelector({
-                container: 'date-range-selector-1-container'
             })
-                    .set(dateRange1)
                     .execute();
 
-            /**
-             * Create a new DataChart instance with the given query parameters
-             * and Google chart options. It will be rendered inside an element
-             * with the id "data-chart-1-container".
-             */
-            var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
-                    .set({query: dateRange1})
-                    .set({chart: {container: 'data-chart-1-container'}});
 
             /**
-             * Register a handler to run whenever the user changes the view.
-             * The handler will update both dataCharts as well as updating the title
-             * of the dashboard.
+             * Update the activeUsers component, the Chartjs charts, and the dashboard
+             * title whenever the user changes the view.
              */
-            viewSelector.on('viewChange', function (data) {
-                dataChart1.set({query: {ids: data.ids}}).execute();
-                dataChart2.set({query: {ids: data.ids}}).execute();
-
+            viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
-            });
 
-
-            /**
-             * Register a handler to run whenever the user changes the date range from
-             * the first datepicker. The handler will update the first dataChart
-             * instance as well as change the dashboard subtitle to reflect the range.
-             */
-            dateRangeSelector1.on('change', function (data) {
-                dataChart1.set({query: data}).execute();
-
-                // Update the "from" dates text.
-                var datefield = document.getElementById('from-dates');
-                datefield.textContent = data['start-date'] + '&mdash;' + data['end-date'];
+                // Render all the of charts for this view.
+                renderPercentsessions(data.ids, windowSize);
             });
 
         });
     }
 }
 
+
+function skriv_graf(windowSize) {
+    gapi.analytics.ready(function () {
+        gapi.analytics.auth.authorize({
+            container: 'embed-api-auth-container',
+            clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+        });
+
+        var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
+            container: 'view-selector-container',
+        })
+                .execute();
+
+        viewSelector3.on('viewChange', function (data) {
+            var title = document.getElementById('view-name');
+            title.textContent = data.property.name + ' (' + data.view.name + ')';
+
+            renderMonth(data.ids, windowSize);
+        });
+    });
+}
+
+function renderMonth(ids, windowSize) {
+    var now = moment();
+
+    var thisWeek;
+
+    if (windowSize <= 400) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:pageviews',
+            'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else if (windowSize <= 768) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:newUsers',
+            'start-date': moment(now).subtract(6, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:newUsers',
+            'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    }
+
+    Promise.all([thisWeek]).then(function (results) {
+
+        var data1 = results[0].rows.map(function (row) {
+            return +row[2];
+        });
+        var labels = results[0].rows.map(function (row) {
+            return +row[0];
+        });
+
+        labels = labels.map(function (label) {
+            return moment(label, 'YYYYMMDD').format('MMM - DD');
+        });
+
+        var data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'This Week',
+                    fillColor: 'rgba(151,187,205,0.5)',
+                    strokeColor: 'rgba(151,187,205,1)',
+                    pointColor: 'rgba(151,187,205,1)',
+                    pointStrokeColor: '#fff',
+                    data: data1
+                }
+            ]
+        };
+
+        new Chart(makeCanvas('data-chart-1-container')).Line(data);
+    });
+}
+
+function analyticsdashboard(id, windowSize) {
+    gapi.analytics.ready(function () {
+
+        /**
+         * Authorize the user immediately if the user has already granted access.
+         * If no access has been created, render an authorize button inside the
+         * element with the ID "embed-api-auth-container".
+         */
+        gapi.analytics.auth.authorize({
+            container: 'embed-api-auth-container',
+            clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+        });
+
+
+        /**
+         * Create a new ActiveUsers instance to be rendered inside of an
+         * element with the id "active-users-container" and poll for changes every
+         * five seconds.
+         */
+        var activeUsers = new gapi.analytics.ext.ActiveUsers({
+            container: 'active-users-container',
+            pollingInterval: 5
+        });
+
+
+        /**
+         * Add CSS animation to visually show the when users come and go.
+         */
+        activeUsers.once('success', function () {
+            var element = this.container.firstChild;
+            var timeout;
+
+            this.on('change', function (data) {
+                var element = this.container.firstChild;
+                var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
+                element.className += (' ' + animationClass);
+
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    element.className =
+                            element.className.replace(/ is-(increasing|decreasing)/g, '');
+                }, 3000);
+            });
+        });
+
+
+        /**
+         * Create a new ViewSelector2 instance to be rendered inside of an
+         * element with the id "view-selector-container".
+         */
+        var viewSelector = new gapi.analytics.ext.ViewSelector2({
+            container: 'view-selector-container',
+        })
+                .execute();
+
+
+        /**
+         * Update the activeUsers component, the Chartjs charts, and the dashboard
+         * title whenever the user changes the view.
+         */
+        viewSelector.on('viewChange', function (data) {
+            var title = document.getElementById('view-name');
+            title.textContent = data.property.name + ' (' + data.view.name + ')';
+
+            // Start tracking active users for this view.
+            activeUsers.set(data).execute();
+
+            // Render all the of charts for this view.
+            renderWeekOverWeekChart(data.ids);
+            renderYearOverYearChart(data.ids);
+            renderTopBrowsersChart(data.ids);
+            renderTopCountriesChart(data.ids);
+
+            if (id === "graph1") {
+                renderMonth(data.ids, windowSize);
+            } else if (id === "graph2") {
+                renderPageviews(data.ids, windowSize);
+            } else if (id === "graph3") {
+                renderTime(data.ids, windowSize);
+            } else if (id === "graph4") {
+                renderPercentsessions(data.ids, windowSize);
+            }
+            dateGraph(data.ids, windowSize);
+        });
+    });
+}
