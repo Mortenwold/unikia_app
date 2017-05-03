@@ -8,9 +8,12 @@
 @import './components/chartjs';
 
 body {
-    min-height: 75rem;
     padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
     background-color:#f1f1f1;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
 
 #unikiaicon{
@@ -41,12 +44,6 @@ body {
 
 .twitter-timeline{
     width:20rem !important;
-}
-
-body{
-    margin-top: 1rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
 }
 
 #view-selector-container{
