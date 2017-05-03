@@ -1,7 +1,12 @@
 body {
-  min-height: 75rem;
-  padding-top: 4.5rem;
-  background-color: #f1f1f1;
+    min-height: 75rem;
+    padding-top: 4.5rem;
+    background-color: #f1f1f1;
+}
+#top {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
 }
 
 #chart-1-container {
@@ -18,30 +23,17 @@ body {
     line-height:inherit;
     white-space:nowrap;
 }
- /* Placeholders */
+/* Placeholders */
 .placeholders {
-  padding-bottom: 3rem;
+    padding-bottom: 3rem;
 }
 
 #view-selector-container{
-}
-
-#analyticsPart{
-    border: 1px solid black;
-    overflow:hidden;
-    background-color: white;
-    
+    display: none;
 }
 
 #chart-container{
     width:99.05%;
-}
-
-#twittersection{
-    border: 1px solid black;
-    margin-top: 2rem;
-    width:20rem;
-    
 }
 
 canvas {
@@ -83,8 +75,6 @@ canvas {
     height: 31rem;
     margin-bottom: 3em;
 }
-.ViewSelector2 {
-}
 #embed-api-auth-container {
     float: right;
 }
@@ -110,20 +100,27 @@ canvas {
     display: inline;
     text-align: center;
 }
-.DateRangeSelector-item {
-    display: inline;
-}
+
 #view-name {
     display: none;
 }
 
+#date-range-selector-2-container {
+    text-align: center;
+}
+
+.DateRangeSelector-item {
+    display: inline-block;
+}
+
+
 .foo {
-  float: left;
-  width: 20px;
-  height: 20px;
-  margin: 5px;
-  border: 1px solid rgba(0, 0, 0, .2);
-  clear: both;
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    clear: both;
 }
 
 li{
@@ -134,16 +131,21 @@ li{
     #c1, #c2, #c3, #c4 {
         display: block;
         width: 100%;
-        margin: 0;
-        
-        
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 2%;
+
+
     }
     #topchart {
-        margin: 0;
+        margin-bottom: 2%;
         width: 100%;
+        margin-left: 0;
+        margin-right: 0;
     }
     #datechart {
-        margin: 0;
+        margin-left: 0;
+        margin-right: 0;
         width: 100%;
     }
 }

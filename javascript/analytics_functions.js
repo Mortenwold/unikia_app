@@ -614,7 +614,7 @@ function renderMonth(ids, windowSize) {
 
     var thisWeek;
 
-    if (windowSize <= 300) {
+    if (windowSize <= 350) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',

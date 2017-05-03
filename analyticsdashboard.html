@@ -16,6 +16,7 @@
         <link href="CSS/analyticsdesign.css" rel="stylesheet">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="javascript/analytics_functions.js"></script>
     </head>
 
     <body>
@@ -45,9 +46,6 @@
             </div>
         </nav>
 
-        <h1>Dashboard</h1>
-
-
         <script>
             (function (w, d, s, g, js, fs) {
                 g = w.gapi || (w.gapi = {});
@@ -62,40 +60,33 @@
                     g.load('analytics');
                 };
             }(window, document, 'script'));
-            
+
             var id;
             $(window).resize(function () {
                 clearTimeout(id);
                 id = setTimeout(doneResizing, 500);
 
             });
-            
+
             var windowSize = $(window).width();
             var id = "graph1";
             function doneResizing() {
                 id = $("#graph").val();
                 windowSize = $(window).width();
-                analyticsdashboard(id,windowSize);
-                //alert($("#graph").val());
-                /*if (windowSize < 300) {
-                    $('html').css('background-color', 'red');
-                    analyticsdashboard(id, windowSize);
-                    
-                } else if (windowSize < 768) {
-                    $('html').css('background-color', 'yellow');
-                    analyticsdashboard(id, windowSize);
-                } else {
-                    $('html').css('background-color', 'blue');
-                    analyticsdashboard(id, windowSize);
-                }*/
+                analyticsdashboard(id, windowSize);
+
             }
         </script>
-        <div id="embed-api-auth-container"></div>
+
         <div id="main">
             <div id="chart1">
-
-                <div id="active-users-container"></div>
+                <div id="top">
+                    <h1>Dashboard</h1>
+                    
+                    <div id="active-users-container"></div>
+                </div>
                 <div id="topchart">
+                    <div id="embed-api-auth-container"></div>
                     <header>  
                         <form action="" method ="post">
                             <select id="graph" onchange="myFunction1(windowSize)">     
@@ -149,7 +140,7 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
                 <link rel="stylesheet" href="chartjs-visualizations.css">
                 <script>
-                    analyticsdashboard(id, windowSize);
+                                analyticsdashboard(id, windowSize);
 
                 </script>
             </div>
@@ -164,6 +155,6 @@
         <script src="javascript/bootstrap.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="javascript/ie10-viewport-bug-workaround.js"></script>
-        <script src="javascript/analytics_functions.js"></script>
+
     </body>
 </html>
