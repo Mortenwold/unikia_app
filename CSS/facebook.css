@@ -1,8 +1,181 @@
-#facebook
-{
-    margin-left: 10%;
-    margin-top: 10%;
-    margin-right: 10%;
-    margin-bottom: 10%;
+#facebook {
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 2%;
+}
+table {
+    border-collapse: collapse;
+    width: 49%;
+    table-layout: fixed;
+}
+.latestPostTable {
+    border-collapse: collapse;
+    width: 49%;
+    table-layout: fixed;
+    float: right;
+    margin-bottom: 1%;
+}
+.likesTable {
+    border-collapse: collapse;
+    width: 48%;
+    table-layout: fixed;
+    float: left;
+    margin: 1%;
+}
+.searchTable {
+    border-collapse: collapse;
+    width: 98%;
+    table-layout: fixed;
+}
+.searchSetupTable {
+    border-collapse: collapse;
+    width: 98%;
+    table-layout: fixed;
+    margin-bottom: 3%;
+}
+.searchSetupTd {
+    text-align: center;
+    background-color: white;
+    min-width: 5%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.summaryTable {
+    border-collapse: collapse;
+    width: 70%;
+    table-layout: fixed;
+}
 
+th, td {
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    font-size: 1.6vw;
+}
+td {
+    background-color: white;
+    min-width: 5%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding: 0.5vw;
+    text-align: left;
+}
+th {
+    background-color: #520a76;
+    color: white;
+    text-align: center; 
+    width: 10%;
+    padding: 1vw;
+}
+.thMessage
+{
+    width: 40%;
+}
+#linkTd
+{
+    background-color: #520a76;  
+    padding: 1vw;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+.dateTd {
+    font-size: 1.3vw;
+}
+#searchHeader
+{
+    background-color: #520a76;  
+    padding: 1vw;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    width: 50%;
+}
+.likesSettings {
+    color: #08c5dd;
+}
+.commentsSettings {
+    color: red;
+}
+.sharesSettings {
+    color: yellow;
+}
+
+a:link {
+    color: white;
+}
+a:visited {
+    color: white;
+}
+a:hover {
+    color: white;
+}
+a:active {
+    color: white;
+}
+#buttonScale {
+    font-size: 2vw;
+}
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+   .searchTable {
+       border-collapse: collapse;
+       width: 196%;
+       table-layout: fixed;
+   }
+   .searchSetupTable {
+       border-collapse: collapse;
+       width: 196%;
+       table-layout: fixed;
+       margin-bottom: 3%;
+   }
+   th, td {
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    font-size: 3vw;
+    }
+    td {
+        background-color: white;
+        min-width: 10%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 0.5vw;
+        text-align: left;
+    }
+    th {
+        background-color: #520a76;
+        color: white;
+        text-align: center; 
+        width: 20%;
+        padding: 1vw;
+    }
+    .thMessage
+    {
+        width: 60%;
+    }
+    #linkTd
+    {
+        background-color: #520a76;  
+        padding: 1vw;
+        text-align: center;
+        font-weight: bold;
+        color: white;
+    }
+    .dateTd {
+        font-size: 3.2vw;
+    }
+    #searchHeader
+    {
+    background-color: #520a76;  
+    padding: 1vw;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    width: 100%;
+    }
+    
 }

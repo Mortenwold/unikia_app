@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Fixed top navbar example for Bootstrap</title>
+    <title>Unikia Facebook</title>
 
     <!-- Bootstrap core CSS -->
     <link href="CSS/bootstrap.min.css" rel="stylesheet">
@@ -24,23 +24,19 @@
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">Fixed navbar</a>
+      <img id="unikiaicon" src="images/unikia-link.png">
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="analyticsdashboard.html">Google Analytics</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+            <a class="nav-link" href="facebookone.php">Facebook</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </nav>
       <div id ="facebook">
@@ -57,7 +53,8 @@
         $helper = $fb->getRedirectLoginHelper();
         
         // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-        define('APP_URL', 'http://localhost/unikia_app/facebooktwo.php');
+
+        define('APP_URL', 'http://localhost/unikia_app/facebookone.php');
         $permissions = ['user_posts', 'user_photos']; // optional
 
         try {
@@ -90,9 +87,11 @@
                         $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
                 }
                 // redirect the user back to the same page if it has "code" GET variable
-            //    if (isset($_GET['code'])) {
-              //          header('Location: ./');
-              //  }
+
+                /*if (isset($_GET['code'])) {
+                        header('Location: ./');
+                }*/
+
                 // validating user access token
                 try {
                         $user = $fb->get('/me');
@@ -108,97 +107,10 @@
                         echo 'Facebook SDK returned an error: ' . $e->getMessage();
                         exit;
                 }
-
-                echo 'Latest UnikiaNorge Post<br>';
-                $howManyPosts = 1; // ADD A BUTTON (DROPDOWN???) FOR USER
-                $getLatestPost = $fb->get('Unikianorge/posts?likes.limit(0)&limit='.$howManyPosts);
-                $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
-                
-                foreach ($getLatestPost as $key) {
-                    if (isset($key['id'])) {
-                        $post = $key['id'];
-                        $date = $key['created_time'];
-                        $dateformat = $date->format('d-m-Y');
-                        echo 'Latest post ('.$dateformat.'): ';
-                        $linkAddress = 'http://www.facebook.com/'.$post;
-                        echo "<a href='".$linkAddress."'>Link</a>";
-                        
-                        $likesResponse = $fb->get('/'.$key['id'].'/likes?limit=0&summary=true');
-                        $getLikeCount = $likesResponse->getGraphEdge();
-                        $currentLikeCount = $getLikeCount->getTotalCount();
-                        echo ' - Likes: '.$currentLikeCount;
-                        
-                        if (isset($key['message']) && $key['message']) {
-                            echo '<br>Message: '.$key['message'].'<br><br>'; 
-                        }
-                        else   {
-                            echo 'No message<br><br>';
-                        }
-                                            }
-                }
-                 echo '<br>Latest UnikiaInnovation Post<br>';
-                $howManyPosts = 1; // ADD A BUTTON (DROPDOWN???) FOR USER
-                $getLatestPost = $fb->get('Unikiainnovation/posts?likes.limit(0)&limit='.$howManyPosts);
-                $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
-                
-                foreach ($getLatestPost as $key) {
-                    if (isset($key['id'])) {
-                        $post = $key['id'];
-                        $date = $key['created_time'];
-                        $dateformat = $date->format('d-m-Y');
-                        echo 'Latest post ('.$dateformat.'): ';
-                        $linkAddress = 'http://www.facebook.com/'.$post;
-                        echo "<a href='".$linkAddress."'>Link</a>";
-                        
-                        $likesResponse = $fb->get('/'.$key['id'].'/likes?limit=0&summary=true');
-                        $getLikeCount = $likesResponse->getGraphEdge();
-                        $currentLikeCount = $getLikeCount->getTotalCount();
-                        echo ' - Likes: '.$currentLikeCount;
-                        
-                        if (isset($key['message']) && $key['message'])    {
-                            echo '<br>Message: '.$key['message'].'<br><br>'; 
-                        }
-                        else  {
-                            echo 'No message<br><br>';
-                        } 
-                                            }
-                } 
-                echo '<br>Latest Barnas Designlab Post<br>';
-                $howManyPosts = 1; // ADD A BUTTON (DROPDOWN???) FOR USER
-                $getLatestPost = $fb->get('barnasdesignlab/posts?likes.limit(0)&limit='.$howManyPosts);
-                $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
-                
-                foreach ($getLatestPost as $key) {
-                    if (isset($key['id'])) {
-                        $post = $key['id'];
-                        $date = $key['created_time'];
-                        $dateformat = $date->format('d-m-Y');
-                        echo 'Latest post ('.$dateformat.'): ';
-                        $linkAddress = 'http://www.facebook.com/'.$post;
-                        echo "<a href='".$linkAddress."'>Link</a>";
-                        
-                        $likesResponse = $fb->get('/'.$key['id'].'/likes?limit=0&summary=true');
-                        $getLikeCount = $likesResponse->getGraphEdge();
-                        $currentLikeCount = $getLikeCount->getTotalCount();
-                        echo ' - Likes: '.$currentLikeCount;
-                        
-                       if (isset($key['message']) && $key['message'])   {
-                            echo '<br>Message: '.$key['message'].'<br><br>'; 
-                        }
-                        else  {
-                            echo '<br>No message<br><br>';
-                        }
-                                            }
-                }
-                echo '<br><br>';
-                ?>
-    <input type='button'  value='Info - hover me' title='Start date includes itself, but the end date does not. 
-Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (not including) January 10th' />
-                <?php
-                echo '<br><br>';
                 $showtoday = new DateTime();
                 $showtodayFormat = $showtoday->format('d-m-Y');
-                echo 'Today is '.$showtodayFormat;
+                $todayDatePrint = $showtodayFormat;
+           //     echo 'Today is '.$showtodayFormat;
                 
                 $showDateDayStart = new DateTime(); $showDateDayStart = $showDateDayStart->modify('-7 days'); 
                 $showDateFormatDayStart = $showDateDayStart->format('d');
@@ -220,8 +132,9 @@ Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (no
                 
                 ?>
                 <form action="" method ="post">
-                     Start Date (Default: <?php echo $showDateStartDefault ?> - 7 Days ago) <br>
-                    <select id="yearStart" name="yearStart">                      
+                     <table class="searchSetupTable" border ="2">
+                    <th colspan="3">  Start Date (Default: <?php echo $showDateStartDefault ?> - 7 Days ago) </th> 
+                    <tr><td class="searchSetupTd" > <select id="yearStart" name="yearStart">                      
                     <option value="<?php echo $showDateFormatYearStart ?>">--Select Year--</option>
                     <option value="2016">2016</option>
                     <option value="2017">2017</option>
@@ -230,8 +143,8 @@ Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (no
                     <option value="2020">2020</option>
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
-                    </select>
-                      <select id="monthStart" name="monthStart">                      
+                            </select> </td>
+                            <td class="searchSetupTd" >  <select id="monthStart" name="monthStart">                      
                     <option value="<?php echo $showDateFormatMonthStart ?>">--Select Month--</option>
                     <option value="01">January</option>
                     <option value="02">February</option>
@@ -245,8 +158,8 @@ Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (no
                     <option value="10">October</option>
                     <option value="11">November</option>
                     <option value="12">December</option>
-                    </select>
-                      <select id="dayStart" name="dayStart">                      
+                                </select> </td>
+                                <td class="searchSetupTd" >  <select id="dayStart" name="dayStart">                      
                     <option value="<?php echo $showDateFormatDayStart ?>">--Select Day--</option>
                     <option value="01">1</option>
                     <option value="02">2</option>
@@ -280,10 +193,10 @@ Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (no
                     <option value="30">30</option>
                     <option value="31">31</option>
                     </select>
-                   
-                     <br><br>
-                      End Date (Default: <?php echo $showDateEndDefault ?> - Tomorrow)
-                      <br>
+                                </td></tr>
+                    <tr><th colspan="3"> End Date (Default: <?php echo $showDateEndDefault ?> - Tomorrow)
+                        </th></tr>
+                    <tr><td class="searchSetupTd" >
                    <select id="yearEnd" name="yearEnd">                      
                     <option value="<?php echo $showDateFormatYearEnd ?>">--Select Year--</option>
                     <option value="2016">2016</option>
@@ -293,8 +206,8 @@ Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (no
                     <option value="2020">2020</option>
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
-                    </select>
-                      <select id="monthEnd" name="monthEnd">                      
+                   </select> </td>
+                   <td class="searchSetupTd" >  <select id="monthEnd" name="monthEnd">                      
                     <option value="<?php echo $showDateFormatMonthEnd ?>">--Select Month--</option>
                     <option value="01">January</option>
                     <option value="02">February</option>
@@ -308,9 +221,9 @@ Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (no
                     <option value="10">October</option>
                     <option value="11">November</option>
                     <option value="12">December</option>
-                    </select>
+                       </select> </td>
                     
-                      <select id="dayEnd" name="dayEnd">                      
+                       <td class="searchSetupTd" >  <select id="dayEnd" name="dayEnd">                      
                     <option value="<?php echo $showDateFormatDayEnd ?>">--Select Day--</option> 
                     <option value="01">1</option>
                     <option value="02">2</option>
@@ -343,33 +256,34 @@ Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (no
                     <option value="29">29</option>
                     <option value="30">30</option>
                     <option value="31">31</option>
-                    </select>
-                      <br><br>
-                    Post limit (Default: 10)
-                    <br>
-                    <select id="searchLimit" name="searchLimit">                      
-                    <option value="10">--Select Limit--</option>  
+                           </select> </td></tr>
+                    <tr><th>  
+                    Post limit (Default: 5)
+                        </th> <th colspan="2"> Select Facebook (Default: UnikiaNorge) </th></tr>
+                    <tr><td class="searchSetupTd" > <select id="searchLimit" name="searchLimit">                      
+                    <option value="5">--Select Limit--</option>  
                     <option value="1">1</option>
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>
                     <option value="20">20</option>
                     <option value="25">25</option>
-                    </select>
-                    <br><br>
-                    Select Facebook (Default UnikiaNorge)
-                    <br>
-                    <select id="pageSelect" name="pageSelect">                      
+                    <option value="50">50</option>
+                            </select> </td>
+                            <td class="searchSetupTd" colspan="2"> <select id="pageSelect" name="pageSelect">                      
                     <option value="Unikianorge">--Select Facebook--</option>  
                     <option value="Unikianorge">UnikiaNorge</option>
                     <option value="Unikiainnovation">UnikiaInnovation</option>
                     <option value="Barnasdesignlab">Barnas Designlab</option>
-                    </select>
-                    <br><br>
-                    <input type="submit" name="Search" value="Search" />
-                    <br>
+                                </select> </td></tr>
+                    <tr><td  class="searchSetupTd" >
+                            <input id ="buttonScale" class ="btn btn-secondary" type="submit" name="Search" value="Search" /> </td>
+                        <td  colspan="2" class="searchSetupTd" ><input id ="buttonScale" class ="btn btn-secondary" type='button'  value='Info - Hover me' title='Start date includes itself, but the end date does not.
+The system will require over 1 minute if you pick 25-50 posts as the limit.' />
+                    </td></tr>
+                     </table>  
                  </form>
-                
+              
                 <?php
                  if(isset($_REQUEST["Search"]))
                  {
@@ -382,23 +296,23 @@ Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (no
                    $dayEnd = $_POST["dayEnd"];
                    
                    $searchLimit = $_POST["searchLimit"];
-                   $pageSelect = $_POST["pageSelect"];
-           
-                                      
-                   echo '<br> Results <br><br>';
-                   // GET POSTS IN X RANGE
+                   $pageSelect = $_POST["pageSelect"];                 
+                   
                    $startDate = $dayStart.'-'.$monthStart.'-'.$yearStart;
-                   $endDate = $dayEnd.'-'.$monthEnd.'-'.$yearEnd; 
-
-                   echo 'Posts from '.$startDate.' to '.$endDate.'<br>';
-                   echo 'Postlimit: '.$searchLimit.'<br>';
-                   echo 'Facebook: '.$pageSelect.'<br><br>';
+                   $endDate = $dayEnd.'-'.$monthEnd.'-'.$yearEnd;
                    
                    $getDateRange = $fb->get($pageSelect.'/posts?since='.$startDate.'&until='.$endDate.'&fields=created_time,message,likes.limit(0)&limit='.$searchLimit);
                    $getDateRange = $getDateRange->getGraphEdge()->asArray();
                    $counter = 1;
                    $dateRangeLikes = 0;
+                   $dateRangeComments = 0;
+                   $dateRangeShares = 0;
+                   $message = "";
                 
+                   echo '<table class="searchTable" border="2"> 
+                           <th colspan="5" id="searchHeader">'.$pageSelect.'  ('.$todayDatePrint.' to '.$startDate.') </th><th class="thMessage" rowspan="2">Message </th>
+                           <tr> <th>Limit: '.$searchLimit.'</th><th>Date</th><th>Likes</th><th>Comments</th><th>Shares</th> </tr>';
+                   set_time_limit(0);
                    foreach ($getDateRange as $key) {
                        if (isset($key['id'])) { 
                            $date = $key['created_time'];
@@ -408,24 +322,50 @@ Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (no
                            $currentLikeCount = $getLikeCount->getTotalCount();
                            $dateRangeLikes += $currentLikeCount;
                            $linkAddress = 'http://www.facebook.com/'.$key['id'];
-                           echo 'Post '.$counter.' ('.$dateformat.'): '."<a href='".$linkAddress."'>Link</a>".' - likes: '.$currentLikeCount.'<br>';
-                           echo 'ID: '.$key['id'].'<br>';
+                     
                            if (isset($key['message']) && $key['message'])   {
-                                echo 'Message: '.$key['message'].'<br><br>';  
+                                $message = $key['message'];  
                             }
                            else  {
-                                echo 'No message<br><br>';
-                           }              
-                           $counter++;
+                                $message = 'No message';
+                           }
+                           $commentsResponse = $fb->get('/'.$key['id'].'/comments?limit=0&summary=true');
+                            $getCommentsCount = $commentsResponse->getGraphEdge();
+                            $currentCommentCount = $getCommentsCount->getTotalCount();
+                            $dateRangeComments += $currentCommentCount;
+
+                            $sharesResponse = $fb->get('/'.$key['id'].'?fields=shares');
+                            $sharesResponse = $sharesResponse->getGraphNode()->asArray();
+                            if(isset($sharesResponse["shares"]["count"]))
+                            {
+                                $sharesCount = $sharesResponse["shares"]["count"];
+                                $dateRangeShares += $sharesCount;
+                            }
+                            else
+                            {
+                                $sharesCount = 0;
+                            }
+                            $linkPost = 'Post '.$counter;
+                            echo '<tr><td id ="linkTd">';
+                            echo "<a href='".$linkAddress."'>".$linkPost."</a>";
+                            echo '</td><td class="dateTd"y>'.$dateformat.'</td><td class="likesSettings">'.$currentLikeCount.'</td><td class="commentsSettings">'.$currentCommentCount.
+                                    '</td><td class="sharesSettings">'.$sharesCount.'</td><td class="messageSettings">'.$message.'</td></tr>';
+                            $counter++;       
                        }                       
-                   }
+                   }     
                    if($counter < 2) {
-                     echo  'No posts were found in this date range';
+                     echo '<tr><td colspan="6">No posts were made during this period.</td></tr>';
+                      echo  '</table>';
                    }
                    else {
-                       echo 'Total likes during this period: '.$dateRangeLikes;
+                      echo '<tr><td id ="linkTd" colspan="2">Total</td><td class="likesSettings">'.$dateRangeLikes.'</td>'
+                              . '<td class="commentsSettings">'.$dateRangeComments.'</td><td class="sharesSettings">'.$dateRangeShares.'</td>'
+                              . '<td></td></tr>';
+                      echo '<tr><td colspan="6" id="linkTd">'.$pageSelect.'</td></tr>';
+                      echo  '</table>';
+                       
                    }
-
+                   
                    echo '<br><br><br>';
                 
                  }
@@ -436,11 +376,21 @@ Example: 2017-01-01 -- 2017-01-10 will print from (including) January 1st to (no
         }
 
 ?>
-<form action="facebooktwo.php" method ="post">
-            <br><br>
-                    <input type="submit" name="back" value="back" />
+        <form action="facebookone.php" method ="post">
+            <br>
+                    <input type="submit" name="pageone" value="Unikia Norge" />
                     <br>
-</form>
+        </form>
+        <form action="facebooktwo.php" method ="post">
+            <br>
+                    <input type="submit" name="pagetwo" value="Unikia Innovation" />
+                    <br>
+        </form>
+        <form action="facebookthree.php" method ="post">
+            <br>
+                    <input type="submit" name="pagethree" value="Barnas Designlab" />
+                    <br>
+        </form>
        
       </div>
 

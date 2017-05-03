@@ -1,0 +1,118 @@
+
+@import './base/custom-media';
+@import './base/variables';
+
+
+/* Components. */
+@import './components/active-users';
+@import './components/chartjs';
+
+body {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+    background-color:#f1f1f1;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+#unikiaicon{
+    height:2rem;
+    width: 5rem;
+    display:inline-block;
+    padding-top:.25rem;
+    padding-bottom:.25rem;
+    margin-right:1rem;
+    line-height:inherit;
+    white-space:nowrap;
+}
+
+#analyticsPart{
+    border: 1px solid black;
+    overflow:hidden;
+    background-color: white;
+    display: block;
+    clear: both;
+}
+
+#twittersection{
+    border: 1px solid black;
+    margin-top: 2rem;
+    display:inline-block;
+    background-color:white;   
+}
+
+.twitter-timeline{
+    width:20rem !important;
+}
+
+#view-selector-container{
+    display:none;
+}
+
+#embed-api-auth-container{
+    float:right;
+    display: block;
+}
+
+#chart-container{
+    width:99.05%;
+}
+canvas {
+    height: 17em;
+    width: 100%;
+}
+
+.chartjs {
+    display: inline;
+    width: 30rem;
+}
+.ViewSelector2 {
+
+}
+#embed-api-auth-container {
+    float: right;
+}
+#topchart {
+    border: 1px solid black;
+    background-color: white;
+    overflow: auto;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-bottom: 2%;
+}
+#date-range-selector-1-container {
+    display: inline;
+    text-align: center;
+}
+.DateRangeSelector-item {
+    display: inline;
+}
+#view-name {
+    display: none;
+}
+
+#ana_tekst{
+    
+}
+
+@media (max-width:640px){
+    body{
+        margin-top: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #twittersection{
+        width:100%;
+    }
+
+    .twitter-timeline{
+        width:100% !important;
+    }
+
+    #embed-api-auth-container{
+       margin:0 auto;
+    }
+}
