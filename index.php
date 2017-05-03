@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="favicon.ico">
+        <link rel="icon" href="unikia-link.png">
         <!-- Bootstrap core CSS -->
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
 
@@ -21,12 +21,12 @@
         <title>Unikia Dashboard</title>
     </head>
 
-    <body id="mainbody">
+    <body>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <img id="unikiaicon" src="images/unikia-link.png">
+            <img id="unikiaicon" src="images/unikia-logo.png">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -41,8 +41,6 @@
                 </ul>
             </div>
         </nav>
-
-        <h1>Dashboard</h1>
         <script>
             (function (w, d, s, g, js, fs) {
                 g = w.gapi || (w.gapi = {});
@@ -74,9 +72,10 @@
                 skriv_graf(windowSize);
             }
         </script>
-        <div id="embed-api-auth-container"></div>
         <div id="main">
             <div id="analyticsPart">
+                <div id="embed-api-auth-container"></div>
+                <p class="text-muted">Number of pageviews for www.Unikia.no</p>
 
                 <div id="view-selector-container"></div>
                 <div id="data-chart-1-container"></div>

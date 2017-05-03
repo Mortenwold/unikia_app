@@ -608,17 +608,15 @@ function skriv_graf(windowSize) {
 }
 
 function renderMonth(ids, windowSize) {
-
-    // Adjust `now` to experiment with different days, for testing only...22
     var now = moment();
 
     var thisWeek;
 
-    if (windowSize <= 350) {
+    if (windowSize <= 400) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:newUsers',
+            'metrics': 'ga:pageviews',
             'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
