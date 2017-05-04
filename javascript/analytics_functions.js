@@ -649,7 +649,7 @@ function renderMonth(ids, windowSize) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:newUsers',
+            'metrics': 'ga:pageviews',
             'start-date': moment(now).subtract(6, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
@@ -657,7 +657,7 @@ function renderMonth(ids, windowSize) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:newUsers',
+            'metrics': 'ga:pageviews',
             'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
