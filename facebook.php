@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="favicon.ico">
+        <link rel="icon" href="images/unikiaicon.ico">
 
         <title>Unikia Facebook</title>
 
@@ -150,7 +150,7 @@
                 $showDateEndDefault = $showtoday->modify('+1 day');
                 $showDateEndDefault = $showDateEndDefault->format('d-m-Y');
                 ?>
-                
+            <div class="scaleZoom">
                     <form action="" method ="post">
                         <table class="searchSetupTable" border ="2">
                             <th colspan="3">  Start Date (Default: <?php echo $showDateStartDefault ?> - 7 Days ago) </th> 
@@ -303,7 +303,7 @@ The system will require over 1 minute if you pick 25-50 posts as the limit.' />
                                 </td></tr>
                         </table>  
                     </form>
-                
+            </div>
                 <?php
                 if (isset($_REQUEST["Search"])) {
                     $yearStart = $_POST["yearStart"];
