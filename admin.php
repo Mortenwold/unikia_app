@@ -10,6 +10,12 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
+        <?php
+        session_start();
+        if (!$_SESSION["login"]) {
+            Header("location: login.php");
+        }
+        ?>
         <form action="" method="post">
             <?php
             $db = mysqli_connect("localhost", "root", "", "unikia");

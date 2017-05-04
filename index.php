@@ -13,8 +13,6 @@
         <!-- Custom styles for this template -->
         <link href="CSS/index.css" rel="stylesheet">
 
-        
-        <link href="CSS/index.css" rel="stylesheet">
         <script src="javascript/analytics_functions.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -22,6 +20,15 @@
     </head>
 
     <body>
+        <?php
+        session_start();
+        if (!$_SESSION["login"]) {
+            Header("location: login.php");
+        }
+        if ($_SESSION["admin"]) {
+            echo '<a href="http://www.vg.no">Hei</a>';
+        }
+        ?>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,11 +40,16 @@
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="analyticsdashboard.html">Google Analytics</a>
+                        <a class="nav-link" href="analyticsdashboard.php">Google Analytics</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="facebooktwo.php">Facebook</a>
-                    </li>
+                    <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
                 </ul>
             </div>
         </nav>
@@ -62,10 +74,10 @@
                 id = setTimeout(doneResizing, 500);
 
             });
-            
-            
+
+
             var windowSize = $(window).width();
-            
+
             function doneResizing() {
                 windowSize = $(window).width();
 

@@ -496,9 +496,34 @@ function dateGraph(ids, windowsizing) {
 
 function myFunction1(windowSize) {
     var x = document.getElementById("graph").value;
-    if (x == "graph1") {
-        skriv_graf(windowSize);
-    } else if (x == "graph2") {
+    if (x === "graph1") {
+        gapi.analytics.ready(function () {
+
+            gapi.analytics.auth.authorize({
+                container: 'embed-api-auth-container',
+                clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+            });
+
+            var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
+                container: 'view-selector-container',
+            })
+                    .execute();
+
+
+            /**
+             * Update the activeUsers component, the Chartjs charts, and the dashboard
+             * title whenever the user changes the view.
+             */
+            viewSelector3.on('viewChange', function (data) {
+                var title = document.getElementById('view-name');
+                title.textContent = data.property.name + ' (' + data.view.name + ')';
+
+                // Render all the of charts for this view.
+                renderNewusers(data.ids, windowSize);
+            });
+
+        });
+    } else if (x === "graph2") {
 
         gapi.analytics.ready(function () {
 
@@ -526,7 +551,7 @@ function myFunction1(windowSize) {
             });
 
         });
-    } else if (x == "graph3") {
+    } else if (x === "graph3") {
         gapi.analytics.ready(function () {
 
             gapi.analytics.auth.authorize({
@@ -554,7 +579,7 @@ function myFunction1(windowSize) {
             });
 
         });
-    } else if (x == "graph4") {
+    } else if (x === "graph4") {
         gapi.analytics.ready(function () {
 
             gapi.analytics.auth.authorize({
@@ -617,6 +642,68 @@ function renderMonth(ids, windowSize) {
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
             'metrics': 'ga:pageviews',
+            'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else if (windowSize <= 768) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:newUsers',
+            'start-date': moment(now).subtract(6, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:newUsers',
+            'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    }
+
+    Promise.all([thisWeek]).then(function (results) {
+
+        var data1 = results[0].rows.map(function (row) {
+            return +row[2];
+        });
+        var labels = results[0].rows.map(function (row) {
+            return +row[0];
+        });
+
+        labels = labels.map(function (label) {
+            return moment(label, 'YYYYMMDD').format('MMM - DD');
+        });
+
+        var data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'This Week',
+                    fillColor: 'rgba(151,187,205,0.5)',
+                    strokeColor: 'rgba(151,187,205,1)',
+                    pointColor: 'rgba(151,187,205,1)',
+                    pointStrokeColor: '#fff',
+                    data: data1
+                }
+            ]
+        };
+
+        new Chart(makeCanvas('data-chart-1-container')).Line(data);
+    });
+}
+
+function renderNewusers(ids, windowSize) {
+    var now = moment();
+
+    var thisWeek;
+
+    if (windowSize <= 400) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:newUsers',
             'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
@@ -743,7 +830,7 @@ function analyticsdashboard(id, windowSize) {
             renderTopCountriesChart(data.ids);
 
             if (id === "graph1") {
-                renderMonth(data.ids, windowSize);
+                renderNewusers(data.ids, windowSize);
             } else if (id === "graph2") {
                 renderPageviews(data.ids, windowSize);
             } else if (id === "graph3") {

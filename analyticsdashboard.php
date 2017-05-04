@@ -18,33 +18,33 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="javascript/analytics_functions.js"></script>
     </head>
-
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <img id="unikiaicon" src="images/unikia-link.png">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="analyticsdashboard.php">Google Analytics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="facebooktwo.php">Facebook</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <body>
+        <?php
+        session_start();
+        if (!$_SESSION["login"]) {
+            Header("location: login.php");
+        }
+        ?>
 
-        <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <img id="unikiaicon" src="images/unikia-link.png">
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="analyticsdashboard.html">Google Analytics</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="facebooktwo.php" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facebook</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
 
         <script>
             (function (w, d, s, g, js, fs) {
@@ -82,7 +82,7 @@
             <div id="chart1">
                 <div id="top">
                     <h1>Dashboard</h1>
-                    
+
                     <div id="active-users-container"></div>
                 </div>
                 <div id="topchart">
