@@ -15,11 +15,17 @@
         <!-- Custom styles for this template -->
         <link href="navbar-top-fixed.css" rel="stylesheet">
 
+
         <link href="CSS/facebook.css" rel="stylesheet">
     </head>
 
-    <body>
-
+  <body>
+      <?php /*
+        session_start();
+        if (!$_SESSION["login"]) {
+            Header("location: login.php");
+        } */
+        ?>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -92,9 +98,12 @@
                     $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
                 }
                 // redirect the user back to the same page if it has "code" GET variable
-                /* if (isset($_GET['code'])) {
-                  header('Location: ./');
-                  } */
+
+
+                /*if (isset($_GET['code'])) {
+                        header('Location: ./');
+                }*/
+
                 // validating user access token
                 try {
                     $user = $fb->get('/me');
@@ -141,7 +150,7 @@
                 $showDateEndDefault = $showtoday->modify('+1 day');
                 $showDateEndDefault = $showDateEndDefault->format('d-m-Y');
                 ?>
-                <div class="scaleZoom">
+                
                     <form action="" method ="post">
                         <table class="searchSetupTable" border ="2">
                             <th colspan="3">  Start Date (Default: <?php echo $showDateStartDefault ?> - 7 Days ago) </th> 
@@ -207,7 +216,7 @@
                                 </td></tr>
                             <tr><th colspan="3"> End Date (Default: <?php echo $showDateEndDefault ?> - Tomorrow)
                                 </th></tr>
-                            <tr><td class="searchSetupTd" >
+                            <tr> <td class="searchSetupTd" >
                                     <select id="yearEnd" name="yearEnd">                      
                                         <option value="<?php echo $showDateFormatYearEnd ?>">--Select Year--</option>
                                         <option value="2016">2016</option>
@@ -290,11 +299,11 @@
                             <tr><td  class="searchSetupTd" >
                                     <input id ="buttonScale" class ="btn btn-secondary" type="submit" name="Search" value="Search" /> </td>
                                 <td  colspan="2" class="searchSetupTd" ><input id ="buttonScale" class ="btn btn-secondary" type='button'  value='Info - Hover me' title='Start date includes itself, but the end date does not.
-                                                                               The system will require over 1 minute if you pick 25-50 posts as the limit.' />
+The system will require over 1 minute if you pick 25-50 posts as the limit.' />
                                 </td></tr>
                         </table>  
                     </form>
-                </div>
+                
                 <?php
                 if (isset($_REQUEST["Search"])) {
                     $yearStart = $_POST["yearStart"];
@@ -375,10 +384,10 @@
             } else {
                 // replace your website URL same as added in the developers.facebook.com/apps e.g. if you used http instead of https and you used non-www version or www version of your website then you must add the same here
                 $loginUrl = $helper->getLoginUrl(APP_URL, $permissions);
-                echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';
+                echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
             }
             ?>
-
+            
         </div>
 
         <!-- Bootstrap core JavaScript

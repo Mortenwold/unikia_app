@@ -9,6 +9,7 @@
 
         <title>Unikia Facebook</title>
 
+
         <!-- Bootstrap core CSS -->
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
 
@@ -20,6 +21,13 @@
 
     <body>
 
+        <?php
+        /*
+        session_start();
+        if (!$_SESSION["login"]) {
+            Header("location: login.php");
+        } */
+        ?>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -46,18 +54,8 @@
             </div>
         </nav>
         <div id ="facebook">
-            <!DOCTYPE html>
-            <!--
-                To change this license header, choose License Headers in Project Properties.
-            To change this template file, choose Tools | Templates
-            and open the template in the editor.
-            -->
-            <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <title></title>
-                </head>
-                <body>
+ 
+           
 
                     <?php
                     session_start();
@@ -123,9 +121,11 @@
                             echo 'Facebook SDK returned an error: ' . $e->getMessage();
                             exit;
                         }
-                        echo '<h1>UnikiaNorge</h1>';
+
+                        echo '<h1>Unikia Norge</h1>';
                         $howManyPosts = 1; // Can change this number to show more posts
-                        $getLatestPost = $fb->get('Unikianorge/posts?likes.limit(0)&limit=' . $howManyPosts);
+
+                        $getLatestPost = $fb->get('unikianorge/posts?likes.limit(0)&limit=' . $howManyPosts);
                         $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
 
                         foreach ($getLatestPost as $key) {
@@ -133,11 +133,13 @@
                                 $post = $key['id'];
                                 $date = $key['created_time'];
                                 $dateformat = $date->format('d-m-Y');
+
                                 $linkAddress = 'http://www.facebook.com/' . $post;
 
                                 $likesResponse = $fb->get('/' . $key['id'] . '/likes?limit=0&summary=true');
                                 $getLikeCount = $likesResponse->getGraphEdge();
                                 $currentLikeCount = $getLikeCount->getTotalCount();
+
 
                                 $sharesLastPost = $fb->get('/' . $post . '?fields=shares');
                                 $sharesLastPost = $sharesLastPost->getGraphNode()->asArray();
@@ -173,10 +175,10 @@
                         echo '</tr></table>';
                         echo '</div>';
 
-                        $getTotalLikesNorge = $fb->get('Unikianorge?fields=fan_count');
+                        $getTotalLikesNorge = $fb->get('unikianorge?fields=fan_count');
                         $getTotalLikesNorge = $getTotalLikesNorge->getGraphNode()->asArray();
 
-                        $getCountry = $fb->get('Unikianorge/insights/?metric=page_fans_country');
+                        $getCountry = $fb->get('unikianorge/insights/?metric=page_fans_country');
                         $getCountry = $getCountry->getGraphEdge()->asArray();
                         $countryList = $getCountry["0"]["values"]["0"]["value"];
                         arsort($countryList);
@@ -228,7 +230,7 @@
                         $sevenDaysFormat = $sevenDays->format('Y-m-d');
                         $sevenDaysPrint = $sevenDays->format('d-m-Y');
 
-                        $getCreatedTime = $fb->get('Unikianorge/posts?since=' . $sevenDaysFormat . '&until=' . $todayFormat . '&fields=likes.limit(0),created_time,comments.summary(true)');
+                        $getCreatedTime = $fb->get('unikianorge/posts?since=' . $sevenDaysFormat . '&until=' . $todayFormat . '&fields=likes.limit(0),created_time,comments.summary(true)');
                         $getCreatedTime = $getCreatedTime->getGraphEdge()->asArray();
 
                         $sevenDaysLikes = 0;
@@ -359,7 +361,7 @@
                         </table>';
                             echo '</div>';
 
-                            $getComments = $fb->get('Unikianorge/posts?fields=comments.summary(true),created_time,message,likes.limit(0)&limit=100');
+                            $getComments = $fb->get('unikianorge/posts?fields=comments.summary(true),created_time,message,likes.limit(0)&limit=100');
                             $getComments = $getComments->getGraphEdge()->asArray();
 
                             $largestCommentCount = 0;
@@ -436,19 +438,19 @@
                         echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
                     }
                     ?>
-                </body>
-            </html>
-
+           
         </div>
 
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
         <script>window.jQuery || document.write('<script src="javascript/jquery.min.js"><\/script>')</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="javascript/bootstrap.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="javascript/ie10-viewport-bug-workaround.js"></script>
+
     </body>
 </html>
