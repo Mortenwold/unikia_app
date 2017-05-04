@@ -19,34 +19,6 @@
         <script src="javascript/analytics_functions.js"></script>
     </head>
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <img id="unikiaicon" src="images/unikia-link.png">
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="analyticsdashboard.php">Google Analytics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="facebooktwo.php">Facebook</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <body>
-        <?php
-        session_start();
-        if (!$_SESSION["login"]) {
-            Header("location: login.php");
-        }
-        ?>
-
-<<<<<<< HEAD:analyticsdashboard.html
-        <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -54,10 +26,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="analyticsdashboard.html">Google Analytics</a>
+                        <a class="nav-link" href="analyticsdashboard.php">Google Analytics</a>
                     </li>
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facebook</a>
@@ -71,8 +43,14 @@
                 </ul>
             </div>
         </nav>
-=======
->>>>>>> 118cc65cb920eb99892589241edae2c5033dec1b:analyticsdashboard.php
+    <body>
+        <?php
+        session_start();
+        if (!$_SESSION["login"]) {
+            Header("location: login.php");
+        }
+        ?>
+        
 
         <script>
             (function (w, d, s, g, js, fs) {

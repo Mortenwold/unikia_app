@@ -39,7 +39,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
-<<<<<<< HEAD
+                    <li class="nav-item">
+                        <a class="nav-link" href="analyticsdashboard.php">Google Analytics</a>
+                    </li>
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facebook</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -49,19 +51,6 @@
                         <a class="dropdown-item" id="menuLinks" href="facebook.php">Facebook Archive</a>
                     </div>
                   </li>
-=======
-                    <li class="nav-item">
-                        <a class="nav-link" href="analyticsdashboard.php">Google Analytics</a>
-                    </li>
-                    <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle"  id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
->>>>>>> 118cc65cb920eb99892589241edae2c5033dec1b
                 </ul>
             </div>
         </nav>

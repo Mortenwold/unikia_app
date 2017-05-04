@@ -149,4 +149,13 @@ li{
         width: 100%;
     }
 }
+@media (max-width:500px) {
+    #c3 {
+        height: 33rem;
+    }
+    
+    #c4 {
+        height: 33rem;
+    }
+}
 
