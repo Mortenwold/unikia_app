@@ -35,9 +35,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="analyticsdashboard.html">Google Analytics</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="facebooktwo.php">Facebook</a>
-                    </li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facebook</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" id ="menuLinks" href="facebookone.php">UnikiaNorge</a>
+                        <a class="dropdown-item" id="menuLinks" href="facebooktwo.php">UnikiaInnovation</a>
+                        <a class="dropdown-item" id="menuLinks" href="facebookthree.php">Barnas Designlab</a>
+                        <a class="dropdown-item" id="menuLinks" href="facebook.php">Facebook Archive</a>
+                    </div>
+                  </li>
                 </ul>
             </div>
         </nav>

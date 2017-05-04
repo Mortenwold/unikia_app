@@ -1,20 +1,37 @@
+body {
+    min-height: 1rem;
+    padding-top: 3rem;
+    background-color: #f1f1f1;
+}
 #facebook {
     margin-top: 2%;
     margin-left: 5%;
     margin-right: 5%;
     margin-bottom: 2%;
 }
+#linkBlackColor {
+    color: black;
+    text-decoration: underline;
+}
 table {
     border-collapse: collapse;
-    width: 49%;
+    width: 48%;
     table-layout: fixed;
+    margin: 1%;
+}
+.countryTable {
+    border-collapse: collapse;
+    width: 48%;
+    table-layout: fixed;
+    margin: 1%;
+    float: left;
 }
 .latestPostTable {
     border-collapse: collapse;
-    width: 49%;
+    width: 48%;
     table-layout: fixed;
-    float: right;
-    margin-bottom: 1%;
+    margin: 1%;
+    float: left;
 }
 .likesTable {
     border-collapse: collapse;
@@ -60,7 +77,7 @@ td {
     word-wrap: break-word;
     overflow-wrap: break-word;
     padding: 0.5vw;
-    text-align: left;
+    text-align: center;
 }
 th {
     background-color: #520a76;
@@ -73,6 +90,10 @@ th {
 {
     width: 40%;
 }
+#thTotalLikes
+{
+    width: 50%;
+}
 #linkTd
 {
     background-color: #520a76;  
@@ -81,6 +102,7 @@ th {
     font-weight: bold;
     color: white;
 }
+
 .dateTd {
     font-size: 1.3vw;
 }
@@ -115,28 +137,67 @@ a:hover {
 a:active {
     color: white;
 }
+#menuLinks {
+    color: black;
+}
 #buttonScale {
     font-size: 2vw;
 }
-@media only screen and (max-width: 768px) {
+#buttonMargin {
+    margin-left: 1%;
+}
+h1 {
+    margin: 1%;
+}
+
+
+@media (max-width: 640px) {
     /* For mobile phones: */
-   .searchTable {
-       border-collapse: collapse;
-       width: 196%;
-       table-layout: fixed;
-   }
-   .searchSetupTable {
-       border-collapse: collapse;
-       width: 196%;
-       table-layout: fixed;
-       margin-bottom: 3%;
-   }
-   th, td {
-    border-bottom: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    font-size: 3vw;
+
+    .countryTable {
+        border-collapse: collapse;
+        width: 96%;
+        table-layout: fixed;
+        margin: 2%;
+    }
+    .latestPostTable {
+        border-collapse: collapse;
+        width: 192%;
+        table-layout: fixed;
+        margin: 2%;
+        display: block;
+    }
+    .likesTable {
+        border-collapse: collapse;
+        width: 192%;
+        table-layout: fixed;
+        margin: 2%;
+        display: block;
+    }
+    .searchTable {
+        border-collapse: collapse;
+        width: 196%;
+        table-layout: fixed;
+
+    }
+    .searchSetupTable {
+        border-collapse: collapse;
+        width: 196%;
+        table-layout: fixed;
+        margin-bottom: 3%;
+    }
+    .summaryTable {
+        border-collapse: collapse;
+        width: 96%;
+        table-layout: fixed;
+        margin: 2%;
+    }
+    th, td {
+        border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        font-size: 3vw;
     }
     td {
         background-color: white;
@@ -144,7 +205,7 @@ a:active {
         word-wrap: break-word;
         overflow-wrap: break-word;
         padding: 0.5vw;
-        text-align: left;
+        text-align: center;
     }
     th {
         background-color: #520a76;
@@ -170,12 +231,33 @@ a:active {
     }
     #searchHeader
     {
-    background-color: #520a76;  
-    padding: 1vw;
-    text-align: center;
-    font-weight: bold;
-    color: white;
-    width: 100%;
+        background-color: #520a76;  
+        padding: 1vw;
+        text-align: center;
+        font-weight: bold;
+        color: white;
+        width: 100%;
     }
-    
+    #thTotalLikes
+    {
+        width: 50%;
+    }
+    #likesSize
+    {
+        width: 50%;
+    }
+    .scaleZoom {
+        overflow-x: scroll;
+    }
+    #buttonScale {
+        font-size: 4vw;
+    }
+    h1 {
+        font-size: 1.5em;
+        text-align: center;
+    }
+    #buttonMargin {
+        margin-left: 2%;
+    }
+
 }
