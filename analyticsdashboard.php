@@ -34,6 +34,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="facebooktwo.php">Facebook</a>
                 </li>
+                <?php
+                if ($_SESSION["admin"]) {
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin.php">Admin</a>
+                    </li>
+                    <?php
+                }
+                ?>
             </ul>
         </div>
     </nav>

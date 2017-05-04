@@ -41,6 +41,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="facebookone.php">Facebook</a>
                     </li>
+                    <?php
+                    if ($_SESSION["admin"]) {
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin.php">Admin</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
                 </ul>
             </div>
         </nav>
@@ -385,13 +394,13 @@
                         <input type="submit" name="FB_search" value="FB Search" />
                         <br>
                     </form>
-<?php /*
-  $logoutUrl = $helper->getLogoutUrl(APP_URL, $permissions);
-  echo '<br><br><br><br>';
-  echo '<a href="' . $logoutUrl . '">Logout of Facebook!</a>';
-  echo '<br>Use this link if you are logged in to the wrong Facebook account (without access to this website). Change to the correct account and try again!'
- */
-?> 
+                    <?php /*
+                      $logoutUrl = $helper->getLogoutUrl(APP_URL, $permissions);
+                      echo '<br><br><br><br>';
+                      echo '<a href="' . $logoutUrl . '">Logout of Facebook!</a>';
+                      echo '<br>Use this link if you are logged in to the wrong Facebook account (without access to this website). Change to the correct account and try again!'
+                     */
+                    ?> 
 
                 </body>
             </html>

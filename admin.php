@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="unikia-link.png">
+        <link rel="icon" href="images/unikiaicon.ico">
         <!-- Bootstrap core CSS -->
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
 
@@ -43,6 +43,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="facebooktwo.php">Facebook</a>
                     </li>
+                    <?php
+                    if ($_SESSION["admin"]) {
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin.php">Admin</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
                 </ul>
             </div>
         </nav>
