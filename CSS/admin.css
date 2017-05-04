@@ -36,6 +36,7 @@ body {
     margin: 0 auto;
     margin-top: 5rem;
     text-align:center;
+    overflow-x: auto;
 }
 
 #delete_btn{
@@ -61,4 +62,10 @@ th, td {
 th {
     background-color: #520a76;
     color: white;
+}
+
+@media (max-width:640px){
+    #endre_pw{
+        width: 100%;
+    }
 }

@@ -105,27 +105,35 @@
             </div>
 
             <div id="skriv_brukere">
-                <table>
-                    <col width=""/>
-                    <col width=""/>
-                    <col width="20"/>
-                    <th>Brukernavn</th>
-                    <th>Passord</th>
-                    <th></th>
-                    <?php
-                    $result = $db->query("select * from login"); //skrive ut alle øvelser
-                    while ($row = $result->fetch_assoc()) {
-                        $navn = $row['username'];
-                        $passord = $row['password'];
+                <form action="" method ="post">
+                    <table>
+                        <col width=""/>
+                        <col width=""/>
+                        <col width="20"/>
+                        <th>Brukernavn</th>
+                        <th>Passord</th>
+                        <th></th>
+                        <?php
+                        if (isset($_POST['slett_knapp']) and is_numeric($_POST['slett_knapp'])) {
+                            $slett_valg = $_POST['slett_knapp'];
+                            $db->query("DELETE FROM login where bruker_id = '$slett_valg'");
+                        }
+                        
+                        $result = $db->query("select * from login"); //skrive ut alle øvelser
+                        while ($row = $result->fetch_assoc()) {
+                            $navn = $row['username'];
+                            $passord = $row['password'];
+                            $b_id = $row['bruker_id'];
 
-                        echo "<tr>";
-                        echo "<td>" . $navn . "</td>";
-                        echo "<td>" . $passord. "</td>";
-                        echo "<td><input type='image' id='delete_btn' src='images/delete_icon.png' border='0' alt='Submit'/></td>";
-                        echo "</tr>";
-                    }
-                    ?>
-                </table>
+                            echo "<tr>";
+                            echo "<td>" . $navn . "</td>";
+                            echo "<td>" . $passord . "</td>";
+                            echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+                </form>
             </div>
         </div>
         <!-- Bootstrap core JavaScript
