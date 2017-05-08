@@ -9,44 +9,66 @@ mobilvennlig side/admin side
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Unikia</title>
         <link href="CSS/login.css" rel="stylesheet">
         <link rel="stylesheet" href="CSS/font-awesome.min.css">
         <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
         <script src="javascript/validate.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <link rel="icon" href="images/unikiaicon.ico">
+        <link rel="icon" href="images/unikiaicon.ico">  
     </head>
     <body>
-        <img class="bg" src="images/unikialogin.jpg">
+        <script>
+            function lgName()
+            {
+                var regEx = /^[a-zÃ¦Ã¸Ã¥A-ZÃ†Ã˜Ã… ]{2,20}$/;
+                ok = regEx.test(document.login.lg_username.value);
+                if (!ok)
+                {
+                    document.getElementById("blackFont").innerHTML = "Username is invalid";
+                    return false;
+                } else
+                {
+                    document.getElementById("blackFont").innerHTML = "";
+                    return true;
+                }
+            }
+        </script>
+        <!--<img class="bg" src="images/unikialogin.jpg">-->
         <div id="login">
-            <img id="icon" src="images/unikia-logo2.png">
-            <form action="" method="post">
+            <img id="icon" src="images/unikia-logo.png">
+            <div id="blackFont"></div>
+            <form action="" method="post" name="login">
                 <?php
                 session_start();
                 $_SESSION["login"] = false;
                 $_SESSION["admin"] = false;
+
                 $db = mysqli_connect("localhost", "root", "", "unikia");
                 if (!$db) {
                     trigger_error(mysqli_error($db));
                     die("Kunne ikke knytte til server");
                 }
                 if (isset($_POST["sjekk"])) {
-                    $sjekkBrukernavn = $db->escape_string($_POST["lg_username"]);
-                    $sjekkPassord = $db->escape_string($_POST["lg_password"]);
-
-                    $sql = "Select * from login where username='$sjekkBrukernavn' AND password=Password('$sjekkPassord')";
-                    $res = $db->query($sql);
-                    if ($db->affected_rows > 0) {
-
-                        $_SESSION["login"] = true;
-                        if ($sjekkBrukernavn == "admin") {
-                            $_SESSION["admin"] = true;
-                        } 
-                        Header("location: index.php");
+                    $navn = $_POST["lg_username"];
+                    if (!preg_match("/^[a-zæøåA-ZÆØÅ ]{2,20}$/", $navn)) {
+                        echo "<div id='blackFont'>Username is invalid!</div>";
                     } else {
-                        echo "Incorrect password!";
-                        $_SESSION["login"] = false;
+                        $sjekkBrukernavn = $db->escape_string($_POST["lg_username"]);
+                        $sjekkPassord = $db->escape_string($_POST["lg_password"]);
+
+                        $sql = "Select * from login where username='$sjekkBrukernavn' AND password=Password('$sjekkPassord')";
+                        $res = $db->query($sql);
+                        if ($db->affected_rows > 0) {
+                            $_SESSION["login"] = true;
+                            if ($sjekkBrukernavn == "admin") {
+                                $_SESSION["admin"] = true;
+                            }
+                            Header("location: index.php");
+                        } else {
+                            echo "<div id='blackFont'>Incorrect username or password!</div>";
+                            $_SESSION["login"] = false;
+                        }
                     }
                 }
                 ?>
@@ -57,7 +79,7 @@ mobilvennlig side/admin side
                         <div class="main-login-form">
                             <div class="login-group">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username">
+                                    <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username" onchange ="lgName()">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password">
@@ -70,5 +92,6 @@ mobilvennlig side/admin side
                 </div>
             </form>
         </div>
+        
     </body>
 </html>

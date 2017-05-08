@@ -6,15 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="unikiaicon.ico">
+        <link rel="icon" href="images/unikiaicon.ico">
         <!-- Bootstrap core CSS -->
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link href="CSS/admin.css" rel="stylesheet">
 
-
-        <link href="CSS/index.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
         <title>Admin</title>
@@ -38,11 +36,26 @@
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="analyticsdashboard.html">Google Analytics</a>
+                        <a class="nav-link" href="analyticsdashboard.php">Google Analytics</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="facebooktwo.php">Facebook</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facebook</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" id ="menuLinks" href="facebookone.php">UnikiaNorge</a>
+                            <a class="dropdown-item" id="menuLinks" href="facebooktwo.php">UnikiaInnovation</a>
+                            <a class="dropdown-item" id="menuLinks" href="facebookthree.php">Barnas Designlab</a>
+                            <a class="dropdown-item" id="menuLinks" href="facebook.php">Facebook Archive</a>
+                        </div>
                     </li>
+                    <?php
+                    if ($_SESSION["admin"]) {
+                        ?>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="admin.php">Admin</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
                 </ul>
             </div>
         </nav>
@@ -112,9 +125,11 @@
             <div id="skriv_brukere">
                 <form action="" method ="post">
                     <table>
+                        <col width="20"/>
                         <col width=""/>
                         <col width=""/>
                         <col width="20"/>
+                        <th>ID</th>
                         <th>Brukernavn</th>
                         <th>Passord</th>
                         <th></th>
@@ -131,6 +146,7 @@
                             $b_id = $row['bruker_id'];
 
                             echo "<tr>";
+                            echo "<td>" . $b_id."</td>";
                             echo "<td>" . $navn . "</td>";
                             echo "<td>" . $passord . "</td>";
                             echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";

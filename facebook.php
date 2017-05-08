@@ -20,11 +20,11 @@
     </head>
 
   <body>
-      <?php /*
+      <?php 
         session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
-        } */
+        } 
         ?>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,13 +33,13 @@
             <img id="unikiaicon" src="images/unikia-link.png">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="analyticsdashboard.html">Google Analytics</a>
+                        <a class="nav-link" href="analyticsdashboard.php">Google Analytics</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facebook</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <a class="dropdown-item" id ="menuLinks" href="facebookone.php">UnikiaNorge</a>
@@ -48,12 +48,20 @@
                             <a class="dropdown-item" id="menuLinks" href="facebook.php">Facebook Archive</a>
                         </div>
                     </li>
+                    <?php
+                    if ($_SESSION["admin"]) {
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin.php">Admin</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
                 </ul>
             </div>
         </nav>
         <div id ="facebook">
             <?php
-            session_start();
             require_once __DIR__ . '/src/Facebook/autoload.php';
 
             $fb = new Facebook\Facebook([
@@ -65,7 +73,7 @@
             $helper = $fb->getRedirectLoginHelper();
 
             // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-            define('APP_URL', 'http://localhost/unikia_app/facebookone.php');
+            define('APP_URL', 'http://localhost/unikia_app/index.php');
             $permissions = ['user_posts', 'user_photos']; // optional
 
             try {

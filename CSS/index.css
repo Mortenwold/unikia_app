@@ -44,8 +44,6 @@ body {
     float: right;
 }
 #facebooksection {
-    border: 1px solid black;
-    background-color: white;
     overflow: auto;
     width: 74%;
     margin-top: 2rem;
@@ -109,9 +107,67 @@ canvas {
     
 }
 
+#linkBlackColor {
+    color: black;
+    text-decoration: underline;
+}
+.countryTable {
+    border-collapse: collapse;
+    width: 48%;
+    table-layout: fixed;
+    float: left;
+}
+.latestPostTable {
+    border-collapse: collapse;
+    width: 48%;
+    table-layout: fixed;
+    float: right;
+}
 
+th, td {
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    font-size: 1.2vw;
+}
+td {
+    background-color: white;
+    min-width: 5%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding: 0.5vw;
+    text-align: center;
+}
+th {
+    background-color: #520a76;
+    color: white;
+    text-align: center; 
+    width: 10%;
+    padding: 1vw;
+}
+#thTotalLikes
+{
+    width: 50%;
+}
+.likesSettings {
+    color: #08c5dd;
+}
+.commentsSettings {
+    color: red;
+}
+.sharesSettings {
+    color: yellow;
+}
 
-@media (max-width:640px){
+#menuLinks {
+    color: black;
+}
+#whiteLink {
+    color: white;
+}
+
+@media (max-width:900px){
     body{
         margin-top: 1rem;
         margin-left: 0;
@@ -131,5 +187,53 @@ canvas {
 
     #embed-api-auth-container{
        margin:0 auto;
+    }
+    .countryTable {
+        border-collapse: collapse;
+        width: 96%;
+        table-layout: fixed;
+        margin: 2%;
+    }
+    .latestPostTable {
+        border-collapse: collapse;
+        width: 192%;
+        table-layout: fixed;
+        margin: 2%;
+        display: block;
+        float: left;
+    }
+    
+    th, td {
+        border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        font-size: 3vw;
+    }
+    td {
+        background-color: white;
+        min-width: 10%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 0.5vw;
+        text-align: center;
+    }
+    th {
+        background-color: #520a76;
+        color: white;
+        text-align: center; 
+        width: 20%;
+        padding: 1vw;
+    }
+    #thTotalLikes
+    {
+        width: 50%;
+    }
+    #likesSize
+    {
+        width: 50%;
+    }
+    .scaleZoom {
+        overflow-x: scroll;
     }
 }

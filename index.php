@@ -26,7 +26,7 @@
             Header("location: login.php");
         }
         if ($_SESSION["admin"]) {
-            echo '<a href="http://www.vg.no">Hei</a>';
+            
         }
         ?>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
@@ -36,21 +36,30 @@
             <img id="unikiaicon" src="images/unikia-link.png">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="analyticsdashboard.php">Google Analytics</a>
                     </li>
                     <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facebook</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" id ="menuLinks" href="facebookone.php">UnikiaNorge</a>
-                        <a class="dropdown-item" id="menuLinks" href="facebooktwo.php">UnikiaInnovation</a>
-                        <a class="dropdown-item" id="menuLinks" href="facebookthree.php">Barnas Designlab</a>
-                        <a class="dropdown-item" id="menuLinks" href="facebook.php">Facebook Archive</a>
-                    </div>
-                  </li>
+                        <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facebook</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" id ="menuLinks" href="facebookone.php">UnikiaNorge</a>
+                            <a class="dropdown-item" id="menuLinks" href="facebooktwo.php">UnikiaInnovation</a>
+                            <a class="dropdown-item" id="menuLinks" href="facebookthree.php">Barnas Designlab</a>
+                            <a class="dropdown-item" id="menuLinks" href="facebook.php">Facebook Archive</a>
+                        </div>
+                    </li>
+                    <?php
+                    if ($_SESSION["admin"]) {
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin.php">Admin</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
                 </ul>
             </div>
         </nav>
@@ -113,128 +122,152 @@
 
         <div id="facebooksection">
             <?php
-                    session_start();
-                    require_once __DIR__ . '/src/Facebook/autoload.php';
+            require_once __DIR__ . '/src/Facebook/autoload.php';
 
-                    $fb = new Facebook\Facebook([
-                        'app_id' => '232799497183653',
-                        'app_secret' => '462516f7993b1c50e81e4cb438a6c8b9',
-                        'default_graph_version' => 'v2.5'
-                    ]);
+            $fb = new Facebook\Facebook([
+                'app_id' => '232799497183653',
+                'app_secret' => '462516f7993b1c50e81e4cb438a6c8b9',
+                'default_graph_version' => 'v2.5'
+            ]);
 
-                    $helper = $fb->getRedirectLoginHelper();
+            $helper = $fb->getRedirectLoginHelper();
 
-                    // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-                    define('APP_URL', 'http://localhost/unikia_app/facebookone.php');
-                    $permissions = ['user_posts', 'user_photos']; // optional
+            // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
+            define('APP_URL', 'http://localhost/unikia_app/index.php');
+            $permissions = ['user_posts', 'user_photos']; // optional
 
-                    try {
-                        if (isset($_SESSION['facebook_access_token'])) {
-                            $accessToken = $_SESSION['facebook_access_token'];
+            try {
+                if (isset($_SESSION['facebook_access_token'])) {
+                    $accessToken = $_SESSION['facebook_access_token'];
+                } else {
+                    $accessToken = $helper->getAccessToken();
+                }
+            } catch (Facebook\Exceptions\FacebookResponseException $e) {
+                // When Graph returns an error
+                echo 'Graph returned an error: ' . $e->getMessage();
+                exit;
+            } catch (Facebook\Exceptions\FacebookSDKException $e) {
+                // When validation fails or other local issues
+                echo 'Facebook SDK returned an error: ' . $e->getMessage();
+                exit;
+            }
+            if (isset($accessToken)) {
+                if (isset($_SESSION['facebook_access_token'])) {
+                    $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+                } else {
+                    // getting short-lived access token
+                    $_SESSION['facebook_access_token'] = (string) $accessToken;
+                    // OAuth 2.0 client handler
+                    $oAuth2Client = $fb->getOAuth2Client();
+                    // Exchanges a short-lived access token for a long-lived one
+                    $longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($_SESSION['facebook_access_token']);
+                    $_SESSION['facebook_access_token'] = (string) $longLivedAccessToken;
+                    // setting default access token to be used in script
+                    $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+                }
+                // redirect the user back to the same page if it has "code" GET variable
+                /* if (isset($_GET['code'])) {
+                  header('Location: ./');
+                  } */
+                // validating user access token
+                try {
+                    $user = $fb->get('/me');
+                    $user = $user->getGraphNode()->asArray();
+                } catch (Facebook\Exceptions\FacebookResponseException $e) {
+                    // When Graph returns an error
+                    echo 'Graph returned an error: ' . $e->getMessage();
+                    session_destroy();
+                    // if access token is invalid or expired you can simply redirect to login page using header() function
+                    exit;
+                } catch (Facebook\Exceptions\FacebookSDKException $e) {
+                    // When validation fails or other local issues
+                    echo 'Facebook SDK returned an error: ' . $e->getMessage();
+                    exit;
+                }
+
+                
+
+                $howManyPosts = 1; // Can change this number to show more posts
+
+                $getLatestPost = $fb->get('unikianorge/posts?likes.limit(0)&limit=' . $howManyPosts);
+                $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
+
+                foreach ($getLatestPost as $key) {
+                    if (isset($key['id'])) {
+                        $post = $key['id'];
+                        $date = $key['created_time'];
+                        $dateformat = $date->format('d-m-Y');
+
+                        $linkAddress = 'http://www.facebook.com/' . $post;
+
+                        $likesResponse = $fb->get('/' . $key['id'] . '/likes?limit=0&summary=true');
+                        $getLikeCount = $likesResponse->getGraphEdge();
+                        $currentLikeCount = $getLikeCount->getTotalCount();
+
+
+                        $sharesLastPost = $fb->get('/' . $post . '?fields=shares');
+                        $sharesLastPost = $sharesLastPost->getGraphNode()->asArray();
+                        if (isset($sharesLastPost["shares"]["count"])) {
+                            $sharesCount = $sharesLastPost["shares"]["count"];
                         } else {
-                            $accessToken = $helper->getAccessToken();
+                            $sharesCount = 0;
                         }
-                    } catch (Facebook\Exceptions\FacebookResponseException $e) {
-                        // When Graph returns an error
-                        echo 'Graph returned an error: ' . $e->getMessage();
-                        exit;
-                    } catch (Facebook\Exceptions\FacebookSDKException $e) {
-                        // When validation fails or other local issues
-                        echo 'Facebook SDK returned an error: ' . $e->getMessage();
-                        exit;
+                        $commentsMostLikes = $fb->get('/' . $post . '/comments?limit=0&summary=true');
+                        $getCommentsCount = $commentsMostLikes->getGraphEdge();
+                        $currentCommentCount = $getCommentsCount->getTotalCount();
+
+                        if (isset($key['message']) && $key['message']) {
+                            $messageLatestPost = $key['message'];
+                        } else {
+                            $messageLatestPost = "No Message";
+                        }
                     }
-                    if (isset($accessToken)) {
-                        if (isset($_SESSION['facebook_access_token'])) {
-                            $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
-                        } else {
-                            // getting short-lived access token
-                            $_SESSION['facebook_access_token'] = (string) $accessToken;
-                            // OAuth 2.0 client handler
-                            $oAuth2Client = $fb->getOAuth2Client();
-                            // Exchanges a short-lived access token for a long-lived one
-                            $longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($_SESSION['facebook_access_token']);
-                            $_SESSION['facebook_access_token'] = (string) $longLivedAccessToken;
-                            // setting default access token to be used in script
-                            $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
-                        }
-                        // redirect the user back to the same page if it has "code" GET variable
-                        /* if (isset($_GET['code'])) {
-                          header('Location: ./');
-                          } */
-                        // validating user access token
-                        try {
-                            $user = $fb->get('/me');
-                            $user = $user->getGraphNode()->asArray();
-                        } catch (Facebook\Exceptions\FacebookResponseException $e) {
-                            // When Graph returns an error
-                            echo 'Graph returned an error: ' . $e->getMessage();
-                            session_destroy();
-                            // if access token is invalid or expired you can simply redirect to login page using header() function
-                            exit;
-                        } catch (Facebook\Exceptions\FacebookSDKException $e) {
-                            // When validation fails or other local issues
-                            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-                            exit;
-                        }
+                }
 
-                        echo '<h1>Unikia Norge</h1>';
-                        $howManyPosts = 1; // Can change this number to show more posts
+                echo '<div class="scaleZoom">';
+                echo '<table class="latestPostTable" border="2">';
+                echo '<th colspan="2">';
+                echo "<a href='" . $linkAddress . "' id='whiteLink'>Latest UnikiaNorge Post</a>";
+                echo '</th><th>Message</th><tr><td>Date</td>';
+                echo '<td>' . $dateformat . '</td><td rowspan="4">' . $messageLatestPost . '</td>';
+                echo '</tr><tr><td>Likes</td>';
+                echo '<td class="likesSettings">' . $currentLikeCount . '</td>';
+                echo '</tr><tr><td >Shares</td>';
+                echo'<td class="sharesSettings">' . $sharesCount . '</td>';
+                echo '</tr><tr><td>Comments</td>';
+                echo'<td class="commentsSettings">' . $currentCommentCount . '</td>';
+                echo '</tr></table>';
+                echo '</div>';
+                
+                $getTotalLikesNorge = $fb->get('unikianorge?fields=fan_count');
+                $getTotalLikesNorge = $getTotalLikesNorge->getGraphNode()->asArray();
+                $likesNorge = $getTotalLikesNorge['fan_count'];
 
-                        $getLatestPost = $fb->get('unikianorge/posts?likes.limit(0)&limit=' . $howManyPosts);
-                        $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
+                $getTotalLikesInnovation = $fb->get('unikiainnovation?fields=fan_count');
+                $getTotalLikesInnovation = $getTotalLikesInnovation->getGraphNode()->asArray();
 
-                        foreach ($getLatestPost as $key) {
-                            if (isset($key['id'])) {
-                                $post = $key['id'];
-                                $date = $key['created_time'];
-                                $dateformat = $date->format('d-m-Y');
+                $likesInnovation = $getTotalLikesInnovation['fan_count'];
 
-                                $linkAddress = 'http://www.facebook.com/' . $post;
+                $getTotalLikesBarnas = $fb->get('barnasdesignlab?fields=fan_count');
+                $getTotalLikesBarnas = $getTotalLikesBarnas->getGraphNode()->asArray();
 
-                                $likesResponse = $fb->get('/' . $key['id'] . '/likes?limit=0&summary=true');
-                                $getLikeCount = $likesResponse->getGraphEdge();
-                                $currentLikeCount = $getLikeCount->getTotalCount();
-
-
-                                $sharesLastPost = $fb->get('/' . $post . '?fields=shares');
-                                $sharesLastPost = $sharesLastPost->getGraphNode()->asArray();
-                                if (isset($sharesLastPost["shares"]["count"])) {
-                                    $sharesCount = $sharesLastPost["shares"]["count"];
-                                } else {
-                                    $sharesCount = 0;
-                                }
-                                $commentsMostLikes = $fb->get('/' . $post . '/comments?limit=0&summary=true');
-                                $getCommentsCount = $commentsMostLikes->getGraphEdge();
-                                $currentCommentCount = $getCommentsCount->getTotalCount();
-
-                                if (isset($key['message']) && $key['message']) {
-                                    $messageLatestPost = $key['message'];
-                                } else {
-                                    $messageLatestPost = "No Message";
-                                }
-                            }
-                        }
-
-                        echo '<div class="scaleZoom">';
-                        echo '<table class="latestPostTable" border="2">';
-                        echo '<th colspan="2">';
-                        echo "<a href='" . $linkAddress . "'>Latest UnikiaNorge Post</a>";
-                        echo '</th><th>Message</th><tr><td>Date</td>';
-                        echo '<td>' . $dateformat . '</td><td rowspan="4">' . $messageLatestPost . '</td>';
-                        echo '</tr><tr><td>Likes</td>';
-                        echo '<td class="likesSettings">' . $currentLikeCount . '</td>';
-                        echo '</tr><tr><td >Shares</td>';
-                        echo'<td class="sharesSettings">' . $sharesCount . '</td>';
-                        echo '</tr><tr><td>Comments</td>';
-                        echo'<td class="commentsSettings">' . $currentCommentCount . '</td>';
-                        echo '</tr></table>';
-                        echo '</div>';
-                        } else {
-                        // replace your website URL same as added in the developers.facebook.com/apps e.g. if you used http instead of https and you used non-www version or www version of your website then you must add the same here
-                        $loginUrl = $helper->getLoginUrl(APP_URL, $permissions);
-                        echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
-                    }
-                    ?>
+                $likesBarnasdesignlab = $getTotalLikesBarnas['fan_count'];
+                $totalLikesFb = $likesNorge + $likesInnovation + $likesBarnasdesignlab;
+                echo '<div id="Likes">';
+                echo '<table class="countryTable"border ="2">';
+                echo '<th id="thTotalLikes">Facebook</th><th id="thTotalLikes">Likes</th>';
+                echo '<tr><td>UnikiaNorge</td><td class="likesSettings">' . $likesNorge . '</td></tr>';
+                echo '<tr><td>UnikiaInnovation</td><td class="likesSettings">' . $likesInnovation . '</td></tr>';
+                echo '<tr><td>Barnas Designlab</td><td class="likesSettings">' . $likesBarnasdesignlab . '</td></tr>';
+                echo '<tr><td>Total Likes</td><td class="likesSettings">' . $totalLikesFb . '</td></tr>';
+                echo '</table>';
+                echo '</div>';
+            } else {
+                // replace your website URL same as added in the developers.facebook.com/apps e.g. if you used http instead of https and you used non-www version or www version of your website then you must add the same here
+                $loginUrl = $helper->getLoginUrl(APP_URL, $permissions);
+                echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
+            }
+            ?>
         </div>
         <div id="twittersection">
             <!--<div class="container">
