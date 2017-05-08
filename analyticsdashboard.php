@@ -26,7 +26,6 @@
             Header("location: login.php");
         }
         ?>
-
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -91,6 +90,7 @@
                 analyticsdashboard(id, windowSize);
 
             }
+            myFunction1(windowSize);
         </script>
 
         <div id="main">
