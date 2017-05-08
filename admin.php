@@ -121,9 +121,11 @@
             <div id="skriv_brukere">
                 <form action="" method ="post">
                     <table>
+                        <col width="20"/>
                         <col width=""/>
                         <col width=""/>
                         <col width="20"/>
+                        <th>ID</th>
                         <th>Brukernavn</th>
                         <th>Passord</th>
                         <th></th>
@@ -140,6 +142,7 @@
                             $b_id = $row['bruker_id'];
 
                             echo "<tr>";
+                            echo "<td>" . $b_id."</td>";
                             echo "<td>" . $navn . "</td>";
                             echo "<td>" . $passord . "</td>";
                             echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";
