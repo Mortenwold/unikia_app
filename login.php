@@ -44,7 +44,7 @@ mobilvennlig side/admin side
                 $_SESSION["login"] = false;
                 $_SESSION["admin"] = false;
 
-                $db = mysqli_connect("localhost", "root", "", "unikia");
+                include 'db_connect.php';
                 if (!$db) {
                     trigger_error(mysqli_error($db));
                     die("Kunne ikke knytte til server");

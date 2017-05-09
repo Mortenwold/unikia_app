@@ -84,7 +84,6 @@
                     if (isset($_POST["lagre"])) {
                         $lagreBrukernavn = $_POST["lagreBrukernavn"];
                         $lagrePassord = $_POST["lagrePassord"];
-                        $lagreNavn = $_REQUEST["lagreNavn"];
 
                         $sql = "Update login Set password = Password('$lagrePassord') where username='$lagreBrukernavn'";
                         $res = $db->query($sql);
@@ -138,7 +137,7 @@
                             $slett_valg = $_POST['slett_knapp'];
                             $db->query("DELETE FROM login where bruker_id = '$slett_valg'");
                         }
-                        
+
                         $result = $db->query("select * from login"); //skrive ut alle øvelser
                         while ($row = $result->fetch_assoc()) {
                             $navn = $row['username'];
@@ -146,10 +145,12 @@
                             $b_id = $row['bruker_id'];
 
                             echo "<tr>";
-                            echo "<td>" . $b_id."</td>";
+                            echo "<td>" . $b_id . "</td>";
                             echo "<td>" . $navn . "</td>";
                             echo "<td>" . $passord . "</td>";
-                            echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";
+                            if ($navn != "admin") {
+                                echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";
+                            }
                             echo "</tr>";
                         }
                         ?>

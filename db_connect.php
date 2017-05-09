@@ -1,6 +1,6 @@
 <?php
 
-$db = mysqli_connect("student.cs.hioa.no", "s232324", "", "s232324");
+$db = mysqli_connect("localhost", "root", "", "unikia");
 if (!$db) {
     trigger_error(mysqli_error($db));
     die("Kunne ikke knytte til server");
