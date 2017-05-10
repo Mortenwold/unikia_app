@@ -184,11 +184,7 @@
                     echo 'Facebook SDK returned an error: ' . $e->getMessage();
                     exit;
                 }
-
-                
-
                 $howManyPosts = 1; // Can change this number to show more posts
-
                 $getLatestPost = $fb->get('unikianorge/posts?likes.limit(0)&limit=' . $howManyPosts);
                 $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
 
@@ -197,14 +193,12 @@
                         $post = $key['id'];
                         $date = $key['created_time'];
                         $dateformat = $date->format('d-m-Y');
-
                         $linkAddress = 'http://www.facebook.com/' . $post;
-
+                        
                         $likesResponse = $fb->get('/' . $key['id'] . '/likes?limit=0&summary=true');
                         $getLikeCount = $likesResponse->getGraphEdge();
                         $currentLikeCount = $getLikeCount->getTotalCount();
-
-
+                        
                         $sharesLastPost = $fb->get('/' . $post . '?fields=shares');
                         $sharesLastPost = $sharesLastPost->getGraphNode()->asArray();
                         if (isset($sharesLastPost["shares"]["count"])) {
