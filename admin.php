@@ -149,7 +149,9 @@
                             echo "<td>" . $b_id."</td>";
                             echo "<td>" . $navn . "</td>";
                             echo "<td>" . $passord . "</td>";
+                            if($navn != "admin"){
                             echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";
+                            }
                             echo "</tr>";
                         }
                         ?>

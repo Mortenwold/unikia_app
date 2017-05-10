@@ -25,9 +25,6 @@
         if (!$_SESSION["login"]) {
             Header("location: login.php");
         }
-        if ($_SESSION["admin"]) {
-            
-        }
         ?>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -270,11 +267,8 @@
             ?>
         </div>
         <div id="twittersection">
-            <!--<div class="container">
-            <h3>Total Follower : <strong></strong></h3>
-        </div>-->
-
-            <a class="twitter-timeline" data-height="20rem" data-chrome="nofooter, noheader" href="https://twitter.com/unikiadotcom"></a>
+            <a class="twitter-timeline" data-height="20rem" 
+               data-chrome="nofooter, noheader" href="https://twitter.com/unikiadotcom"></a>
             <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
 

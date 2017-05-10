@@ -5,7 +5,8 @@ function renderWeekOverWeekChart(ids) {
         'ids': ids,
         'dimensions': 'ga:date,ga:nthDay',
         'metrics': 'ga:sessions',
-        'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+        'start-date': moment(now).subtract(1, 'day')
+                .day(0).format('YYYY-MM-DD'),
         'end-date': moment(now).format('YYYY-MM-DD')
     });
 
@@ -13,9 +14,11 @@ function renderWeekOverWeekChart(ids) {
         'ids': ids,
         'dimensions': 'ga:date,ga:nthDay',
         'metrics': 'ga:sessions',
-        'start-date': moment(now).subtract(1, 'day').day(0).subtract(1, 'week')
+        'start-date': moment(now).subtract(1, 'day')
+                .day(0).subtract(1, 'week')
                 .format('YYYY-MM-DD'),
-        'end-date': moment(now).subtract(1, 'day').day(6).subtract(1, 'week')
+        'end-date': moment(now).subtract(1, 'day')
+                .day(6).subtract(1, 'week')
                 .format('YYYY-MM-DD')
     });
 
@@ -48,9 +51,9 @@ function renderWeekOverWeekChart(ids) {
                 },
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }
@@ -111,8 +114,8 @@ function renderYearOverYearChart(ids) {
                 },
                 {
                     label: 'This Year',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
                     data: data1
                 }
             ]
@@ -138,7 +141,7 @@ function renderTopBrowsersChart(ids) {
             .then(function (response) {
 
                 var data = [];
-                var colors = ['#FFC0CB', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
+                var colors = ['#520A76', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
 
                 response.rows.forEach(function (row, i) {
                     data.push({value: +row[1], color: colors[i], label: row[0]});
@@ -161,7 +164,7 @@ function renderTopCountriesChart(ids) {
             .then(function (response) {
 
                 var data = [];
-                var colors = ['#4D5360', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
+                var colors = ['#520A76', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
 
                 response.rows.forEach(function (row, i) {
                     data.push({
@@ -272,9 +275,9 @@ function renderPageviews(ids, windowsizing) {
             datasets: [
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }
@@ -337,9 +340,9 @@ function renderTime(ids, windowsizing) {
             datasets: [
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }
@@ -401,9 +404,9 @@ function renderPercentsessions(ids, windowsizing) {
             datasets: [
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }
@@ -707,9 +710,9 @@ function renderMonth(ids, windowSize) {
             datasets: [
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }
@@ -769,9 +772,9 @@ function renderNewusers(ids, windowSize) {
             datasets: [
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }

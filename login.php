@@ -57,7 +57,8 @@ mobilvennlig side/admin side
                         $sjekkBrukernavn = $db->escape_string($_POST["lg_username"]);
                         $sjekkPassord = $db->escape_string($_POST["lg_password"]);
 
-                        $sql = "Select * from login where username='$sjekkBrukernavn' AND password=Password('$sjekkPassord')";
+                        $sql = "Select * from login where username='$sjekkBrukernavn' "
+                                . "AND password=Password('$sjekkPassord')";
                         $res = $db->query($sql);
                         if ($db->affected_rows > 0) {
                             $_SESSION["login"] = true;
