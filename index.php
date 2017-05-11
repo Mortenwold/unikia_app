@@ -277,12 +277,7 @@
             ?>
         </div>
         <div id="twittersection">
-<<<<<<< HEAD
-            <a class="twitter-timeline" data-height="20rem" 
-               data-chrome="nofooter, noheader" href="https://twitter.com/unikiadotcom"></a>
-=======
             <a class="twitter-timeline" data-height="20rem" data-chrome="nofooter, noheader" href="https://twitter.com/unikiadotcom"></a>
->>>>>>> 2519340a0a5908d976efd3fca8030fcf6d4ac097
             <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
 

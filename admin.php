@@ -76,7 +76,7 @@
                     if (isset($_POST["lage"])) {
                         $lageBrukernavn = $db->escape_string($_POST["lageBrukernavn"]);
                         $lagePassord = $db->escape_string($_POST["lagePassord"]);
-                        if (!preg_match("/^\b(?!\bword\b)\w+\b/", $lageBrukernavn)) {
+                        if (!preg_match("/^\b(?!\badmin\b)\w+\b/", $lageBrukernavn)) {
                             echo "<script type='text/javascript'>alert('Username is invalid!');</script>";
                         } else {
                             $sql1 = "INSERT INTO     login (username, password)
@@ -117,8 +117,7 @@
                         <th>Passord</th>
                         <th></th>
                         <?php
-                        if (isset($_POST['slett_knapp']) and is_numeric($_POST['slett_knapp'])) {
-                            echo "hello";
+                        if (isset($_POST['slett_knapp'])) {
                             $slett_valg = $_POST['slett_knapp'];
                             $db->query("DELETE FROM login where bruker_id = '$slett_valg'");
                         }
@@ -133,8 +132,8 @@
                             echo "<td>" . $b_id . "</td>";
                             echo "<td>" . $navn . "</td>";
                             echo "<td>" . $passord . "</td>";
-                            if($navn != "admin"){
-                            echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";
+                            if ($navn != "admin") {
+                                echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";
                             }
                             echo "</tr>";
                         }
