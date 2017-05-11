@@ -236,7 +236,8 @@ function renderPageviews(ids, windowsizing) {
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
             'metrics': 'ga:pageviews',
-            'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+            'start-date': moment(now).subtract(1, 'day')
+                    .day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
     } else if (windowsizing < 768) {
@@ -472,7 +473,6 @@ function dateGraph(ids, windowsizing) {
                 .set(dateRange1)
                 .execute();
 
-
         var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
                 .set({query: dateRange1})
                 .set({chart: {container: 'data-chart-2-container'}});
@@ -484,8 +484,6 @@ function dateGraph(ids, windowsizing) {
             var title = document.getElementById('view-name');
             title.textContent = data.property.name + ' (' + data.view.name + ')';
         });
-
-
 
         dateRangeSelector1.on('change', function (data) {
             dataChart1.set({query: data}).execute();
@@ -818,7 +816,7 @@ function analyticsdashboard(id, windowSize) {
             var timeout;
 
             this.on('change', function (data) {
-                var element = this.container.firstChild;
+                element = this.container.firstChild;
                 var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
                 element.className += (' ' + animationClass);
 
@@ -849,10 +847,7 @@ function analyticsdashboard(id, windowSize) {
             var title = document.getElementById('view-name');
             title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-            // Start tracking active users for this view.
             activeUsers.set(data).execute();
-
-            // Render all the of charts for this view.
             renderWeekOverWeekChart(data.ids);
             renderYearOverYearChart(data.ids);
             renderTopBrowsersChart(data.ids);

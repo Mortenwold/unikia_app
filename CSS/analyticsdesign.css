@@ -8,6 +8,10 @@ body {
     margin-left: 2.5%;
     margin-right: 2.5%;
 }
+.btn, .btn-secondary {
+    pointer-events: none;
+}
+
 
 #chart-1-container {
 }

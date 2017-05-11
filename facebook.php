@@ -306,7 +306,9 @@
                                     </select> </td></tr>
                             <tr><td  class="searchSetupTd" >
                                     <input id ="buttonScale" class ="btn btn-secondary" type="submit" name="Search" value="Search" /> </td>
-                                <td  colspan="2" class="searchSetupTd" ><input id ="buttoninfo" type='image'  src="images/infob.png" title='Start date includes itself, but the end date does not.
+                                <td  colspan="2" class="searchSetupTd" >
+                                    <image id ="buttoninfo"  
+                                           src="images/infob.png" title='Start date includes itself, but the end date does not.
 The system will require over 1 minute if you pick 25-50 posts as the limit.' />
                                 </td></tr>
                         </table>  
