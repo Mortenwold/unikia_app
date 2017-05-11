@@ -458,6 +458,11 @@
         <script src="javascript/bootstrap.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="javascript/ie10-viewport-bug-workaround.js"></script>
-
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $('#dvLoading').hide();
+            });
+        </script>
     </body>
 </html>

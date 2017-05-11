@@ -29,22 +29,6 @@
                 opacity: 0.9;
                 background-color: #fff;
             }
-            #loading {
-                position: fixed;
-                left: 0px;
-                top: 0px;
-                width: 100%;
-                height: 100%;
-                z-index: 9999;
-                opacity: 0.9;
-                background-color: #fff;
-            }
-
-            #loading-image {
-                display: block;
-                margin: 0 auto;
-                margin-top: 15rem;
-            }
         </style>
     </head>
 
@@ -55,10 +39,7 @@
             Header("location: login.php");
         }
         ?>
-        <!--<div id="dvLoading"></div>-->
-        <div id="loading">
-            <img id="loading-image" src="unikia_loading.gif" alt="Loading..." />
-        </div>
+        <div id="dvLoading"></div>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -489,10 +470,9 @@
         <script src="javascript/ie10-viewport-bug-workaround.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript">
-            $(window).onload = $('#loading').hide();
-            /*$(window).load(function () {
+            $(window).load(function () {
                 $('#dvLoading').hide();
-            });*/
+            });
         </script>
     </body>
 </html>
