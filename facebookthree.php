@@ -1,27 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>Unikia Facebook</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="images/unikiaicon.ico">
-        <title>Unikia Facebook</title>
-
-
-        <!-- Bootstrap core CSS -->
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
         <link href="navbar-top-fixed.css" rel="stylesheet">
-
         <link href="CSS/facebook.css" rel="stylesheet">
     </head>
 
     <body>
-
         <?php
-        
         session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
@@ -447,16 +439,10 @@
                     ?>
            
         </div>
-
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-
         <script>window.jQuery || document.write('<script src="javascript/jquery.min.js"><\/script>')</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="javascript/bootstrap.min.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="javascript/ie10-viewport-bug-workaround.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript">
