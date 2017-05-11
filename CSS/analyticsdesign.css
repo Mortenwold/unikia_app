@@ -7,9 +7,12 @@ body {
     width: 95%;
     margin-left: 2.5%;
     margin-right: 2.5%;
+    padding-bottom: 1em;
 }
 .btn, .btn-secondary {
     pointer-events: none;
+    float: right;
+    display: inline-block;
 }
 
 
