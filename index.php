@@ -17,6 +17,24 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
         <title>Unikia Dashboard</title>
+        <style>
+            #loading {
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                opacity: 0.9;
+                background-color: #fff;
+            }
+
+            #loading-image {
+                display: block;
+                margin: 0 auto;
+                margin-top: 15rem;
+            }
+        </style>
     </head>
 
     <body>
@@ -26,6 +44,9 @@
             Header("location: login.php");
         }
         ?>
+        <div id="loading">
+            <img id="loading-image" src="unikia_loading.gif" alt="Loading..." />
+        </div>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -182,7 +203,7 @@
                     exit;
                 }
 
-                
+
 
                 $howManyPosts = 1; // Can change this number to show more posts
 
@@ -235,7 +256,7 @@
                 echo'<td class="commentsSettings">' . $currentCommentCount . '</td>';
                 echo '</tr></table>';
                 echo '</div>';
-                
+
                 $getTotalLikesNorge = $fb->get('unikianorge?fields=fan_count');
                 $getTotalLikesNorge = $getTotalLikesNorge->getGraphNode()->asArray();
                 $likesNorge = $getTotalLikesNorge['fan_count'];
@@ -284,5 +305,12 @@
         <script src="javascript/bootstrap.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="javascript/ie10-viewport-bug-workaround.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(window).onload = $('#loading').hide();
+            /*$(window).load(function () {
+                $("#loading").fadeOut("slow");
+            });*/
+        </script>
     </body>
 </html>
