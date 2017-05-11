@@ -7,13 +7,10 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="images/unikiaicon.ico">
-        <!-- Bootstrap core CSS -->
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
         <link href="CSS/admin.css" rel="stylesheet">
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="javascript/adminRegex.js"></script>
 
         <title>Admin</title>
     </head>
@@ -21,7 +18,7 @@
     <body>
         <?php
         session_start();
-        if (!$_SESSION["login"]) {
+        if (!$_SESSION["admin"]) {
             Header("location: login.php");
         }
         ?>
@@ -59,54 +56,40 @@
                 </ul>
             </div>
         </nav>
-        <script>
-            var id;
-            $(window).resize(function () {
-                clearTimeout(id);
-                id = setTimeout(doneResizing, 500);
-
-            });
-
-
-            var windowSize = $(window).width();
-
-            function doneResizing() {
-                windowSize = $(window).width();
-
-            }
-        </script>
         <div id="main">
             <div id="endre_pw">
-                <form action="" method="post">
+                <form action="" method="post" name="reg_login">
                     <?php
                     include "db_connect.php";
 
                     if (isset($_POST["lagre"])) {
-                        $lagreBrukernavn = $_POST["lagreBrukernavn"];
-                        $lagrePassord = $_POST["lagrePassord"];
-
+                        $lagreBrukernavn = $db->escape_string($_POST["lagreBrukernavn"]);
+                        $lagrePassord = $db->escape_string($_POST["lagrePassord"]);
                         $sql = "Update login Set password = Password('$lagrePassord') where username='$lagreBrukernavn'";
                         $res = $db->query($sql);
                         if ($db->affected_rows > 0) {
-                            echo "Oppdatering OK";
+                            echo "Update successful";
                         } else {
-                            echo "Oppdatering ikke OK";
+                            echo "Update failed";
                         }
                     }
                     if (isset($_POST["lage"])) {
                         $lageBrukernavn = $db->escape_string($_POST["lageBrukernavn"]);
                         $lagePassord = $db->escape_string($_POST["lagePassord"]);
-
-                        $sql1 = "INSERT INTO login (username, password)
-                                VALUES ('$lageBrukernavn', 'Password($lagePassord)') ";
-                        $sql2 = "Update login Set password = Password('$lagePassord') where username='$lageBrukernavn'";
-                        echo "$sql1<br/>";
-                        $res1 = $db->query($sql1);
-                        $res2 = $db->query($sql2);
-                        if ($db->affected_rows > 0) {
-                            echo "Oppretting OK";
+                        if (!preg_match("/^\b(?!\bword\b)\w+\b/", $lageBrukernavn)) {
+                            echo "<script type='text/javascript'>alert('Username is invalid!');</script>";
                         } else {
-                            echo "Oppretting ikke OK";
+                            $sql1 = "INSERT INTO     login (username, password)
+                                VALUES ('$lageBrukernavn', 'Password($lagePassord)') ";
+                            $sql2 = "Update login Set password = Password('$lagePassord') where username='$lageBrukernavn'";
+                            echo "$sql1<br/>";
+                            $res1 = $db->query($sql1);
+                            $res2 = $db->query($sql2);
+                            if ($db->affected_rows > 0) {
+                                echo "User created successfully";
+                            } else {
+                                echo "Something went wrong!";
+                            }
                         }
                     }
                     ?>
@@ -115,7 +98,8 @@
                     <input type="password" name="lagrePassord" placeholder="Password"/><br/>
                     <input type="submit" name="lagre" value="Oppdater passord"/><br/><br/><br/>
                     Create user: <br/>
-                    <input type="text" name="lageBrukernavn" placeholder="Username"/><br/>
+                    <div id="error_create"></div>
+                    <input type="text" name="lageBrukernavn" placeholder="Username" onchange="sjekkAdmin()"/><br/>
                     <input type="password" name="lagePassord" placeholder="Password"/><br/>
                     <input type="submit" value="Opprett" name="lage">
                 </form>
@@ -134,11 +118,12 @@
                         <th></th>
                         <?php
                         if (isset($_POST['slett_knapp']) and is_numeric($_POST['slett_knapp'])) {
+                            echo "hello";
                             $slett_valg = $_POST['slett_knapp'];
                             $db->query("DELETE FROM login where bruker_id = '$slett_valg'");
                         }
 
-                        $result = $db->query("select * from login"); //skrive ut alle øvelser
+                        $result = $db->query("select * from login");
                         while ($row = $result->fetch_assoc()) {
                             $navn = $row['username'];
                             $passord = $row['password'];
@@ -158,14 +143,10 @@
                 </form>
             </div>
         </div>
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="javascript/jquery.min.js"><\/script>')</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="javascript/bootstrap.min.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="javascript/ie10-viewport-bug-workaround.js"></script>
     </body>
 </html>
