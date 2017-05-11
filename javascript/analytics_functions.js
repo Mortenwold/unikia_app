@@ -507,17 +507,11 @@ function myFunction1(windowSize) {
                 container: 'view-selector-container',
             })
                     .execute();
-
-
-            /**
-             * Update the activeUsers component, the Chartjs charts, and the dashboard
-             * title whenever the user changes the view.
-             */
+            
             viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                // Render all the of charts for this view.
                 renderNewusers(data.ids, windowSize);
             });
 
@@ -535,16 +529,10 @@ function myFunction1(windowSize) {
             })
                     .execute();
 
-
-            /**
-             * Update the activeUsers component, the Chartjs charts, and the dashboard
-             * title whenever the user changes the view.
-             */
             viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                // Render all the of charts for this view.
                 renderNewusers(data.ids, windowSize);
             });
 
@@ -564,15 +552,10 @@ function myFunction1(windowSize) {
                     .execute();
 
 
-            /**
-             * Update the activeUsers component, the Chartjs charts, and the dashboard
-             * title whenever the user changes the view.
-             */
             viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                // Render all the of charts for this view.
                 renderPageviews(data.ids, windowSize);
             });
 
@@ -591,16 +574,10 @@ function myFunction1(windowSize) {
             })
                     .execute();
 
-
-            /**
-             * Update the activeUsers component, the Chartjs charts, and the dashboard
-             * title whenever the user changes the view.
-             */
             viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                // Render all the of charts for this view.
                 renderTime(data.ids, windowSize);
             });
 
@@ -619,16 +596,10 @@ function myFunction1(windowSize) {
             })
                     .execute();
 
-
-            /**
-             * Update the activeUsers component, the Chartjs charts, and the dashboard
-             * title whenever the user changes the view.
-             */
             viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                // Render all the of charts for this view.
                 renderPercentsessions(data.ids, windowSize);
             });
 
@@ -785,31 +756,16 @@ function renderNewusers(ids, windowSize) {
 function analyticsdashboard(id, windowSize) {
     gapi.analytics.ready(function () {
 
-        /**
-         * Authorize the user immediately if the user has already granted access.
-         * If no access has been created, render an authorize button inside the
-         * element with the ID "embed-api-auth-container".
-         */
         gapi.analytics.auth.authorize({
             container: 'embed-api-auth-container',
             clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
         });
 
-
-        /**
-         * Create a new ActiveUsers instance to be rendered inside of an
-         * element with the id "active-users-container" and poll for changes every
-         * five seconds.
-         */
         var activeUsers = new gapi.analytics.ext.ActiveUsers({
             container: 'active-users-container',
             pollingInterval: 5
         });
 
-
-        /**
-         * Add CSS animation to visually show the when users come and go.
-         */
         activeUsers.once('success', function () {
             var element = this.container.firstChild;
             var timeout;
@@ -827,29 +783,17 @@ function analyticsdashboard(id, windowSize) {
             });
         });
 
-
-        /**
-         * Create a new ViewSelector2 instance to be rendered inside of an
-         * element with the id "view-selector-container".
-         */
         var viewSelector = new gapi.analytics.ext.ViewSelector2({
             container: 'view-selector-container',
         })
                 .execute();
 
-
-        /**
-         * Update the activeUsers component, the Chartjs charts, and the dashboard
-         * title whenever the user changes the view.
-         */
         viewSelector.on('viewChange', function (data) {
             var title = document.getElementById('view-name');
             title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-            // Start tracking active users for this view.
             activeUsers.set(data).execute();
 
-            // Render all the of charts for this view.
             renderWeekOverWeekChart(data.ids);
             renderYearOverYearChart(data.ids);
             renderTopBrowsersChart(data.ids);
