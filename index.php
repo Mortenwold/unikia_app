@@ -136,12 +136,9 @@
                 'app_secret' => '462516f7993b1c50e81e4cb438a6c8b9',
                 'default_graph_version' => 'v2.5'
             ]);
-
             $helper = $fb->getRedirectLoginHelper();
-
-            // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-            define('APP_URL', 'http://localhost/unikia_app/index.php');
-            $permissions = ['user_posts', 'user_photos']; // optional
+            define('APP_URL', 'http://www.unikiadashboard.com');
+            $permissions = ['user_posts', 'user_photos'];
 
             try {
                 if (isset($_SESSION['facebook_access_token'])) {
@@ -172,11 +169,6 @@
                     // setting default access token to be used in script
                     $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
                 }
-                // redirect the user back to the same page if it has "code" GET variable
-                /* if (isset($_GET['code'])) {
-                  header('Location: ./');
-                  } */
-                // validating user access token
                 try {
                     $user = $fb->get('/me');
                     $user = $user->getGraphNode()->asArray();
@@ -192,10 +184,7 @@
                     exit;
                 }
 
-
-
-                $howManyPosts = 1; // Can change this number to show more posts
-
+                $howManyPosts = 1; 
                 $getLatestPost = $fb->get('unikianorge/posts?likes.limit(0)&limit=' . $howManyPosts);
                 $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
 
@@ -204,14 +193,12 @@
                         $post = $key['id'];
                         $date = $key['created_time'];
                         $dateformat = $date->format('d-m-Y');
-
                         $linkAddress = 'http://www.facebook.com/' . $post;
-
+                        
                         $likesResponse = $fb->get('/' . $key['id'] . '/likes?limit=0&summary=true');
                         $getLikeCount = $likesResponse->getGraphEdge();
                         $currentLikeCount = $getLikeCount->getTotalCount();
-
-
+                        
                         $sharesLastPost = $fb->get('/' . $post . '?fields=shares');
                         $sharesLastPost = $sharesLastPost->getGraphNode()->asArray();
                         if (isset($sharesLastPost["shares"]["count"])) {
@@ -270,8 +257,7 @@
                 echo '</table>';
                 echo '</div>';
             } else {
-                // replace your website URL same as added in the developers.facebook.com/apps e.g. if you used http instead of https and you used non-www version or www version of your website then you must add the same here
-                $loginUrl = $helper->getLoginUrl(APP_URL, $permissions);
+                $loginUrl = $helper->getLoginUrl('www.unikiadashboard.com/index.php', $permissions);
                 echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
             }
             ?>

@@ -91,8 +91,11 @@
         <div id="main">
             <div id="chart1">
                 <div id="top">
-                    <div id="active-users-container"class="btn btn-secondary"></div>
                     <h1>Analytics</h1>
+                    <div id="align">
+                        <div id="active-users-container"class="btn btn-secondary"></div>
+                    </div>
+                    
                 </div>
                 <div id="topchart">
                     <div id="embed-api-auth-container"></div>

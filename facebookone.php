@@ -77,11 +77,8 @@
                 'app_secret' => '462516f7993b1c50e81e4cb438a6c8b9',
                 'default_graph_version' => 'v2.5'
             ]);
-
             $helper = $fb->getRedirectLoginHelper();
-
-            // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-            define('APP_URL', 'http://localhost/unikia_app/index.php');
+            define('APP_URL', 'http://www.unikiadashboard.com');
             $permissions = ['user_posts', 'user_photos']; // optional
 
             try {
@@ -113,11 +110,6 @@
                     // setting default access token to be used in script
                     $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
                 }
-                // redirect the user back to the same page if it has "code" GET variable
-                /* if (isset($_GET['code'])) {
-                  header('Location: ./');
-                  } */
-                // validating user access token
                 try {
                     $user = $fb->get('/me');
                     $user = $user->getGraphNode()->asArray();
@@ -134,7 +126,7 @@
                 }
 
                 echo '<h1>Unikia Norge</h1>';
-                $howManyPosts = 1; // Can change this number to show more posts
+                $howManyPosts = 1;
 
                 $getLatestPost = $fb->get('unikianorge/posts?likes.limit(0)&limit=' . $howManyPosts);
                 $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
@@ -284,7 +276,6 @@
                         echo "<a href='" . $linkAddress . "'>" . $linkPost . "</a>";
                         echo '</td><td>' . $dateformat . '</td><td class="likesSettings">' . $currentLikeCount . '</td><td class="commentsSettings">' . $currentCommentCount .
                         '</td><td class="sharesSettings">' . $sharesCount . '</td></tr>';
-                        // echo 'Post made '.$dateformat.' with '.$currentLikeCount.' likes, '.$currentCommentCount.' comments & '.$sharesCount.' shares<br>';
                     }
                 }
                 if ($messageCounter <= 0) {
@@ -445,7 +436,7 @@
                 // Now you can redirect to another page and use the access token from $_SESSION['facebook_access_token']
             } else {
                 // replace your website URL same as added in the developers.facebook.com/apps e.g. if you used http instead of https and you used non-www version or www version of your website then you must add the same here
-                $loginUrl = $helper->getLoginUrl(APP_URL, $permissions);
+                $loginUrl = $helper->getLoginUrl('http://www.unikiadashboard.com/facebookone.php', $permissions);
                 echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
             }
             ?>

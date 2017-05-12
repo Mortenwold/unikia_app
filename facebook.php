@@ -76,10 +76,7 @@
                 'app_secret' => '462516f7993b1c50e81e4cb438a6c8b9',
                 'default_graph_version' => 'v2.5'
             ]);
-
             $helper = $fb->getRedirectLoginHelper();
-
-            // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
             define('APP_URL', 'http://www.unikiadashboard.com');
             $permissions = ['user_posts', 'user_photos']; // optional
 
@@ -112,14 +109,6 @@
                     // setting default access token to be used in script
                     $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
                 }
-                // redirect the user back to the same page if it has "code" GET variable
-
-
-                /* if (isset($_GET['code'])) {
-                  header('Location: ./');
-                  } */
-
-                // validating user access token
                 try {
                     $user = $fb->get('/me');
                     $user = $user->getGraphNode()->asArray();
@@ -138,7 +127,6 @@
                 $showtoday = new DateTime();
                 $showtodayFormat = $showtoday->format('d-m-Y');
                 $todayDatePrint = $showtodayFormat;
-                //     echo 'Today is '.$showtodayFormat;
 
                 $showDateDayStart = new DateTime();
                 $showDateDayStart = $showDateDayStart->modify('-7 days');
@@ -159,8 +147,7 @@
                 $showDateYearEnd = new DateTime();
                 $showDateYearEnd = $showDateYearEnd->modify('+1 days');
                 $showDateFormatYearEnd = $showDateYearEnd->format('Y');
-
-                // For info text
+                
                 $showDateStartDefault = $showDateDayStart->format('d-m-Y');
                 $showDateEndDefault = $showtoday->modify('+1 day');
                 $showDateEndDefault = $showDateEndDefault->format('d-m-Y');
@@ -400,8 +387,7 @@ The system will require over 1 minute if you pick 25-50 posts as the limit.' />
                     echo '</div>';
                 }
             } else {
-                // replace your website URL same as added in the developers.facebook.com/apps e.g. if you used http instead of https and you used non-www version or www version of your website then you must add the same here
-                $loginUrl = $helper->getLoginUrl(APP_URL, $permissions);
+                $loginUrl = $helper->getLoginUrl('http://www.unikiadashboard.com/facebook.php', $permissions);
                 echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
             }
             ?>
