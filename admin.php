@@ -65,30 +65,41 @@
                     if (isset($_POST["lagre"])) {
                         $lagreBrukernavn = $db->escape_string($_POST["lagreBrukernavn"]);
                         $lagrePassord = $db->escape_string($_POST["lagrePassord"]);
-                        $sql = "Update login Set password = Password('$lagrePassord') where username='$lagreBrukernavn'";
-                        $res = $db->query($sql);
-                        if ($db->affected_rows > 0) {
-                            echo "Update successful";
+                        if (empty($lagreBrukernavn)) {
+                            echo 'Username is required!<br>';
+                        } else if (empty($lagrePassord)) {
+                            echo 'Password is required!<br>';
                         } else {
-                            echo "Update failed";
+                            $sql = "Update login Set password = Password('$lagrePassord') where username='$lagreBrukernavn'";
+                            $res = $db->query($sql);
+                            if ($db->affected_rows > 0) {
+                                echo "<p style='color: green'>Update successful</p>";
+                            } else {
+                                echo "<p style='color: red'>Update failed</p>";
+                            }
                         }
                     }
                     if (isset($_POST["lage"])) {
                         $lageBrukernavn = $db->escape_string($_POST["lageBrukernavn"]);
                         $lagePassord = $db->escape_string($_POST["lagePassord"]);
-                        if (!preg_match("/^\b(?!\badmin\b)\w+\b/", $lageBrukernavn)) {
-                            echo "<script type='text/javascript'>alert('Username is invalid!');</script>";
+                        if (preg_match("/^\b(?!\badmin\b)\w+\b/", $lageBrukernavn)) {
+                            echo "Username is invalid!<br>";
+                        }
+                        if (empty($lageBrukernavn)) {
+                            echo 'Username is required!<br>';
+                        }
+                        else if (empty($lagePassord)) {
+                            echo 'Password is required!<br>';
                         } else {
-                            $sql1 = "INSERT INTO     login (username, password)
+                            $sql1 = "INSERT INTO login (username, password)
                                 VALUES ('$lageBrukernavn', 'Password($lagePassord)') ";
                             $sql2 = "Update login Set password = Password('$lagePassord') where username='$lageBrukernavn'";
-                            echo "$sql1<br/>";
                             $res1 = $db->query($sql1);
                             $res2 = $db->query($sql2);
                             if ($db->affected_rows > 0) {
-                                echo "User created successfully";
+                                echo "<p style='color: green'>User created successfully</p>";
                             } else {
-                                echo "Something went wrong!";
+                                echo "<p style='color: red'>Something went wrong!</p>";
                             }
                         }
                     }
@@ -116,28 +127,28 @@
                         <th>Brukernavn</th>
                         <th>Passord</th>
                         <th></th>
-                        <?php
-                        if (isset($_POST['slett_knapp'])) {
-                            $slett_valg = $_POST['slett_knapp'];
-                            $db->query("DELETE FROM login where bruker_id = '$slett_valg'");
-                        }
+<?php
+if (isset($_POST['slett_knapp'])) {
+    $slett_valg = $_POST['slett_knapp'];
+    $db->query("DELETE FROM login where bruker_id = '$slett_valg'");
+}
 
-                        $result = $db->query("select * from login");
-                        while ($row = $result->fetch_assoc()) {
-                            $navn = $row['username'];
-                            $passord = $row['password'];
-                            $b_id = $row['bruker_id'];
+$result = $db->query("select * from login");
+while ($row = $result->fetch_assoc()) {
+    $navn = $row['username'];
+    $passord = $row['password'];
+    $b_id = $row['bruker_id'];
 
-                            echo "<tr>";
-                            echo "<td>" . $b_id . "</td>";
-                            echo "<td>" . $navn . "</td>";
-                            echo "<td>" . $passord . "</td>";
-                            if ($navn != "admin") {
-                                echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";
-                            }
-                            echo "</tr>";
-                        }
-                        ?>
+    echo "<tr>";
+    echo "<td>" . $b_id . "</td>";
+    echo "<td>" . $navn . "</td>";
+    echo "<td>" . $passord . "</td>";
+    if ($navn != "admin") {
+        echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";
+    }
+    echo "</tr>";
+}
+?>
                     </table>
                 </form>
             </div>
