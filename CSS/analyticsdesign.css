@@ -7,7 +7,14 @@ body {
     width: 95%;
     margin-left: 2.5%;
     margin-right: 2.5%;
+    padding-bottom: 1em;
 }
+.btn, .btn-secondary {
+    pointer-events: none;
+    float: right;
+    display: inline-block;
+}
+
 
 #chart-1-container {
 }
@@ -148,14 +155,29 @@ li{
         margin-right: 0;
         width: 100%;
     }
+    #top {
+        margin:0;
+        width: 100%;
+    }
 }
 @media (max-width:500px) {
     #c3 {
         height: 33rem;
     }
-    
+
     #c4 {
         height: 33rem;
+    }
+    #align {
+        text-align: center;
+        width: 100%;
+        float: none;
+    }
+    .btn, .btn-secondary {
+        float: none;
+    }
+    h1 {
+        text-align: center;
     }
 }
 

@@ -5,7 +5,8 @@ function renderWeekOverWeekChart(ids) {
         'ids': ids,
         'dimensions': 'ga:date,ga:nthDay',
         'metrics': 'ga:sessions',
-        'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+        'start-date': moment(now).subtract(1, 'day')
+                .day(0).format('YYYY-MM-DD'),
         'end-date': moment(now).format('YYYY-MM-DD')
     });
 
@@ -13,9 +14,11 @@ function renderWeekOverWeekChart(ids) {
         'ids': ids,
         'dimensions': 'ga:date,ga:nthDay',
         'metrics': 'ga:sessions',
-        'start-date': moment(now).subtract(1, 'day').day(0).subtract(1, 'week')
+        'start-date': moment(now).subtract(1, 'day')
+                .day(0).subtract(1, 'week')
                 .format('YYYY-MM-DD'),
-        'end-date': moment(now).subtract(1, 'day').day(6).subtract(1, 'week')
+        'end-date': moment(now).subtract(1, 'day')
+                .day(6).subtract(1, 'week')
                 .format('YYYY-MM-DD')
     });
 
@@ -48,9 +51,9 @@ function renderWeekOverWeekChart(ids) {
                 },
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }
@@ -111,8 +114,8 @@ function renderYearOverYearChart(ids) {
                 },
                 {
                     label: 'This Year',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
                     data: data1
                 }
             ]
@@ -138,7 +141,7 @@ function renderTopBrowsersChart(ids) {
             .then(function (response) {
 
                 var data = [];
-                var colors = ['#FFC0CB', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
+                var colors = ['#520A76', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
 
                 response.rows.forEach(function (row, i) {
                     data.push({value: +row[1], color: colors[i], label: row[0]});
@@ -161,7 +164,7 @@ function renderTopCountriesChart(ids) {
             .then(function (response) {
 
                 var data = [];
-                var colors = ['#4D5360', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
+                var colors = ['#520A76', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
 
                 response.rows.forEach(function (row, i) {
                     data.push({
@@ -233,7 +236,8 @@ function renderPageviews(ids, windowsizing) {
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
             'metrics': 'ga:pageviews',
-            'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+            'start-date': moment(now).subtract(1, 'day')
+                    .day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
     } else if (windowsizing < 768) {
@@ -272,9 +276,9 @@ function renderPageviews(ids, windowsizing) {
             datasets: [
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }
@@ -337,9 +341,9 @@ function renderTime(ids, windowsizing) {
             datasets: [
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }
@@ -401,9 +405,9 @@ function renderPercentsessions(ids, windowsizing) {
             datasets: [
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }
@@ -469,7 +473,6 @@ function dateGraph(ids, windowsizing) {
                 .set(dateRange1)
                 .execute();
 
-
         var dataChart1 = new gapi.analytics.googleCharts.DataChart(commonConfig)
                 .set({query: dateRange1})
                 .set({chart: {container: 'data-chart-2-container'}});
@@ -481,8 +484,6 @@ function dateGraph(ids, windowsizing) {
             var title = document.getElementById('view-name');
             title.textContent = data.property.name + ' (' + data.view.name + ')';
         });
-
-
 
         dateRangeSelector1.on('change', function (data) {
             dataChart1.set({query: data}).execute();
@@ -507,17 +508,11 @@ function myFunction1(windowSize) {
                 container: 'view-selector-container',
             })
                     .execute();
-
-
-            /**
-             * Update the activeUsers component, the Chartjs charts, and the dashboard
-             * title whenever the user changes the view.
-             */
+            
             viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                // Render all the of charts for this view.
                 renderNewusers(data.ids, windowSize);
             });
 
@@ -535,16 +530,10 @@ function myFunction1(windowSize) {
             })
                     .execute();
 
-
-            /**
-             * Update the activeUsers component, the Chartjs charts, and the dashboard
-             * title whenever the user changes the view.
-             */
             viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                // Render all the of charts for this view.
                 renderNewusers(data.ids, windowSize);
             });
 
@@ -564,15 +553,10 @@ function myFunction1(windowSize) {
                     .execute();
 
 
-            /**
-             * Update the activeUsers component, the Chartjs charts, and the dashboard
-             * title whenever the user changes the view.
-             */
             viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                // Render all the of charts for this view.
                 renderPageviews(data.ids, windowSize);
             });
 
@@ -591,16 +575,10 @@ function myFunction1(windowSize) {
             })
                     .execute();
 
-
-            /**
-             * Update the activeUsers component, the Chartjs charts, and the dashboard
-             * title whenever the user changes the view.
-             */
             viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                // Render all the of charts for this view.
                 renderTime(data.ids, windowSize);
             });
 
@@ -619,16 +597,10 @@ function myFunction1(windowSize) {
             })
                     .execute();
 
-
-            /**
-             * Update the activeUsers component, the Chartjs charts, and the dashboard
-             * title whenever the user changes the view.
-             */
             viewSelector3.on('viewChange', function (data) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                // Render all the of charts for this view.
                 renderPercentsessions(data.ids, windowSize);
             });
 
@@ -707,9 +679,9 @@ function renderMonth(ids, windowSize) {
             datasets: [
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }
@@ -769,9 +741,9 @@ function renderNewusers(ids, windowSize) {
             datasets: [
                 {
                     label: 'This Week',
-                    fillColor: 'rgba(151,187,205,0.5)',
-                    strokeColor: 'rgba(151,187,205,1)',
-                    pointColor: 'rgba(151,187,205,1)',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
                     pointStrokeColor: '#fff',
                     data: data1
                 }
@@ -785,37 +757,22 @@ function renderNewusers(ids, windowSize) {
 function analyticsdashboard(id, windowSize) {
     gapi.analytics.ready(function () {
 
-        /**
-         * Authorize the user immediately if the user has already granted access.
-         * If no access has been created, render an authorize button inside the
-         * element with the ID "embed-api-auth-container".
-         */
         gapi.analytics.auth.authorize({
             container: 'embed-api-auth-container',
             clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
         });
 
-
-        /**
-         * Create a new ActiveUsers instance to be rendered inside of an
-         * element with the id "active-users-container" and poll for changes every
-         * five seconds.
-         */
         var activeUsers = new gapi.analytics.ext.ActiveUsers({
             container: 'active-users-container',
             pollingInterval: 5
         });
 
-
-        /**
-         * Add CSS animation to visually show the when users come and go.
-         */
         activeUsers.once('success', function () {
             var element = this.container.firstChild;
             var timeout;
 
             this.on('change', function (data) {
-                var element = this.container.firstChild;
+                element = this.container.firstChild;
                 var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
                 element.className += (' ' + animationClass);
 
@@ -827,29 +784,16 @@ function analyticsdashboard(id, windowSize) {
             });
         });
 
-
-        /**
-         * Create a new ViewSelector2 instance to be rendered inside of an
-         * element with the id "view-selector-container".
-         */
         var viewSelector = new gapi.analytics.ext.ViewSelector2({
             container: 'view-selector-container',
         })
                 .execute();
 
-
-        /**
-         * Update the activeUsers component, the Chartjs charts, and the dashboard
-         * title whenever the user changes the view.
-         */
         viewSelector.on('viewChange', function (data) {
             var title = document.getElementById('view-name');
             title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-            // Start tracking active users for this view.
             activeUsers.set(data).execute();
-
-            // Render all the of charts for this view.
             renderWeekOverWeekChart(data.ids);
             renderYearOverYearChart(data.ids);
             renderTopBrowsersChart(data.ids);

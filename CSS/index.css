@@ -39,8 +39,7 @@ body {
     border: 1px solid black;
     margin-top: 2rem;
     display:inline-block;
-    background-color:white;  
-    width: 24%;
+    background-color:white;
     float: right;
 }
 #facebooksection {
@@ -157,7 +156,7 @@ th {
     color: red;
 }
 .sharesSettings {
-    color: yellow;
+    color: green;
 }
 
 #menuLinks {

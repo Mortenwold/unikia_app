@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>Unikia Facebook</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="images/unikiaicon.ico">
-
-        <title>Unikia Facebook</title>
-
-        <!-- Bootstrap core CSS -->
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
         <link href="navbar-top-fixed.css" rel="stylesheet">
-
-
         <link href="CSS/facebook.css" rel="stylesheet">
+        <style>
+            #dvLoading{
+                background:#000 url(unikia_loading.gif) no-repeat center center;
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                opacity: 0.9;
+                background-color: #fff;
+            }
+        </style>
     </head>
 
-  <body>
-      <?php 
+    <body>
+        <?php
         session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
-        } 
+        }
         ?>
+        <div id="dvLoading"></div>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -69,11 +76,8 @@
                 'app_secret' => '462516f7993b1c50e81e4cb438a6c8b9',
                 'default_graph_version' => 'v2.5'
             ]);
-
             $helper = $fb->getRedirectLoginHelper();
-
-            // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-            define('APP_URL', 'http://localhost/unikia_app/index.php');
+            define('APP_URL', 'http://www.unikiadashboard.com');
             $permissions = ['user_posts', 'user_photos']; // optional
 
             try {
@@ -105,14 +109,6 @@
                     // setting default access token to be used in script
                     $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
                 }
-                // redirect the user back to the same page if it has "code" GET variable
-
-
-                /*if (isset($_GET['code'])) {
-                        header('Location: ./');
-                }*/
-
-                // validating user access token
                 try {
                     $user = $fb->get('/me');
                     $user = $user->getGraphNode()->asArray();
@@ -131,7 +127,6 @@
                 $showtoday = new DateTime();
                 $showtodayFormat = $showtoday->format('d-m-Y');
                 $todayDatePrint = $showtodayFormat;
-                //     echo 'Today is '.$showtodayFormat;
 
                 $showDateDayStart = new DateTime();
                 $showDateDayStart = $showDateDayStart->modify('-7 days');
@@ -152,13 +147,12 @@
                 $showDateYearEnd = new DateTime();
                 $showDateYearEnd = $showDateYearEnd->modify('+1 days');
                 $showDateFormatYearEnd = $showDateYearEnd->format('Y');
-
-                // For info text
+                
                 $showDateStartDefault = $showDateDayStart->format('d-m-Y');
                 $showDateEndDefault = $showtoday->modify('+1 day');
                 $showDateEndDefault = $showDateEndDefault->format('d-m-Y');
                 ?>
-            <div class="scaleZoom">
+                <div class="scaleZoom">
                     <form action="" method ="post">
                         <table class="searchSetupTable" border ="2">
                             <th colspan="3">  Start Date (Default: <?php echo $showDateStartDefault ?> - 7 Days ago) </th> 
@@ -306,12 +300,15 @@
                                     </select> </td></tr>
                             <tr><td  class="searchSetupTd" >
                                     <input id ="buttonScale" class ="btn btn-secondary" type="submit" name="Search" value="Search" /> </td>
-                                <td  colspan="2" class="searchSetupTd" ><input id ="buttonScale" class ="btn btn-secondary" type='button'  value='Info - Hover me' title='Start date includes itself, but the end date does not.
+                                <td  colspan="2" class="searchSetupTd" >
+                                    <image id ="buttoninfo"  
+                                           src="images/infob.png" title='Start date includes itself, but the end date does not.
 The system will require over 1 minute if you pick 25-50 posts as the limit.' />
+
                                 </td></tr>
                         </table>  
                     </form>
-            </div>
+                </div>
                 <?php
                 if (isset($_REQUEST["Search"])) {
                     $yearStart = $_POST["yearStart"];
@@ -390,22 +387,23 @@ The system will require over 1 minute if you pick 25-50 posts as the limit.' />
                     echo '</div>';
                 }
             } else {
-                // replace your website URL same as added in the developers.facebook.com/apps e.g. if you used http instead of https and you used non-www version or www version of your website then you must add the same here
-                $loginUrl = $helper->getLoginUrl(APP_URL, $permissions);
+                $loginUrl = $helper->getLoginUrl('http://www.unikiadashboard.com/facebook.php', $permissions);
                 echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
             }
             ?>
-            
-        </div>
 
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
+        </div>
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="javascript/jquery.min.js"><\/script>')</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="javascript/bootstrap.min.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="javascript/ie10-viewport-bug-workaround.js"></script>
-    </body>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $("#dvLoading").hide();
+            });
+        </script>
+    </script>
+</body>
 </html>

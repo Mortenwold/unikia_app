@@ -2,21 +2,30 @@
 <html lang="en">
 
     <head>
+        <title>Unikia Dashboard</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="images/unikiaicon.ico">
-        <!-- Bootstrap core CSS -->
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
         <link href="CSS/index.css" rel="stylesheet">
-
         <script src="javascript/analytics_functions.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-        <title>Unikia Dashboard</title>
+        <style>
+            #dvLoading{
+                background:#000 url(unikia_loading.gif) no-repeat center center;
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                opacity: 0.9;
+                background-color: #fff;
+            }
+        </style>
     </head>
 
     <body>
@@ -25,10 +34,8 @@
         if (!$_SESSION["login"]) {
             Header("location: login.php");
         }
-        if ($_SESSION["admin"]) {
-            
-        }
         ?>
+        <div id="dvLoading"></div>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -129,12 +136,9 @@
                 'app_secret' => '462516f7993b1c50e81e4cb438a6c8b9',
                 'default_graph_version' => 'v2.5'
             ]);
-
             $helper = $fb->getRedirectLoginHelper();
-
-            // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-            define('APP_URL', 'http://localhost/unikia_app/index.php');
-            $permissions = ['user_posts', 'user_photos']; // optional
+            define('APP_URL', 'http://www.unikiadashboard.com');
+            $permissions = ['user_posts', 'user_photos'];
 
             try {
                 if (isset($_SESSION['facebook_access_token'])) {
@@ -165,11 +169,6 @@
                     // setting default access token to be used in script
                     $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
                 }
-                // redirect the user back to the same page if it has "code" GET variable
-                /* if (isset($_GET['code'])) {
-                  header('Location: ./');
-                  } */
-                // validating user access token
                 try {
                     $user = $fb->get('/me');
                     $user = $user->getGraphNode()->asArray();
@@ -184,7 +183,8 @@
                     echo 'Facebook SDK returned an error: ' . $e->getMessage();
                     exit;
                 }
-                $howManyPosts = 1; // Can change this number to show more posts
+
+                $howManyPosts = 1; 
                 $getLatestPost = $fb->get('unikianorge/posts?likes.limit(0)&limit=' . $howManyPosts);
                 $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
 
@@ -232,7 +232,7 @@
                 echo'<td class="commentsSettings">' . $currentCommentCount . '</td>';
                 echo '</tr></table>';
                 echo '</div>';
-                
+
                 $getTotalLikesNorge = $fb->get('unikianorge?fields=fan_count');
                 $getTotalLikesNorge = $getTotalLikesNorge->getGraphNode()->asArray();
                 $likesNorge = $getTotalLikesNorge['fan_count'];
@@ -257,29 +257,26 @@
                 echo '</table>';
                 echo '</div>';
             } else {
-                // replace your website URL same as added in the developers.facebook.com/apps e.g. if you used http instead of https and you used non-www version or www version of your website then you must add the same here
-                $loginUrl = $helper->getLoginUrl(APP_URL, $permissions);
+                $loginUrl = $helper->getLoginUrl('www.unikiadashboard.com/index.php', $permissions);
                 echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
             }
             ?>
         </div>
         <div id="twittersection">
-            <!--<div class="container">
-            <h3>Total Follower : <strong></strong></h3>
-        </div>-->
-
             <a class="twitter-timeline" data-height="20rem" data-chrome="nofooter, noheader" href="https://twitter.com/unikiadotcom"></a>
             <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
 
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="javascript/jquery.min.js"><\/script>')</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="javascript/bootstrap.min.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="javascript/ie10-viewport-bug-workaround.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $("#dvLoading").hide();
+            });
+        </script>
     </body>
 </html>
