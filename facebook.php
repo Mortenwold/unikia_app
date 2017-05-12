@@ -80,7 +80,7 @@
             $helper = $fb->getRedirectLoginHelper();
 
             // app directory could be anything but website URL must match the URL given in the developers.facebook.com/apps
-            define('APP_URL', 'http://localhost/unikia_app/index.php');
+            define('APP_URL', 'http://www.unikiadashboard.com');
             $permissions = ['user_posts', 'user_photos']; // optional
 
             try {

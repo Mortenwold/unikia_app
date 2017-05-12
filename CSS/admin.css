@@ -68,4 +68,10 @@ th {
     #endre_pw{
         width: 100%;
     }
+
+    body{
+        margin-top: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
 }

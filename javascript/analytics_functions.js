@@ -419,6 +419,7 @@ function renderPercentsessions(ids, windowsizing) {
 
 
 }
+
 function dateGraph(ids, windowsizing) {
 
     gapi.analytics.ready(function () {
@@ -608,7 +609,6 @@ function myFunction1(windowSize) {
     }
 }
 
-
 function skriv_graf(windowSize) {
     gapi.analytics.ready(function () {
         gapi.analytics.auth.authorize({
@@ -617,7 +617,7 @@ function skriv_graf(windowSize) {
         });
 
         var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
-            container: 'view-selector-container',
+            container: 'view-selector-container'
         })
                 .execute();
 
