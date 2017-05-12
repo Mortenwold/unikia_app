@@ -107,12 +107,12 @@
                     Update password: <br/>
                     <input type="text" name="lagreBrukernavn" placeholder="Username"/><br/>
                     <input type="password" name="lagrePassord" placeholder="Password"/><br/>
-                    <input type="submit" name="lagre" value="Oppdater passord"/><br/><br/><br/>
+                    <input type="submit" name="lagre" value="Update Password"/><br/><br/><br/>
                     Create user: <br/>
                     <div id="error_create"></div>
                     <input type="text" name="lageBrukernavn" placeholder="Username" onchange="sjekkAdmin()"/><br/>
                     <input type="password" name="lagePassord" placeholder="Password"/><br/>
-                    <input type="submit" value="Opprett" name="lage">
+                    <input type="submit" value="Create User" name="lage">
                 </form>
             </div>
 

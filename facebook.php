@@ -303,7 +303,7 @@
                                 <td  colspan="2" class="searchSetupTd" >
                                     <image id ="buttoninfo"  
                                            src="images/infob.png" title='Start date includes itself, but the end date does not.
-The system will require over 1 minute if you pick 25-50 posts as the limit.' />
+The system will require some time if you pick 25-50 posts as the limit.' />
 
                                 </td></tr>
                         </table>  

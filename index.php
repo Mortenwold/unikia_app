@@ -101,7 +101,6 @@
                 skriv_graf(windowSize);
             }
         </script>
-        <div id="main">
             <div id="analyticsPart">
                 <div id="embed-api-auth-container"></div>
                 <p class="text-muted">Number of pageviews for www.Unikia.no</p>
@@ -125,7 +124,6 @@
             skriv_graf(windowSize);
                 </script>
             </div>
-        </div>
 
         <div id="facebooksection">
             <?php

@@ -41,6 +41,8 @@ body {
     display:inline-block;
     background-color:white;
     float: right;
+    width: 24%;
+    margin-bottom: 3rem;
 }
 #facebooksection {
     overflow: auto;
@@ -52,7 +54,7 @@ body {
 }
 
 .twitter-timeline{
-    width:20rem !important;
+    width:100% !important;
 }
 
 #view-selector-container{
