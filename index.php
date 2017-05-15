@@ -257,7 +257,7 @@
                 echo '</table>';
                 echo '</div>';
             } else {
-                $loginUrl = $helper->getLoginUrl('www.unikiadashboard.com/index.php', $permissions);
+                $loginUrl = $helper->getLoginUrl('http://www.unikiadashboard.com/index.php', $permissions);
                 echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
             }
             ?>
