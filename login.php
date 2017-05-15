@@ -55,7 +55,7 @@
                         $res = $db->query($sql);
                         if ($db->affected_rows > 0) {
                             $_SESSION["login"] = true;
-                            if ($sjekkBrukernavn == "admin") {
+                            if (strtolower($sjekkBrukernavn) == "admin") {
                                 $_SESSION["admin"] = true;
                             }
                             Header("location: index.php");

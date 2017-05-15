@@ -79,11 +79,18 @@
                             }
                         }
                     }
+                    ?>
+                    Update password: <br/>
+                    <input type="text" name="lagreBrukernavn" placeholder="Username"/><br/>
+                    <input type="password" name="lagrePassord" placeholder="Password"/><br/>
+                    <input type="submit" name="lagre" value="Update Password"/><br/><br/><br/>
+                    <?php
                     if (isset($_POST["lage"])) {
                         $lageBrukernavn = $db->escape_string($_POST["lageBrukernavn"]);
                         $lagePassord = $db->escape_string($_POST["lagePassord"]);
-                        if (preg_match("/^\b(?!\badmin\b)\w+\b/", $lageBrukernavn)) {
-                            echo "Username is invalid!<br>";
+                        $res = $db->query("select * from login where username='$lageBrukernavn'");
+                        if (mysqli_num_rows($res) > 0) {
+                            echo "<p style='color: red'>Username already exists</p>";
                         } else {
                             if (empty($lageBrukernavn)) {
                                 echo 'Username is required!<br>';
@@ -104,10 +111,6 @@
                         }
                     }
                     ?>
-                    Update password: <br/>
-                    <input type="text" name="lagreBrukernavn" placeholder="Username"/><br/>
-                    <input type="password" name="lagrePassord" placeholder="Password"/><br/>
-                    <input type="submit" name="lagre" value="Update Password"/><br/><br/><br/>
                     Create user: <br/>
                     <div id="error_create"></div>
                     <input type="text" name="lageBrukernavn" placeholder="Username" onchange="sjekkAdmin()"/><br/>
