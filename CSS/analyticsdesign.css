@@ -14,6 +14,12 @@ body {
     float: right;
     display: inline-block;
 }
+#glogout {
+    pointer-events: auto;
+    float: left;
+    display: block;
+    width: 100%;
+}
 
 #logout {
     margin: 0;
