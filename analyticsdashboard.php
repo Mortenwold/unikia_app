@@ -79,13 +79,17 @@
                 id = setTimeout(doneResizing, 500);
 
             });
+            
 
-            var windowSize = $(window).width();
+            
+           var windowSize = $(window).width(), height = $(window).height();
             var id = "graph1";
             function doneResizing() {
+                if ($(window).width() != windowSize || $(window).height() != height) {
+                    windowSize = $(window).width();
                 id = $("#graph").val();
-                windowSize = $(window).width();
                 analyticsdashboard(id, windowSize);
+            }
 
             }
             dropdownAnalytics(windowSize);
@@ -117,10 +121,13 @@
                         <div id="view-selector-container"></div>
                         <div id="data-chart-1-container"></div>
                         <div id="date-range-selector-1-container"></div>
+                        <a href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://www.unikiadashboard.com/analyticsdashboard.php">
+                            <button class="btn btn-secondary" id="glogout">Logout from Google</button></a>
                 </div>
 
 
                 <div id="view-name"></div>
+
                 <div id="charts">      
                     <div class="position" id="c1">  
                         <h3>This Week vs Last Week (by Revenue)</h3>

@@ -93,7 +93,7 @@
                 clearTimeout(id);
                 id = setTimeout(doneResizing, 500);
             });
-            
+
             var windowSize = $(window).width(), height = $(window).height();
 
             function doneResizing() {
@@ -115,6 +115,8 @@
             <div id="date-range-selector-2-container"></div>
 
             <div id="view-name"></div>
+            <a href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://www.unikiadashboard.com/index.php">
+                <button class="btn btn-secondary" id="glogout">Logout from Google</button></a>
 
             <script src="javascript/view-selector2.js"></script>
             <script src="javascript/active-users.js"></script>
