@@ -294,6 +294,7 @@
                 ?>
                 <form action="facebookthree.php" method ="post"> 
                     <input id="buttonMargin" class ="btn btn-secondary" type="submit" name="mostLikes" value="Top Likes & Comments" />
+                    <input id="buttonMargin" class ="btn btn-secondary" type="submit" name="lastFifty" value="Last 50 Posts" />
                 </form>
                 <?php
                 if (isset($_REQUEST["mostLikes"])) {
@@ -438,11 +439,7 @@
                         </table>';
                     echo '</div>';
                 }
-                ?>
-                <form action="facebookthree.php" method ="post"> 
-                    <input id="buttonMargin" class ="btn btn-secondary" type="submit" name="lastFifty" value="Last 50 Posts" />
-                </form>
-                <?php
+             
                 if (isset($_REQUEST["lastFifty"])) {
                     
                     $today = new DateTime();
