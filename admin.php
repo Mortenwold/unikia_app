@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+error_reporting(0);
+?>
 <html lang="en">
 
     <head>
@@ -18,7 +21,7 @@
     <body>
         <?php
         session_start();
-        if (!$_SESSION["admin"]) {
+        if (!$_SESSION["login"]) {
             Header("location: login.php");
         }
         ?>
@@ -45,7 +48,7 @@
                         </div>
                     </li>
                     <?php
-                    if ($_SESSION["admin"]) {
+                    if ($_SESSION["login"]) {
                         ?>
                         <li class="nav-item active">
                             <a class="nav-link" href="admin.php">Admin</a>

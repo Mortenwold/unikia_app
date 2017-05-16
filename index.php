@@ -67,7 +67,11 @@
                         <?php
                     }
                     ?>
+
                 </ul>
+                <button class="btn btn-outline-success my-2 my-sm-0" id="logout">
+                    <a class="nav-link" href="login.php">Logout</a>
+                </button>
             </div>
         </nav>
         <script>
@@ -101,29 +105,29 @@
                 skriv_graf(windowSize);
             }
         </script>
-            <div id="analyticsPart">
-                <div id="embed-api-auth-container"></div>
-                <p class="text-muted">Number of pageviews for www.Unikia.no</p>
+        <div id="analyticsPart">
+            <div id="embed-api-auth-container"></div>
+            <p class="text-muted">Number of pageviews for www.Unikia.no</p>
 
-                <div id="view-selector-container"></div>
-                <div id="data-chart-1-container"></div>
-                <div id="date-range-selector-1-container"></div>
+            <div id="view-selector-container"></div>
+            <div id="data-chart-1-container"></div>
+            <div id="date-range-selector-1-container"></div>
 
-                <div id="data-chart-2-container"></div>
-                <div id="date-range-selector-2-container"></div>
+            <div id="data-chart-2-container"></div>
+            <div id="date-range-selector-2-container"></div>
 
-                <div id="view-name"></div>
+            <div id="view-name"></div>
 
-                <script src="javascript/view-selector2.js"></script>
-                <script src="javascript/active-users.js"></script>
-                <script src="javascript/date-range-selector.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-                <link rel="stylesheet" href="chartjs-visualizations.css">
-                <script>
+            <script src="javascript/view-selector2.js"></script>
+            <script src="javascript/active-users.js"></script>
+            <script src="javascript/date-range-selector.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+            <link rel="stylesheet" href="chartjs-visualizations.css">
+            <script>
             skriv_graf(windowSize);
-                </script>
-            </div>
+            </script>
+        </div>
 
         <div id="facebooksection">
             <?php
@@ -182,7 +186,7 @@
                     exit;
                 }
 
-                $howManyPosts = 1; 
+                $howManyPosts = 1;
                 $getLatestPost = $fb->get('unikianorge/posts?likes.limit(0)&limit=' . $howManyPosts);
                 $getLatestPost = $getLatestPost->getGraphEdge()->asArray();
 
@@ -192,11 +196,11 @@
                         $date = $key['created_time'];
                         $dateformat = $date->format('d-m-Y');
                         $linkAddress = 'http://www.facebook.com/' . $post;
-                        
+
                         $likesResponse = $fb->get('/' . $key['id'] . '/likes?limit=0&summary=true');
                         $getLikeCount = $likesResponse->getGraphEdge();
                         $currentLikeCount = $getLikeCount->getTotalCount();
-                        
+
                         $sharesLastPost = $fb->get('/' . $post . '?fields=shares');
                         $sharesLastPost = $sharesLastPost->getGraphNode()->asArray();
                         if (isset($sharesLastPost["shares"]["count"])) {
@@ -255,7 +259,7 @@
                 echo '</table>';
                 echo '</div>';
             } else {
-                $loginUrl = $helper->getLoginUrl('www.unikiadashboard.com/index.php', $permissions);
+                $loginUrl = $helper->getLoginUrl('http://www.unikiadashboard.com/index.php', $permissions);
                 echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
             }
             ?>

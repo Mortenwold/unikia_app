@@ -3,16 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/xampp/htdocs/unikia_app/admin.php</file>
-            <file>file:/C:/xampp/htdocs/unikia_app/db_connect.php</file>
-            <file>file:/C:/xampp/htdocs/unikia_app/facebook.php</file>
-            <file>file:/C:/xampp/htdocs/unikia_app/facebookone.php</file>
-            <file>file:/C:/xampp/htdocs/unikia_app/facebooktwo.php</file>
-=======
-            <file>file:/C:/xampp/htdocs/unikia_app/facebook.php</file>
-            <file>file:/C:/xampp/htdocs/unikia_app/javascript/analytics_functions.js</file>
->>>>>>> 5df6e297add622a632a1bc30d02550b10083e8d7
+            <file>file:/C:/xampp/htdocs/unikia_app/login.php</file>
             <file>file:/C:/xampp/htdocs/unikia_app/index.php</file>
         </group>
     </open-files>

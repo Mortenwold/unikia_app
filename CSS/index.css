@@ -58,7 +58,6 @@ body {
 }
 
 #view-selector-container{
-    display:none;
 }
 
 #embed-api-auth-container{
@@ -166,6 +165,9 @@ th {
 }
 #whiteLink {
     color: white;
+}
+#logout {
+    margin: 0;
 }
 
 @media (max-width:900px){
