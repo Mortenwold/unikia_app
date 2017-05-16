@@ -106,7 +106,7 @@
         </script>
         <div id="analyticsPart">
             <div id="embed-api-auth-container"></div>
-            <p class="text-muted">Number of pageviews for www.Unikia.no</p>
+            <p class="text-muted">Transaction revenue per day in NOK</p>
 
             <div id="view-selector-container"></div>
             <div id="data-chart-1-container"></div>
@@ -123,9 +123,6 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
             <link rel="stylesheet" href="chartjs-visualizations.css">
-            <script>
-            skriv_graf(windowSize);
-            </script>
         </div>
 
         <div id="facebooksection">
