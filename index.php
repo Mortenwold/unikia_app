@@ -92,16 +92,15 @@
             $(window).resize(function () {
                 clearTimeout(id);
                 id = setTimeout(doneResizing, 500);
-
             });
-
-
-            var windowSize = $(window).width();
+            
+            var windowSize = $(window).width(), height = $(window).height();
 
             function doneResizing() {
-                windowSize = $(window).width();
-
-                skriv_graf(windowSize);
+                if ($(window).width() != windowSize || $(window).height() != height) {
+                    windowSize = $(window).width();
+                    skriv_graf(windowSize);
+                }
             }
         </script>
         <div id="analyticsPart">
@@ -123,6 +122,7 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
             <link rel="stylesheet" href="chartjs-visualizations.css">
+            <script>skriv_graf(windowSize);</script>
         </div>
 
         <div id="facebooksection">
