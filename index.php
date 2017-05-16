@@ -15,7 +15,7 @@
 
         <style>
             #dvLoading{
-                background:#000 url(unikia_loading.gif) no-repeat center center;
+                background:#000 url(images/unikia_loading.gif) no-repeat center center;
                 position: fixed;
                 left: 0px;
                 top: 0px;
@@ -52,7 +52,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facebook</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" id ="menuLinks" href="facebookone.php">UnikiaNorge</a>
+                            <a class="dropdown-item" id="menuLinks" href="facebookone.php">UnikiaNorge</a>
                             <a class="dropdown-item" id="menuLinks" href="facebooktwo.php">UnikiaInnovation</a>
                             <a class="dropdown-item" id="menuLinks" href="facebookthree.php">Barnas Designlab</a>
                             <a class="dropdown-item" id="menuLinks" href="facebook.php">Facebook Archive</a>
@@ -67,10 +67,9 @@
                         <?php
                     }
                     ?>
-
                 </ul>
-                <button class="btn btn-outline-success my-2 my-sm-0" id="logout">
-                    <a class="nav-link" href="login.php">Logout</a>
+                <button id="logout_btn" onclick="location.href = 'login.php';">
+                    <img src="images/logout_btn.png" id="logout">
                 </button>
             </div>
         </nav>

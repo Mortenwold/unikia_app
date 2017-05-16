@@ -53,6 +53,9 @@
                     }
                     ?>
                 </ul>
+                <button id="logout_btn" onclick="location.href = 'login.php';">
+                    <img src="images/logout_btn.png" id="logout">
+                </button>
             </div>
         </nav>
         <script>

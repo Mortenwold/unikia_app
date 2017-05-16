@@ -13,7 +13,7 @@
         <link href="CSS/facebook.css" rel="stylesheet">
         <style>
             #dvLoading{
-                background:#000 url(unikia_loading.gif) no-repeat center center;
+                background:#000 url(images/unikia_loading.gif) no-repeat center center;
                 position: fixed;
                 left: 0px;
                 top: 0px;
@@ -66,6 +66,9 @@
                     }
                     ?>
                 </ul>
+                <button id="logout_btn" onclick="location.href = 'login.php';">
+                    <img src="images/logout_btn.png" id="logout">
+                </button>
             </div>
         </nav>
         <div id ="facebook">

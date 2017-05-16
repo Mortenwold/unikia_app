@@ -22,19 +22,19 @@ body {
 
 
 @media (max-width: 600px) { /* Specific to this particular image */
-  #login {
-    position:fixed;
-    top: 50%;
-    left: 50%;
-    width:24em;
-    height:14em;
-    margin-top: -8em; /*set to a negative number 1/2 of your height*/
-    margin-left: -12em; /*set to a negative number 1/2 of your width*/
-    text-align: center;
-}
-#icon {
-    width: 14rem;
-    height: 5rem;
-}
+    #login {
+        position:fixed;
+        top: 50%;
+        left: 50%;
+        width:24em;
+        height:14em;
+        margin-top: -8em; /*set to a negative number 1/2 of your height*/
+        margin-left: -12em; /*set to a negative number 1/2 of your width*/
+        text-align: center;
+    }
+    #icon {
+        width: 14rem;
+        height: 5rem;
+    }
 }
 
