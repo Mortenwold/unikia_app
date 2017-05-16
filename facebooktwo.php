@@ -438,6 +438,82 @@
                         </table>';
                             echo '</div>';
                         }
+                        ?>
+                <form action="facebookone.php" method ="post"> 
+                    <input id="buttonMargin" class ="btn btn-secondary" type="submit" name="lastFifty" value="Last 50 Posts" />
+                </form>
+                <?php
+                if (isset($_REQUEST["lastFifty"])) {
+                    
+                    $today = new DateTime();
+                    $today = $today->modify('+1 days');
+                    $endDate = $today->format('Y-m-d');
+                    $startDate = '2016-01-01';
+                    
+                    $searchLimit = 50;
+                    $pageSelect = 'UnikiaInnovation';
+
+                    $getDateRange = $fb->get($pageSelect . '/posts?since=' . $startDate . '&until=' . $endDate . '&fields=created_time,message,likes.limit(0)&limit=' . $searchLimit);
+                    $getDateRange = $getDateRange->getGraphEdge()->asArray();
+                    $counter = 1;
+                    $dateRangeLikes = 0;
+                    $dateRangeComments = 0;
+                    $dateRangeShares = 0;
+                    $message = "";
+
+                    echo '<div class="scaleZoom">';
+                    echo '<table class="searchTable" border="2"> 
+                           <th colspan="5" id="searchHeader">' . $pageSelect . '  (' . $todayDatePrint . ' to ' . $startDate . ') </th><th class="thMessage" rowspan="2">Message </th>
+                           <tr> <th>Limit: ' . $searchLimit . '</th><th>Date</th><th>Likes</th><th>Comments</th><th>Shares</th> </tr>';
+                    set_time_limit(0);
+                    foreach ($getDateRange as $key) {
+                        if (isset($key['id'])) {
+                            $date = $key['created_time'];
+                            $dateformat = $date->format('d-m-Y');
+                            $likesResponse = $fb->get('/' . $key['id'] . '/likes?limit=0&summary=true');
+                            $getLikeCount = $likesResponse->getGraphEdge();
+                            $currentLikeCount = $getLikeCount->getTotalCount();
+                            $dateRangeLikes += $currentLikeCount;
+                            $linkAddress = 'http://www.facebook.com/' . $key['id'];
+
+                            if (isset($key['message']) && $key['message']) {
+                                $message = $key['message'];
+                            } else {
+                                $message = 'No message';
+                            }
+                            $commentsResponse = $fb->get('/' . $key['id'] . '/comments?limit=0&summary=true');
+                            $getCommentsCount = $commentsResponse->getGraphEdge();
+                            $currentCommentCount = $getCommentsCount->getTotalCount();
+                            $dateRangeComments += $currentCommentCount;
+
+                            $sharesResponse = $fb->get('/' . $key['id'] . '?fields=shares');
+                            $sharesResponse = $sharesResponse->getGraphNode()->asArray();
+                            if (isset($sharesResponse["shares"]["count"])) {
+                                $sharesCount = $sharesResponse["shares"]["count"];
+                                $dateRangeShares += $sharesCount;
+                            } else {
+                                $sharesCount = 0;
+                            }
+                            $linkPost = 'Post ' . $counter;
+                            echo '<tr><td id ="linkTd">';
+                            echo "<a href='" . $linkAddress . "'>" . $linkPost . "</a>";
+                            echo '</td><td class="dateTd"y>' . $dateformat . '</td><td class="likesSettings">' . $currentLikeCount . '</td><td class="commentsSettings">' . $currentCommentCount .
+                            '</td><td class="sharesSettings">' . $sharesCount . '</td><td class="messageSettings">' . $message . '</td></tr>';
+                            $counter++;
+                        }
+                    }
+                    if ($counter < 2) {
+                        echo '<tr><td colspan="6">No posts were made during this period.</td></tr>';
+                        echo '</table>';
+                    } else {
+                        echo '<tr><td id ="linkTd" colspan="2">Total</td><td class="likesSettings">' . $dateRangeLikes . '</td>'
+                        . '<td class="commentsSettings">' . $dateRangeComments . '</td><td class="sharesSettings">' . $dateRangeShares . '</td>'
+                        . '<td></td></tr>';
+                        echo '<tr><td colspan="6" id="linkTd">' . $pageSelect . '</td></tr>';
+                        echo '</table>';
+                    }
+                    echo '</div>';
+                }
                     } else {
                         $loginUrl = $helper->getLoginUrl('http://www.unikiadashboard.com/facebooktwo.php', $permissions);
                         echo '<a id="linkBlackColor" href="' . $loginUrl . '">Log in with Facebook!</a>';
