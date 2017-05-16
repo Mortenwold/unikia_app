@@ -295,6 +295,9 @@
                         <form action="facebooktwo.php" method ="post"> 
                             <input id="buttonMargin" class ="btn btn-secondary" type="submit" name="mostLikes" value="Top Likes & Comments" />
                         </form>
+                        <form action="facebooktwo.php" method ="post"> 
+                    <input id="buttonMargin" class ="btn btn-secondary" type="submit" name="lastFifty" value="Last 50 Posts" />
+                        </form>
                         <?php
                         if (isset($_REQUEST["mostLikes"])) {
                             $getPostsLikes = $fb->get('/unikiainnovation/posts?fields=likes.limit(1000),message,created_time&limit=100');
@@ -438,11 +441,7 @@
                         </table>';
                             echo '</div>';
                         }
-                        ?>
-                <form action="facebookone.php" method ="post"> 
-                    <input id="buttonMargin" class ="btn btn-secondary" type="submit" name="lastFifty" value="Last 50 Posts" />
-                </form>
-                <?php
+                  
                 if (isset($_REQUEST["lastFifty"])) {
                     
                     $today = new DateTime();
@@ -463,7 +462,7 @@
 
                     echo '<div class="scaleZoom">';
                     echo '<table class="searchTable" border="2"> 
-                           <th colspan="5" id="searchHeader">' . $pageSelect . '  (' . $todayDatePrint . ' to ' . $startDate . ') </th><th class="thMessage" rowspan="2">Message </th>
+                           <th colspan="5" id="searchHeader">' . $pageSelect . ' </th><th class="thMessage" rowspan="2">Message </th>
                            <tr> <th>Limit: ' . $searchLimit . '</th><th>Date</th><th>Likes</th><th>Comments</th><th>Shares</th> </tr>';
                     set_time_limit(0);
                     foreach ($getDateRange as $key) {
