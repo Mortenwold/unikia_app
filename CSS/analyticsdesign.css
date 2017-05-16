@@ -15,6 +15,21 @@ body {
     display: inline-block;
 }
 
+#logout {
+    margin: 0;
+    border: none;
+    outline:none;
+    width: 2rem;
+    height: 2rem;
+}
+#logout_btn {
+    cursor: pointer;
+    background:transparent;
+    margin: 0;
+    border: none;
+    outline:none;
+}
+
 
 #chart-1-container {
 }

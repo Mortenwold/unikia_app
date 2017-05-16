@@ -3,6 +3,21 @@ body {
     padding-top: 3rem;
     background-color: #f1f1f1;
 }
+
+#logout {
+    margin: 0;
+    border: none;
+    outline:none;
+    width: 2rem;
+    height: 2rem;
+}
+#logout_btn {
+    cursor: pointer;
+    background:transparent;
+    margin: 0;
+    border: none;
+    outline:none;
+}
 #facebook {
     margin-top: 2%;
     margin-left: 5%;
