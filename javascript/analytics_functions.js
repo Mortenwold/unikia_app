@@ -134,8 +134,8 @@ function renderTopBrowsersChart(ids) {
     query({
         'ids': ids,
         'dimensions': 'ga:browser',
-        'metrics': 'ga:pageviews',
-        'sort': '-ga:pageviews',
+        'metrics': 'ga:transactionRevenue',
+        'sort': '-ga:transactionRevenue',
         'max-results': 5
     })
             .then(function (response) {
@@ -226,7 +226,7 @@ function escapeHtml(str) {
     return div.innerHTML;
 }
 
-function renderPageviews(ids, windowsizing) {
+function renderTransactionRevenue(ids, windowsizing) {
     var now = moment();
 
     var thisWeek;
@@ -235,7 +235,7 @@ function renderPageviews(ids, windowsizing) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:pageviews',
+            'metrics': 'ga:transactionRevenue',
             'start-date': moment(now).subtract(1, 'day')
                     .day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
@@ -244,7 +244,7 @@ function renderPageviews(ids, windowsizing) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:pageviews',
+            'metrics': 'ga:transactionRevenue',
             'start-date': moment(now).subtract(10, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
@@ -252,7 +252,7 @@ function renderPageviews(ids, windowsizing) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:pageviews',
+            'metrics': 'ga:transactionRevenue',
             'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
@@ -292,7 +292,7 @@ function renderPageviews(ids, windowsizing) {
 }
 
 
-function renderTime(ids, windowsizing) {
+function renderTransactionsPerUser(ids, windowsizing) {
     var now = moment();
 
     var thisWeek;
@@ -301,7 +301,7 @@ function renderTime(ids, windowsizing) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:timeOnPage',
+            'metrics': 'ga:transactionsPerUser',
             'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
@@ -309,7 +309,7 @@ function renderTime(ids, windowsizing) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:timeOnPage',
+            'metrics': 'ga:transactionsPerUser',
             'start-date': moment(now).subtract(10, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
@@ -317,7 +317,7 @@ function renderTime(ids, windowsizing) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:timeOnPage',
+            'metrics': 'ga:transactionsPerUser',
             'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
@@ -356,7 +356,7 @@ function renderTime(ids, windowsizing) {
 
 }
 
-function renderPercentsessions(ids, windowsizing) {
+function renderItemQuantity(ids, windowsizing) {
     var now = moment();
 
     var thisWeek;
@@ -365,7 +365,7 @@ function renderPercentsessions(ids, windowsizing) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:percentNewSessions',
+            'metrics': 'ga:itemQuantity',
             'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
@@ -373,7 +373,7 @@ function renderPercentsessions(ids, windowsizing) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:percentNewSessions',
+            'metrics': 'ga:itemQuantity',
             'start-date': moment(now).subtract(10, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
@@ -381,7 +381,7 @@ function renderPercentsessions(ids, windowsizing) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:percentNewSessions',
+            'metrics': 'ga:itemQuantity',
             'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
@@ -417,7 +417,192 @@ function renderPercentsessions(ids, windowsizing) {
         new Chart(makeCanvas('data-chart-1-container')).Line(data);
     });
 
+}
 
+function renderProductRevenuePerPurchase(ids, windowSize) {
+    var now = moment();
+
+    var thisWeek;
+
+    if (windowSize <= 400) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:productRevenuePerPurchase',
+            'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else if (windowSize <= 768) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:productRevenuePerPurchase',
+            'start-date': moment(now).subtract(6, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:productRevenuePerPurchase',
+            'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    }
+
+    Promise.all([thisWeek]).then(function (results) {
+
+        var data1 = results[0].rows.map(function (row) {
+            return +row[2];
+        });
+        var labels = results[0].rows.map(function (row) {
+            return +row[0];
+        });
+
+        labels = labels.map(function (label) {
+            return moment(label, 'YYYYMMDD').format('MMM - DD');
+        });
+
+        var data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'This Week',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
+                    pointStrokeColor: '#fff',
+                    data: data1
+                }
+            ]
+        };
+
+        new Chart(makeCanvas('data-chart-1-container')).Line(data);
+    });
+}
+
+function renderItemsPerPurchase(ids, windowSize) {
+    var now = moment();
+
+    var thisWeek;
+
+    if (windowSize <= 400) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:itemsPerPurchase',
+            'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else if (windowSize <= 768) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:itemsPerPurchase',
+            'start-date': moment(now).subtract(6, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:itemsPerPurchase',
+            'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    }
+
+    Promise.all([thisWeek]).then(function (results) {
+
+        var data1 = results[0].rows.map(function (row) {
+            return +row[2];
+        });
+        var labels = results[0].rows.map(function (row) {
+            return +row[0];
+        });
+
+        labels = labels.map(function (label) {
+            return moment(label, 'YYYYMMDD').format('MMM - DD');
+        });
+
+        var data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'This Week',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
+                    pointStrokeColor: '#fff',
+                    data: data1
+                }
+            ]
+        };
+
+        new Chart(makeCanvas('data-chart-1-container')).Line(data);
+    });
+}
+
+function renderRevenuePerUser(ids, windowSize) {
+    var now = moment();
+
+    var thisWeek;
+
+    if (windowSize <= 400) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:revenuePerUser',
+            'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else if (windowSize <= 768) {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:revenuePerUser',
+            'start-date': moment(now).subtract(6, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    } else {
+        thisWeek = query({
+            'ids': ids,
+            'dimensions': 'ga:date,ga:nthDay',
+            'metrics': 'ga:revenuePerUser',
+            'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
+            'end-date': moment(now).format('YYYY-MM-DD')
+        });
+    }
+
+    Promise.all([thisWeek]).then(function (results) {
+
+        var data1 = results[0].rows.map(function (row) {
+            return +row[2];
+        });
+        var labels = results[0].rows.map(function (row) {
+            return +row[0];
+        });
+
+        labels = labels.map(function (label) {
+            return moment(label, 'YYYYMMDD').format('MMM - DD');
+        });
+
+        var data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'This Week',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
+                    pointStrokeColor: '#fff',
+                    data: data1
+                }
+            ]
+        };
+
+        new Chart(makeCanvas('data-chart-1-container')).Line(data);
+    });
 }
 
 function dateGraph(ids, windowsizing) {
@@ -496,28 +681,8 @@ function dateGraph(ids, windowsizing) {
     });
 }
 
-function myFunction1(windowSize) {
+function dropdownAnalytics(windowSize) {
     var x = document.getElementById("graph").value;
-    gapi.analytics.ready(function () {
-        
-    gapi.analytics.auth.authorize({
-                container: 'embed-api-auth-container',
-                clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
-            });
-
-            var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
-                container: 'view-selector-container',
-            })
-                    .execute();
-            
-            viewSelector3.on('viewChange', function (data) {
-                var title = document.getElementById('view-name');
-                title.textContent = data.property.name + ' (' + data.view.name + ')';
-
-                renderNewusers(data.ids, windowSize);
-            });
-
-        });
     if (x === "graph1") {
         gapi.analytics.ready(function () {
 
@@ -535,7 +700,7 @@ function myFunction1(windowSize) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                renderNewusers(data.ids, windowSize);
+                renderTransactionRevenue(data.ids, windowSize);
             });
 
         });
@@ -558,7 +723,7 @@ function myFunction1(windowSize) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                renderPageviews(data.ids, windowSize);
+                renderTransactionsPerUser(data.ids, windowSize);
             });
 
         });
@@ -580,7 +745,7 @@ function myFunction1(windowSize) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                renderTime(data.ids, windowSize);
+                renderItemQuantity(data.ids, windowSize);
             });
 
         });
@@ -602,7 +767,53 @@ function myFunction1(windowSize) {
                 var title = document.getElementById('view-name');
                 title.textContent = data.property.name + ' (' + data.view.name + ')';
 
-                renderPercentsessions(data.ids, windowSize);
+                renderProductRevenuePerPurchase(data.ids, windowSize);
+            });
+
+        });
+    }
+    else if (x === "graph5") {
+        gapi.analytics.ready(function () {
+
+            gapi.analytics.auth.authorize({
+                container: 'embed-api-auth-container',
+                clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+            });
+
+
+            var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
+                container: 'view-selector-container',
+            })
+                    .execute();
+
+            viewSelector3.on('viewChange', function (data) {
+                var title = document.getElementById('view-name');
+                title.textContent = data.property.name + ' (' + data.view.name + ')';
+
+                renderRevenuePerUser(data.ids, windowSize);
+            });
+
+        });
+    }
+    else if (x === "graph6") {
+        gapi.analytics.ready(function () {
+
+            gapi.analytics.auth.authorize({
+                container: 'embed-api-auth-container',
+                clientid: '704702109256-08uvcbane8mgalecg2b4r2el9qp2a9on.apps.googleusercontent.com'
+            });
+
+
+            var viewSelector3 = new gapi.analytics.ext.ViewSelector2({
+                container: 'view-selector-container',
+            })
+                    .execute();
+
+            viewSelector3.on('viewChange', function (data) {
+                var title = document.getElementById('view-name');
+                title.textContent = data.property.name + ' (' + data.view.name + ')';
+
+                renderItemsPerPurchase(data.ids, windowSize);
             });
 
         });
@@ -692,68 +903,6 @@ function renderMonth(ids, windowSize) {
     });
 }
 
-function renderNewusers(ids, windowSize) {
-    var now = moment();
-
-    var thisWeek;
-
-    if (windowSize <= 400) {
-        thisWeek = query({
-            'ids': ids,
-            'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:transactionRevenue',
-            'start-date': moment(now).subtract(1, 'day').day(0).format('YYYY-MM-DD'),
-            'end-date': moment(now).format('YYYY-MM-DD')
-        });
-    } else if (windowSize <= 768) {
-        thisWeek = query({
-            'ids': ids,
-            'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:transactionRevenue',
-            'start-date': moment(now).subtract(6, 'day').day(0).format('YYYY-MM-DD'),
-            'end-date': moment(now).format('YYYY-MM-DD')
-        });
-    } else {
-        thisWeek = query({
-            'ids': ids,
-            'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:productRevenuePerPurchase',
-            'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
-            'end-date': moment(now).format('YYYY-MM-DD')
-        });
-    }
-
-    Promise.all([thisWeek]).then(function (results) {
-
-        var data1 = results[0].rows.map(function (row) {
-            return +row[2];
-        });
-        var labels = results[0].rows.map(function (row) {
-            return +row[0];
-        });
-
-        labels = labels.map(function (label) {
-            return moment(label, 'YYYYMMDD').format('MMM - DD');
-        });
-
-        var data = {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'This Week',
-                    fillColor: 'rgba(82,10,118,0.5)',
-                    strokeColor: 'rgba(82,10,118,1)',
-                    pointColor: 'rgba(82,10,118,1)',
-                    pointStrokeColor: '#fff',
-                    data: data1
-                }
-            ]
-        };
-
-        new Chart(makeCanvas('data-chart-1-container')).Line(data);
-    });
-}
-
 function analyticsdashboard(id, windowSize) {
     gapi.analytics.ready(function () {
 
@@ -800,14 +949,18 @@ function analyticsdashboard(id, windowSize) {
             renderTopCountriesChart(data.ids);
 
             if (id === "graph1") {
-                renderNewusers(data.ids, windowSize);
+                renderTransactionRevenue(data.ids, windowSize);
             } else if (id === "graph2") {
-                renderPageviews(data.ids, windowSize);
+                renderTransactionPerUser(data.ids, windowSize);
             } else if (id === "graph3") {
-                renderTime(data.ids, windowSize);
+                renderItemQuantity(data.ids, windowSize);
             } else if (id === "graph4") {
-                renderPercentsessions(data.ids, windowSize);
-            }
+                renderProductRevenuePerPurchase(data.ids, windowSize);
+            } else if (id === "graph5") {
+                renderTransactionsPerSession(data.ids, windowSize);
+            } else if (id === "graph6") {
+                renderItemPerPurchase(data.ids, windowSize);
+            }           
             dateGraph(data.ids, windowSize);
         });
     });

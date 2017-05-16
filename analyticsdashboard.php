@@ -85,7 +85,7 @@
                 analyticsdashboard(id, windowSize);
 
             }
-            myFunction1(windowSize);
+            dropdownAnalytics(windowSize);
         </script>
 
         <div id="main">
@@ -101,11 +101,13 @@
                     <div id="embed-api-auth-container"></div>
                     <header>  
                         <form action="" method ="post">
-                            <select id="graph" onchange="myFunction1(windowSize)">     
-                                <option value="graph1" selected="selected">New users</option>
-                                <option value="graph2">Pageviews</option>
-                                <option value="graph3">Time on page</option>
-                                <option value="graph4">% new sessions</option>
+                            <select id="graph" onchange="dropdownAnalytics(windowSize)">     
+                                <option value="graph1" selected="selected">Transaction Revenue</option>
+                                <option value="graph2">Transactions per user</option>
+                                <option value="graph3">Item quantity</option>
+                                <option value="graph4">Product revenue per purchase</option>
+                                <option value="graph5">Revenue per user</option>
+                                <option value="graph6">Items per purchase</option>
                             </select>
                         </form>
 
@@ -118,19 +120,19 @@
                 <div id="view-name"></div>
                 <div id="charts">      
                     <div class="position" id="c1">  
-                        <h3>This Week vs Last Week (by sessions)</h3>
+                        <h3>This Week vs Last Week (by Revenue)</h3>
                         <figure class="Chartjs-figure" id="chart-1-container"></figure>
                         <ol class="Chartjs-legend" id="legend-1-container"></ol>
                     </div>    
                     <div class="position" id="c2">  
                         <div class="Chartjs">
-                            <h3>This Year vs Last Year (by users)</h3>
+                            <h3>This Year vs Last Year (by Revenue)</h3>
                             <figure class="Chartjs-figure" id="chart-2-container"></figure>
                             <ol class="Chartjs-legend" id="legend-2-container"></ol>
                         </div>
                     </div> 
                     <div class="position" id="c3">  
-                        <h3>Top Browsers (by pageview)</h3>
+                        <h3>Top Browsers (by Revenue)</h3>
                         <figure class="Chartjs-figure" id="chart-3-container"></figure>
                         <ol class="Chartjs-legend" id="legend-3-container"></ol>
                     </div>
