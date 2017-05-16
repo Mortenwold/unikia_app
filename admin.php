@@ -78,31 +78,7 @@ error_reporting(0);
                             if ($db->affected_rows > 0) {
                                 echo "<p style='color: green'>Update successful</p>";
                             } else {
-                                echo "<p style='color: red'>Update failed</p>";
-                            }
-                        }
-                    }
-                    if (isset($_POST["lage"])) {
-                        $lageBrukernavn = $db->escape_string($_POST["lageBrukernavn"]);
-                        $lagePassord = $db->escape_string($_POST["lagePassord"]);
-                        if (preg_match("/^\b(?!\badmin\b)\w+\b/", $lageBrukernavn)) {
-                            echo "Username is invalid!<br>";
-                        }
-                        if (empty($lageBrukernavn)) {
-                            echo 'Username is required!<br>';
-                        }
-                        else if (empty($lagePassord)) {
-                            echo 'Password is required!<br>';
-                        } else {
-                            $sql1 = "INSERT INTO login (username, password)
-                                VALUES ('$lageBrukernavn', 'Password($lagePassord)') ";
-                            $sql2 = "Update login Set password = Password('$lagePassord') where username='$lageBrukernavn'";
-                            $res1 = $db->query($sql1);
-                            $res2 = $db->query($sql2);
-                            if ($db->affected_rows > 0) {
-                                echo "<p style='color: green'>User created successfully</p>";
-                            } else {
-                                echo "<p style='color: red'>Something went wrong!</p>";
+                                echo "<p style='color: red'>Username does not exist</p>";
                             }
                         }
                     }
@@ -111,6 +87,33 @@ error_reporting(0);
                     <input type="text" name="lagreBrukernavn" placeholder="Username"/><br/>
                     <input type="password" name="lagrePassord" placeholder="Password"/><br/>
                     <input type="submit" name="lagre" value="Update Password"/><br/><br/><br/>
+                    <?php
+                    if (isset($_POST["lage"])) {
+                        $lageBrukernavn = $db->escape_string($_POST["lageBrukernavn"]);
+                        $lagePassord = $db->escape_string($_POST["lagePassord"]);
+                        $res = $db->query("select * from login where username='$lageBrukernavn'");
+                        if (mysqli_num_rows($res) > 0) {
+                            echo "<p style='color: red'>Username already exists</p>";
+                        } else {
+                            if (empty($lageBrukernavn)) {
+                                echo 'Username is required!<br>';
+                            } else if (empty($lagePassord)) {
+                                echo 'Password is required!<br>';
+                            } else {
+                                $sql1 = "INSERT INTO login (username, password)
+                                VALUES ('$lageBrukernavn', 'Password($lagePassord)') ";
+                                $sql2 = "Update login Set password = Password('$lagePassord') where username='$lageBrukernavn'";
+                                $res1 = $db->query($sql1);
+                                $res2 = $db->query($sql2);
+                                if ($db->affected_rows > 0) {
+                                    echo "<p style='color: green'>User created successfully</p>";
+                                } else {
+                                    echo "<p style='color: red'>Something went wrong!</p>";
+                                }
+                            }
+                        }
+                    }
+                    ?>
                     Create user: <br/>
                     <div id="error_create"></div>
                     <input type="text" name="lageBrukernavn" placeholder="Username" onchange="sjekkAdmin()"/><br/>
@@ -130,28 +133,28 @@ error_reporting(0);
                         <th>Brukernavn</th>
                         <th>Passord</th>
                         <th></th>
-<?php
-if (isset($_POST['slett_knapp'])) {
-    $slett_valg = $_POST['slett_knapp'];
-    $db->query("DELETE FROM login where bruker_id = '$slett_valg'");
-}
+                        <?php
+                        if (isset($_POST['slett_knapp'])) {
+                            $slett_valg = $_POST['slett_knapp'];
+                            $db->query("DELETE FROM login where bruker_id = '$slett_valg'");
+                        }
 
-$result = $db->query("select * from login");
-while ($row = $result->fetch_assoc()) {
-    $navn = $row['username'];
-    $passord = $row['password'];
-    $b_id = $row['bruker_id'];
+                        $result = $db->query("select * from login");
+                        while ($row = $result->fetch_assoc()) {
+                            $navn = $row['username'];
+                            $passord = $row['password'];
+                            $b_id = $row['bruker_id'];
 
-    echo "<tr>";
-    echo "<td>" . $b_id . "</td>";
-    echo "<td>" . $navn . "</td>";
-    echo "<td>" . $passord . "</td>";
-    if ($navn != "admin") {
-        echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";
-    }
-    echo "</tr>";
-}
-?>
+                            echo "<tr>";
+                            echo "<td>" . $b_id . "</td>";
+                            echo "<td>" . $navn . "</td>";
+                            echo "<td>" . $passord . "</td>";
+                            if ($navn != "admin") {
+                                echo "<td><input type='image' id='delete_btn' name='slett_knapp' value='" . $b_id . "' src='images/delete_icon.png'/></td>";
+                            }
+                            echo "</tr>";
+                        }
+                        ?>
                     </table>
                 </form>
             </div>

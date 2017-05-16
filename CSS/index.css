@@ -9,7 +9,7 @@
 
 body {
     padding-top: 4.5rem;
-    padding-bottom: 4.5rem;
+    padding-bottom: 7rem;
     background-color:#f1f1f1;
     margin-top: 1rem;
     margin-left: 2rem;
@@ -48,7 +48,6 @@ body {
     overflow: auto;
     width: 74%;
     margin-top: 2rem;
-    float: left;
     display: inline-block;
     
 }
