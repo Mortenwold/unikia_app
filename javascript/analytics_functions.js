@@ -245,7 +245,7 @@ function renderTransactionRevenue(ids, windowsizing) {
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
             'metrics': 'ga:transactionRevenue',
-            'start-date': moment(now).subtract(10, 'day').day(0).format('YYYY-MM-DD'),
+            'start-date': moment(now).subtract(6, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
     } else {
