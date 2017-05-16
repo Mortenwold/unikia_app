@@ -164,6 +164,7 @@ a:active {
 }
 #buttonMargin {
     margin-left: 1%;
+    display: inline;
 }
 h1 {
     margin: 1%;
