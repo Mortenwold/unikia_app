@@ -4,7 +4,7 @@ function renderWeekOverWeekChart(ids) {
     var thisWeek = query({
         'ids': ids,
         'dimensions': 'ga:date,ga:nthDay',
-        'metrics': 'ga:sessions',
+        'metrics': 'ga:transactionRevenue',
         'start-date': moment(now).subtract(1, 'day')
                 .day(0).format('YYYY-MM-DD'),
         'end-date': moment(now).format('YYYY-MM-DD')
@@ -13,7 +13,7 @@ function renderWeekOverWeekChart(ids) {
     var lastWeek = query({
         'ids': ids,
         'dimensions': 'ga:date,ga:nthDay',
-        'metrics': 'ga:sessions',
+        'metrics': 'ga:transactionRevenue',
         'start-date': moment(now).subtract(1, 'day')
                 .day(0).subtract(1, 'week')
                 .format('YYYY-MM-DD'),
@@ -71,7 +71,7 @@ function renderYearOverYearChart(ids) {
     var thisYear = query({
         'ids': ids,
         'dimensions': 'ga:month,ga:nthMonth',
-        'metrics': 'ga:users',
+        'metrics': 'ga:transactionRevenue',
         'start-date': moment(now).date(1).month(0).format('YYYY-MM-DD'),
         'end-date': moment(now).format('YYYY-MM-DD')
     });
@@ -79,7 +79,7 @@ function renderYearOverYearChart(ids) {
     var lastYear = query({
         'ids': ids,
         'dimensions': 'ga:month,ga:nthMonth',
-        'metrics': 'ga:users',
+        'metrics': 'ga:transactionRevenue',
         'start-date': moment(now).subtract(1, 'year').date(1).month(0)
                 .format('YYYY-MM-DD'),
         'end-date': moment(now).date(1).month(0).subtract(1, 'day')
@@ -717,7 +717,7 @@ function renderNewusers(ids, windowSize) {
         thisWeek = query({
             'ids': ids,
             'dimensions': 'ga:date,ga:nthDay',
-            'metrics': 'ga:transactionRevenue',
+            'metrics': 'ga:productRevenuePerPurchase',
             'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
             'end-date': moment(now).format('YYYY-MM-DD')
         });
