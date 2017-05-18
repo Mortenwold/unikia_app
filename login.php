@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+error_reporting(0);
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -27,11 +30,10 @@
                 }
             }
         </script>
-        <!--<img class="bg" src="images/unikialogin.jpg">-->
         <div id="login">
             <img id="icon" src="images/unikia-logo.png">
             <div id="blackFont"></div>
-            <form action="" method="post" name="login">
+            <form action="login.php" method="post" name="login">
                 <?php
                 session_start();
                 $_SESSION["login"] = false;

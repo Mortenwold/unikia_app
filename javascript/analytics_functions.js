@@ -59,7 +59,17 @@ function renderWeekOverWeekChart(ids) {
                 }
             ]
         };
-
+        
+        var viewSelector = new gapi.analytics.ext.ViewSelector2({
+            container: 'view-selector-container',
+        }).execute();
+        
+        viewSelector.on('change', function(data) {
+            var title = document.getElementById('view-name');
+            title.textContent = data.property.name + ' (' + data.view.name + ')';
+            alert("hei");
+        });
+        
         new Chart(makeCanvas('chart-1-container')).Line(data);
         generateLegend('legend-1-container', data.datasets);
     });
@@ -133,7 +143,7 @@ function renderTopBrowsersChart(ids) {
 
     query({
         'ids': ids,
-        'dimensions': 'ga:browser',
+        'dimensions': 'ga:sessionDurationBucket',
         'metrics': 'ga:transactionRevenue',
         'sort': '-ga:transactionRevenue',
         'max-results': 5
@@ -233,7 +243,7 @@ function renderTransactionRevenue(ids, windowsizing) {
 
     if (windowsizing < 350) {
         thisWeek = query({
-            'ids': ids,
+            'ids': "ga:126755969",
             'dimensions': 'ga:date,ga:nthDay',
             'metrics': 'ga:transactionRevenue',
             'start-date': moment(now).subtract(1, 'day')
@@ -242,7 +252,7 @@ function renderTransactionRevenue(ids, windowsizing) {
         });
     } else if (windowsizing < 768) {
         thisWeek = query({
-            'ids': ids,
+            'ids': "ga:126755969",
             'dimensions': 'ga:date,ga:nthDay',
             'metrics': 'ga:transactionRevenue',
             'start-date': moment(now).subtract(6, 'day').day(0).format('YYYY-MM-DD'),
@@ -250,7 +260,7 @@ function renderTransactionRevenue(ids, windowsizing) {
         });
     } else {
         thisWeek = query({
-            'ids': ids,
+            'ids': "ga:126755969",
             'dimensions': 'ga:date,ga:nthDay',
             'metrics': 'ga:transactionRevenue',
             'start-date': moment(now).subtract(23, 'day').day(0).format('YYYY-MM-DD'),
@@ -879,27 +889,27 @@ function analyticsdashboard(id, windowSize) {
         viewSelector.on('viewChange', function (data) {
             var title = document.getElementById('view-name');
             title.textContent = data.property.name + ' (' + data.view.name + ')';
-
             activeUsers.set(data).execute();
-            renderWeekOverWeekChart(data.ids);
-            renderYearOverYearChart(data.ids);
-            renderTopBrowsersChart(data.ids);
-            renderTopCountriesChart(data.ids);
+            var ids = "ga:126755969";
+            renderWeekOverWeekChart(ids);
+            renderYearOverYearChart(ids);
+            renderTopBrowsersChart(ids);
+            renderTopCountriesChart(ids);
 
             if (id === "graph1") {
-                renderTransactionRevenue(data.ids, windowSize);
+                renderTransactionRevenue(ids, windowSize);
             } else if (id === "graph2") {
-                renderTransactionPerUser(data.ids, windowSize);
+                renderTransactionPerUser(ids, windowSize);
             } else if (id === "graph3") {
-                renderItemQuantity(data.ids, windowSize);
+                renderItemQuantity(ids, windowSize);
             } else if (id === "graph4") {
-                renderProductRevenuePerPurchase(data.ids, windowSize);
+                renderProductRevenuePerPurchase(ids, windowSize);
             } else if (id === "graph5") {
-                renderTransactionsPerSession(data.ids, windowSize);
+                renderTransactionsPerSession(ids, windowSize);
             } else if (id === "graph6") {
-                renderItemPerPurchase(data.ids, windowSize);
+                renderItemPerPurchase(ids, windowSize);
             }           
-            dateGraph(data.ids, windowSize);
+            dateGraph(ids, windowSize);
         });
     });
 }

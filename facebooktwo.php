@@ -30,10 +30,10 @@ error_reporting(0);
 
     <body>
         <?php
-        session_start();
+        /*session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
-        }
+        }*/
         ?>
         <div id="dvLoading"></div>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">

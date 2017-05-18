@@ -30,10 +30,10 @@ error_reporting(0);
 
     <body>
         <?php
-        session_start();
+        /*session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
-        }
+        }*/
         ?>
         <div id="dvLoading"></div>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
@@ -159,7 +159,7 @@ error_reporting(0);
                 $showDateEndDefault = $showDateEndDefault->format('d-m-Y');
                 ?>
                 <div class="scaleZoom">
-                    <form action="" method ="post">
+                    <form action="facebook.php" method ="post">
                         <table class="searchSetupTable" border ="2">
                             <th colspan="3">  Start Date (Default: <?php echo $showDateStartDefault ?> - 7 Days ago) </th> 
                             <tr><td class="searchSetupTd" > <select id="yearStart" name="yearStart">                      

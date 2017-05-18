@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+error_reporting(0);
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -16,10 +19,10 @@
 
     <body>
         <?php
-        session_start();
+        /*session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
-        }
+        }*/
         ?>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +45,7 @@
                             <a class="dropdown-item" id="menuLinks" href="facebookthree.php">Barnas Designlab</a>
                             <a class="dropdown-item" id="menuLinks" href="facebook.php">Facebook Archive</a>
                         </div>
-                    </li>
+                    </li>   
                     <?php
                     if ($_SESSION["admin"]) {
                         ?>
@@ -107,7 +110,7 @@
                 <div id="topchart">
                     <div id="embed-api-auth-container"></div>
                     <header>  
-                        <form action="" method ="post">
+                        <form action="analyticsdashboard.php" method ="post">
                             <select id="graph" onchange="dropdownAnalytics(windowSize)">     
                                 <option value="graph1" selected="selected">Transaction Revenue</option>
                                 <option value="graph2">Transactions per user</option>

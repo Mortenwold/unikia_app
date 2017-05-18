@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+error_reporting(0);
+?>
 <html lang="en">
 
     <head>
@@ -30,17 +33,17 @@
 
     <body>
         <?php
-        session_start();
+        /*session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
-        }
+        }*/
         ?>
         <div id="dvLoading"></div>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <img id="unikiaicon" src="images/unikia-link.png">
+            <img id="unikiaicon" src="images/unikia-link.png" alt="icon for unikia">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">

@@ -20,10 +20,10 @@ error_reporting(0);
 
     <body>
         <?php
-        session_start();
+        /*session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
-        }
+        }*/
         ?>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,7 @@ error_reporting(0);
         </nav>
         <div id="main">
             <div id="endre_pw">
-                <form action="" method="post" name="reg_login">
+                <form action="admin.php" method="post" name="reg_login">
                     <?php
                     include "db_connect.php";
 
@@ -126,7 +126,7 @@ error_reporting(0);
             </div>
 
             <div id="skriv_brukere">
-                <form action="" method ="post">
+                <form action="admin.php" method ="post">
                     <table>
                         <col width="20"/>
                         <col width=""/>
