@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+error_reporting(0);
+?>
 <html lang="en">
     <head>
         <title>Unikia Facebook</title>
