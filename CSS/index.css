@@ -57,6 +57,7 @@ body {
 }
 
 #view-selector-container{
+    display:none;
 }
 
 #embed-api-auth-container{

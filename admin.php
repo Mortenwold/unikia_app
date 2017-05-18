@@ -14,7 +14,6 @@ error_reporting(0);
         <link href="CSS/admin.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="javascript/adminRegex.js"></script>
-
         <title>Admin</title>
     </head>
 
