@@ -31,7 +31,7 @@ error_reporting(0);
             }
         </script>
         <div id="login">
-            <img id="icon" src="images/unikia-logo.png">
+            <img id="icon" src="images/unikia-logo.png" alt="The logo with the text of Unikia">
             <div id="blackFont"></div>
             <form action="login.php" method="post" name="login">
                 <?php

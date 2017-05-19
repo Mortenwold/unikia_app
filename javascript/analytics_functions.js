@@ -1,5 +1,4 @@
 function renderWeekOverWeekChart(ids) {
-    console.log(ids);
     var now = moment();
 
     var thisWeek = query({
@@ -142,52 +141,139 @@ function renderYearOverYearChart(ids) {
 
 function renderTopBrowsersChart(ids) {
 
-    query({
-        'ids': ids,
-        'dimensions': 'ga:sessionDurationBucket',
-        'metrics': 'ga:transactionRevenue',
-        'sort': '-ga:transactionRevenue',
-        'max-results': 5
-    })
-            .then(function (response) {
+    var now = moment();
 
-                var data = [];
-                var colors = ['#520A76', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
+    var thisWeek = query({
+        'ids': 'ga:126755969',
+        'dimensions': 'ga:date,ga:nthDay',
+        'metrics': 'ga:transactionsPerSession',
+        'start-date': moment(now).subtract(1, 'day')
+                .day(0).format('YYYY-MM-DD'),
+        'end-date': moment(now).format('YYYY-MM-DD')
+    });
 
-                response.rows.forEach(function (row, i) {
-                    data.push({value: +row[1], color: colors[i], label: row[0]});
-                });
+    var lastWeek = query({
+        'ids': 'ga:126755969',
+        'dimensions': 'ga:date,ga:nthDay',
+        'metrics': 'ga:transactionsPerSession',
+        'start-date': moment(now).subtract(1, 'day')
+                .day(0).subtract(1, 'week')
+                .format('YYYY-MM-DD'),
+        'end-date': moment(now).subtract(1, 'day')
+                .day(6).subtract(1, 'week')
+                .format('YYYY-MM-DD')
+    });
 
-                new Chart(makeCanvas('chart-3-container')).Doughnut(data);
-                generateLegend('legend-3-container', data);
-            });
+    Promise.all([thisWeek, lastWeek]).then(function (results) {
+
+        var data1 = results[0].rows.map(function (row) {
+            return +row[2];
+        });
+        var data2 = results[1].rows.map(function (row) {
+            return +row[2];
+        });
+        var labels = results[1].rows.map(function (row) {
+            return +row[0];
+        });
+
+        labels = labels.map(function (label) {
+            return moment(label, 'YYYYMMDD').format('ddd');
+        });
+
+        var data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Last Week',
+                    fillColor: 'rgba(220,220,220,0.5)',
+                    strokeColor: 'rgba(220,220,220,1)',
+                    pointColor: 'rgba(220,220,220,1)',
+                    pointStrokeColor: '#fff',
+                    data: data2
+                },
+                {
+                    label: 'This Week',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
+                    pointStrokeColor: '#fff',
+                    data: data1
+                }
+            ]
+        };
+        
+        new Chart(makeCanvas('chart-3-container')).Line(data);
+        generateLegend('legend-3-container', data.datasets);
+    });
 }
 
 
 function renderTopCountriesChart(ids) {
-    query({
+    var now = moment();
+
+    var thisWeek = query({
         'ids': 'ga:126755969',
-        'dimensions': 'ga:country',
-        'metrics': 'ga:sessions',
-        'sort': '-ga:sessions',
-        'max-results': 5
-    })
-            .then(function (response) {
+        'dimensions': 'ga:date,ga:nthDay',
+        'metrics': 'ga:avgTimeOnPage',
+        'start-date': moment(now).subtract(1, 'day')
+                .day(0).format('YYYY-MM-DD'),
+        'end-date': moment(now).format('YYYY-MM-DD')
+    });
 
-                var data = [];
-                var colors = ['#520A76', '#949FB1', '#D4CCC5', '#E2EAE9', '#F7464A'];
+    var lastWeek = query({
+        'ids': 'ga:126755969',
+        'dimensions': 'ga:date,ga:nthDay',
+        'metrics': 'ga:avgTimeOnPage',
+        'start-date': moment(now).subtract(1, 'day')
+                .day(0).subtract(1, 'week')
+                .format('YYYY-MM-DD'),
+        'end-date': moment(now).subtract(1, 'day')
+                .day(6).subtract(1, 'week')
+                .format('YYYY-MM-DD')
+    });
 
-                response.rows.forEach(function (row, i) {
-                    data.push({
-                        label: row[0],
-                        value: +row[1],
-                        color: colors[i]
-                    });
-                });
+    Promise.all([thisWeek, lastWeek]).then(function (results) {
 
-                new Chart(makeCanvas('chart-4-container')).Doughnut(data);
-                generateLegend('legend-4-container', data);
-            });
+        var data1 = results[0].rows.map(function (row) {
+            return +row[2];
+        });
+        var data2 = results[1].rows.map(function (row) {
+            return +row[2];
+        });
+        var labels = results[1].rows.map(function (row) {
+            return +row[0];
+        });
+
+        labels = labels.map(function (label) {
+            return moment(label, 'YYYYMMDD').format('ddd');
+        });
+
+        var data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Last Week',
+                    fillColor: 'rgba(220,220,220,0.5)',
+                    strokeColor: 'rgba(220,220,220,1)',
+                    pointColor: 'rgba(220,220,220,1)',
+                    pointStrokeColor: '#fff',
+                    data: data2
+                },
+                {
+                    label: 'This Week',
+                    fillColor: 'rgba(82,10,118,0.5)',
+                    strokeColor: 'rgba(82,10,118,1)',
+                    pointColor: 'rgba(82,10,118,1)',
+                    pointStrokeColor: '#fff',
+                    data: data1
+                }
+            ]
+        };
+        
+        
+        new Chart(makeCanvas('chart-4-container')).Line(data);
+        generateLegend('legend-4-container', data.datasets);
+    });
 }
 
 function query(params) {

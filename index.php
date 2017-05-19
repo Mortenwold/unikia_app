@@ -33,17 +33,17 @@ error_reporting(0);
 
     <body>
         <?php
-        /*session_start();
+            session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
-        }*/
+        }
         ?>
         <div id="dvLoading"></div>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <img id="unikiaicon" src="images/unikia-link.png" alt="icon for unikia">
+            <img id="unikiaicon" src="images/unikia-link.png" alt="An a that is the icon for unikia">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -72,7 +72,7 @@ error_reporting(0);
                     ?>
                 </ul>
                 <button id="logout_btn" onclick="location.href = 'login.php';">
-                    <img src="images/logout_btn.png" id="logout">
+                    <img src="images/logout_btn.png" alt="Logout button with a shape of a door with an arrow" id="logout">
                 </button>
             </div>
         </nav>
@@ -224,7 +224,7 @@ error_reporting(0);
                 echo '<div class="scaleZoom">';
                 echo '<table class="latestPostTable" border="2">';
                 echo '<th colspan="2">';
-                echo "<a href='" . $linkAddress . "' id='whiteLink'>Latest UnikiaNorge Post</a>";
+                echo "<a href='" . $linkAddress . "' target='_blank' id='whiteLink'>Latest UnikiaNorge Post</a>";
                 echo '</th><th>Message</th><tr><td>Date</td>';
                 echo '<td>' . $dateformat . '</td><td rowspan="4">' . $messageLatestPost . '</td>';
                 echo '</tr><tr><td>Likes</td>';

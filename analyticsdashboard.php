@@ -19,16 +19,16 @@ error_reporting(0);
 
     <body>
         <?php
-        /*session_start();
+        session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
-        }*/
+        }
         ?>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <img id="unikiaicon" src="images/unikia-link.png">
+            <img id="unikiaicon" src="images/unikia-link.png" alt="An a that is the icon for unikia">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
@@ -40,10 +40,10 @@ error_reporting(0);
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Facebook</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" id ="menuLinks" href="facebookone.php">UnikiaNorge</a>
-                            <a class="dropdown-item" id="menuLinks" href="facebooktwo.php">UnikiaInnovation</a>
-                            <a class="dropdown-item" id="menuLinks" href="facebookthree.php">Barnas Designlab</a>
-                            <a class="dropdown-item" id="menuLinks" href="facebook.php">Facebook Archive</a>
+                            <a class="dropdown-item" href="facebookone.php">UnikiaNorge</a>
+                            <a class="dropdown-item" href="facebooktwo.php">UnikiaInnovation</a>
+                            <a class="dropdown-item" href="facebookthree.php">Barnas Designlab</a>
+                            <a class="dropdown-item" href="facebook.php">Facebook Archive</a>
                         </div>
                     </li>   
                     <?php
@@ -57,7 +57,7 @@ error_reporting(0);
                     ?>
                 </ul>
                 <button id="logout_btn" onclick="location.href = 'login.php';">
-                    <img src="images/logout_btn.png" id="logout">
+                    <img src="images/logout_btn.png" alt="Logout button in the shape of a door with an arrow" id="logout">
                 </button>
             </div>
         </nav>
@@ -103,13 +103,12 @@ error_reporting(0);
                 <div id="top">
                     <h1>Analytics</h1>
                     <div id="align">
-                        <div id="active-users-container"class="btn btn-secondary"></div>
+                        <div id="active-users-container" class="btn btn-secondary"></div>
                     </div>
                     
                 </div>
                 <div id="topchart">
                     <div id="embed-api-auth-container"></div>
-                    <header>  
                         <form action="analyticsdashboard.php" method ="post">
                             <select id="graph" onchange="dropdownAnalytics(windowSize)">     
                                 <option value="graph1" selected="selected">Transaction Revenue</option>
@@ -145,12 +144,12 @@ error_reporting(0);
                         </div>
                     </div> 
                     <div class="position" id="c3">  
-                        <h3>Top Browsers (by Revenue)</h3>
+                        <h3>Transactions per session</h3>
                         <figure class="Chartjs-figure" id="chart-3-container"></figure>
                         <ol class="Chartjs-legend" id="legend-3-container"></ol>
                     </div>
                     <div class="position" id="c4">   
-                        <h3>Top Countries (by sessions)</h3>
+                        <h3>Avg time on page</h3>
                         <figure class="Chartjs-figure" id="chart-4-container"></figure>
                         <ol class="Chartjs-legend" id="legend-4-container"></ol>
                     </div>

@@ -30,17 +30,17 @@ error_reporting(0);
 
     <body>
         <?php
-        /*session_start();
+        session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
-        }*/
+        }
         ?>
         <div id="dvLoading"></div>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <img id="unikiaicon" src="images/unikia-link.png">
+            <img id="unikiaicon" src="images/unikia-link.png" alt="An a that is the icon for unikia">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
@@ -69,7 +69,7 @@ error_reporting(0);
                     ?>
                 </ul>
                 <button id="logout_btn" onclick="location.href = 'login.php';">
-                    <img src="images/logout_btn.png" id="logout">
+                    <img src="images/logout_btn.png" alt="Logout button with a shape of a door with an arrow" id="logout">
                 </button>
             </div>
         </nav>
@@ -307,9 +307,9 @@ error_reporting(0);
                             <tr><td  class="searchSetupTd" >
                                     <input id ="buttonScale" class ="btn btn-secondary" type="submit" name="Search" value="Search" /> </td>
                                 <td  colspan="2" class="searchSetupTd" >
-                                    <image id ="buttoninfo"  
+                                    <img id ="buttoninfo"  
                                            src="images/infob.png" title='Start date includes itself, but the end date does not.
-The system will require some time if you pick 25-50 posts as the limit.' />
+The system will require some time if you pick 25-50 posts as the limit.' alt="Infobutton that has the shape of the letter I"/>
 
                                 </td></tr>
                         </table>  
@@ -374,7 +374,7 @@ The system will require some time if you pick 25-50 posts as the limit.' />
                             }
                             $linkPost = 'Post ' . $counter;
                             echo '<tr><td id ="linkTd">';
-                            echo "<a href='" . $linkAddress . "'>" . $linkPost . "</a>";
+                            echo "<a href='" . $linkAddress . "' target='_blank'>" . $linkPost . "</a>";
                             echo '</td><td class="dateTd"y>' . $dateformat . '</td><td class="likesSettings">' . $currentLikeCount . '</td><td class="commentsSettings">' . $currentCommentCount .
                             '</td><td class="sharesSettings">' . $sharesCount . '</td><td class="messageSettings">' . $message . '</td></tr>';
                             $counter++;

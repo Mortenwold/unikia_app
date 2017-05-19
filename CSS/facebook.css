@@ -11,6 +11,18 @@ body {
     width: 2rem;
     height: 2rem;
 }
+
+#unikiaicon{
+    height:2.5rem;
+    width:2rem;
+    display:inline-block;
+    padding-top:.25rem;
+    padding-bottom:.25rem;
+    margin-right:1rem;
+    line-height:inherit;
+    white-space:nowrap;
+}
+
 #logout_btn {
     cursor: pointer;
     background:transparent;

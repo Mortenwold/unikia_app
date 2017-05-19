@@ -31,17 +31,17 @@ error_reporting(0);
 
     <body>
         <?php
-        /*session_start();
+        session_start();
         if (!$_SESSION["login"]) {
             Header("location: login.php");
-        }*/
+        }
         ?>
         <div id="dvLoading"></div>
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <img id="unikiaicon" src="images/unikia-link.png">
+            <img id="unikiaicon" src="images/unikia-link.png" alt="An a that is the icon for unikia">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
@@ -70,7 +70,7 @@ error_reporting(0);
                     ?>
                 </ul>
                 <button id="logout_btn" onclick="location.href = 'login.php';">
-                    <img src="images/logout_btn.png" id="logout">
+                    <img src="images/logout_btn.png" alt="Logout button with a shape of a door with an arrow" id="logout">
                 </button>
             </div>
         </nav>
@@ -168,11 +168,10 @@ error_reporting(0);
                         }
                     }
                 }
-
                 echo '<div class="scaleZoom">';
                 echo '<table class="latestPostTable" border="2">';
                 echo '<th colspan="2">';
-                echo "<a href='" . $linkAddress . "'>Latest UnikiaNorge Post</a>";
+                echo "<a href='" . $linkAddress . "' target='_blank'>Latest UnikiaNorge Post</a>";
                 echo '</th><th>Message</th><tr><td>Date</td>';
                 echo '<td>' . $dateformat . '</td><td rowspan="4">' . $messageLatestPost . '</td>';
                 echo '</tr><tr><td>Likes</td>';
@@ -279,7 +278,7 @@ error_reporting(0);
                         $linkAddress = 'http://www.facebook.com/' . $post;
                         $linkPost = 'Post ' . $messageCounter;
                         echo '<tr><td id ="linkTd">';
-                        echo "<a href='" . $linkAddress . "'>" . $linkPost . "</a>";
+                        echo "<a href='" . $linkAddress . "' target='_blank'>" . $linkPost . "</a>";
                         echo '</td><td>' . $dateformat . '</td><td class="likesSettings">' . $currentLikeCount . '</td><td class="commentsSettings">' . $currentCommentCount .
                         '</td><td class="sharesSettings">' . $sharesCount . '</td></tr>';
                     }
@@ -349,7 +348,7 @@ error_reporting(0);
                     echo '<div class="scaleZoom">';
                     echo '<table class="likesTable" border="2">
                             <th colspan="2">';
-                    echo "<a href='" . $bestPostLink . "'>Most liked post</a>";
+                    echo "<a href='" . $bestPostLink . "' target='_blank'>Most liked post</a>";
                     echo '</th><th>Message</th>
                             <tr>
                                 <td>Date</td>';
@@ -419,7 +418,7 @@ error_reporting(0);
                     echo '<div class="scaleZoom">';
                     echo '<table class="likesTable" border="2">
                             <th colspan="2">';
-                    echo "<a href='" . $linkAddress . "'>Most commented post</a>";
+                    echo "<a href='" . $linkAddress . "' target='_blank'>Most commented post</a>";
                     echo '</th><th>Message</th>
                             <tr>
                                 <td>Date</td>';
@@ -494,7 +493,7 @@ error_reporting(0);
                             }
                             $linkPost = 'Post ' . $counter;
                             echo '<tr><td id ="linkTd">';
-                            echo "<a href='" . $linkAddress . "'>" . $linkPost . "</a>";
+                            echo "<a href='" . $linkAddress . "' target='_blank'>" . $linkPost . "</a>";
                             echo '</td><td class="dateTd"y>' . $dateformat . '</td><td class="likesSettings">' . $currentLikeCount . '</td><td class="commentsSettings">' . $currentCommentCount .
                             '</td><td class="sharesSettings">' . $sharesCount . '</td><td class="messageSettings">' . $message . '</td></tr>';
                             $counter++;
